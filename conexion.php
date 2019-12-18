@@ -1,7 +1,7 @@
 <?php
 
 //SIGLETON
-class baseDatos {
+class conexion {
 
     private static $instance;
     private $con;
