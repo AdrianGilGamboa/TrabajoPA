@@ -4,7 +4,7 @@ require_once 'DaoGenerico.php';
 
 use DaoGenerico;
 
-class DAOCuenta extends DAOGenerico {
+class DAOAnuncio extends DAOGenerico {
 
     public function __construct() {
         parent::__construct("anuncios");
