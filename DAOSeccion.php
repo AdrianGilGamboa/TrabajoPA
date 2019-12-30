@@ -36,7 +36,7 @@ class DAOSeccion extends DAOGenerico{
         return parent::buscar($columna, $valor);
     }
 
-    public function delete($id): boolean {
+    public function delete($id) {
         return parent::delete($id);
     }
 
@@ -44,8 +44,8 @@ class DAOSeccion extends DAOGenerico{
         return parent::read($id);
     }
 
-    public function readAll(): array {
-        return parent::readAll();
-    }
+//    public function readAll() {
+//        return parent::readAll();
+//    }
 
 }
