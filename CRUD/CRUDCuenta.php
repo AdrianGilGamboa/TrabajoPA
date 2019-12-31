@@ -11,7 +11,7 @@ function create($cuenta) {
     $email = $cuenta['email'];
     $formato = $cuenta['formato'];
     $tipo = $cuenta['tipo'];
-    $query = "INSERT INTO cuenta (nombre, usuario, clave, email, formato, tipo) VALUES ('$nombre','$usuario','$clave','$email','$formato','$tipo')";
+    $query = "INSERT INTO cuentas (nombre, usuario, clave, email, formato, tipo) VALUES ('$nombre','$usuario','$clave','$email','$formato','$tipo')";
     $result = $con->query($query);
     if($result){
         $res = TRUE;
@@ -24,7 +24,7 @@ function create($cuenta) {
 function read($id) {
     $con = conexionBD();
     $res = False;
-    $query = "SELECT * FROM cuenta WHERE id = $id";
+    $query = "SELECT * FROM cuentas WHERE idCuenta = $id";
     $result = $con->query($query);
     if ($result->num_rows !== 0) {
         $res = $result->fetch_assoc();
@@ -37,14 +37,14 @@ function read($id) {
 function update($cuenta) {
     $con = conexionBD();
     $res = FALSE;
-    $id = $cuenta['id'];
+    $id = $cuenta['idCuenta'];
     $nombre = $cuenta['nombre'];
     $usuario = $cuenta['usuario'];
     $clave = $cuenta['clave'];
     $email = $cuenta['email'];
     $formato = $cuenta['formato'];
     $tipo = $cuenta['tipo'];
-    $query = "UPDATE cuenta SET nombre = '$nombre', usuario = '$usuario', clave = '$clave', email = '$email', formato = '$formato', tipo = '$tipo' WHERE id = $id";
+    $query = "UPDATE cuentas SET nombre = '$nombre', usuario = '$usuario', clave = '$clave', email = '$email', formato = '$formato', tipo = '$tipo' WHERE idCuenta = $id";
     $result = $con->query($query);
     if ($result) {
         $res = True;
@@ -57,7 +57,7 @@ function update($cuenta) {
 function delete($id) {
     $con = conexionBD();
     $res = FALSE;
-    $query = "DELETE FROM cuentas WHERE id = $id";
+    $query = "DELETE FROM cuentas WHERE idCuenta = $id";
     $result = $con->query($query);
     if ($result) {
         $res = TRUE;
