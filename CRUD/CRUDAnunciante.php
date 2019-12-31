@@ -20,7 +20,7 @@ function create($anunciante) {
 function read($id) {
     $con = conexionBD();
     $res = False;
-    $query = "SELECT * FROM anunciantes WHERE id = $id";
+    $query = "SELECT * FROM anunciantes WHERE idAnunciante = $id";
     $result = $con->query($query);
     if ($result->num_rows !== 0) {
         $res = $result->fetch_assoc();
@@ -33,10 +33,10 @@ function read($id) {
 function update($anunciante) {
     $con = conexionBD();
     $res = FALSE;
-    $id = $anuncio['id'];
+    $id = $anuncio['idAnunciante'];
     $nombre = $anunciante['nombre'];
     $tarifa = $anunciante['tarifa'];
-    $query = "UPDATE anunciantes SET nombre = '$nombre', tarifa = '$tarifa' WHERE id = $id";
+    $query = "UPDATE anunciantes SET nombre = '$nombre', tarifa = '$tarifa' WHERE idAnunciante = $id";
     $result = $con->query($query);
     if ($result) {
         $res = True;
@@ -49,7 +49,7 @@ function update($anunciante) {
 function delete($id) {
     $con = conexionBD();
     $res = FALSE;
-    $query = "DELETE FROM anunciantes WHERE id = $id";
+    $query = "DELETE FROM anunciantes WHERE idAnunciante = $id";
     $result = $con->query($query);
     if ($result) {
         $res = TRUE;
