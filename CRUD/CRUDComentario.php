@@ -5,13 +5,9 @@ include "conexion.php";
 function create($comentario) {
     $con = conexionBD();
     $res = FALSE;
-    $nombre = $cuenta['nombre'];
-    $usuario = $cuenta['usuario'];
-    $clave = $cuenta['clave'];
-    $email = $cuenta['email'];
-    $formato = $cuenta['formato'];
-    $tipo = $cuenta['tipo'];
-    $query = "INSERT INTO cuenta (nombre, usuario, clave, email, formato, tipo) VALUES ('$nombre','$usuario','$clave','$email','$formato','$tipo')";
+    $texto = $comentario['texto'];
+    $puntuacion = $comentario['puntuacion'];
+    $query = "INSERT INTO comentarios (texto, puntuacion) VALUES ('$texto',$puntuacion)";
     $result = $con->query($query);
     if($result){
         $res = TRUE;
@@ -21,10 +17,10 @@ function create($comentario) {
 }
 
 //Devuelve False si no hay datos o un array con el datos
-function read($id) {
+function read($idComentario) {
     $con = conexionBD();
     $res = False;
-    $query = "SELECT * FROM cuenta WHERE id = $id";
+    $query = "SELECT * FROM comentarios WHERE idComentario = $idComentario";
     $result = $con->query($query);
     if ($result->num_rows !== 0) {
         $res = $result->fetch_assoc();
@@ -34,17 +30,13 @@ function read($id) {
 }
 
 //Devuelve True si ha actualizado o False si hay error
-function update($cuenta) {
+function update($comentario) {
     $con = conexionBD();
     $res = FALSE;
-    $id = $cuenta['id'];
-    $nombre = $cuenta['nombre'];
-    $usuario = $cuenta['usuario'];
-    $clave = $cuenta['clave'];
-    $email = $cuenta['email'];
-    $formato = $cuenta['formato'];
-    $tipo = $cuenta['tipo'];
-    $query = "UPDATE cuenta SET nombre = '$nombre', usuario = '$usuario', clave = '$clave', email = '$email', formato = '$formato', tipo = '$tipo' WHERE id = $id";
+    $idComentario = $comentario['idComentario'];
+    $texto = $comentario['texto'];
+    $puntuacion = $cuenta['puntuacion'];
+    $query = "UPDATE comentarios SET texto = '$texto', puntuacion = $puntuacion WHERE idComentario = $idComentario";
     $result = $con->query($query);
     if ($result) {
         $res = True;
@@ -54,10 +46,10 @@ function update($cuenta) {
 }
 
 //Devuelve True si se ha borrado o  False y hay error
-function delete($id) {
+function delete($idComentario) {
     $con = conexionBD();
     $res = FALSE;
-    $query = "DELETE FROM cuentas WHERE id = $id";
+    $query = "DELETE FROM comentarios WHERE idComentario = $idComentario";
     $result = $con->query($query);
     if ($result) {
         $res = TRUE;
@@ -70,7 +62,7 @@ function delete($id) {
 function readAll() {
     $con = conexionBD();
     $res = FALSE;
-    $query = "SELECT * FROM cuentas";
+    $query = "SELECT * FROM comentarios";
     $result = $con->query($query);
     if ($result->num_rows !== 0) {
         $res = array();
