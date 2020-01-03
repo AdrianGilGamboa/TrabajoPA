@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-12-2019 a las 19:24:52
+-- Tiempo de generación: 03-01-2020 a las 12:00:29
 -- Versión del servidor: 10.1.31-MariaDB
 -- Versión de PHP: 5.6.35
 
@@ -38,6 +38,8 @@ CREATE TABLE `administradores` (
 ,`email` varchar(150)
 ,`formato` varchar(15)
 ,`tipo` varchar(15)
+,`Dv` tinyint(1)
+,`gustos` varchar(255)
 );
 
 -- --------------------------------------------------------
@@ -101,6 +103,8 @@ CREATE TABLE `autores` (
 ,`email` varchar(150)
 ,`formato` varchar(15)
 ,`tipo` varchar(15)
+,`Dv` tinyint(1)
+,`gustos` varchar(255)
 );
 
 -- --------------------------------------------------------
@@ -131,15 +135,17 @@ CREATE TABLE `cuentas` (
   `clave` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `email` varchar(150) COLLATE utf8_spanish_ci NOT NULL,
   `formato` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
-  `tipo` varchar(15) COLLATE utf8_spanish_ci NOT NULL
+  `tipo` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
+  `Dv` tinyint(1) NOT NULL,
+  `gustos` varchar(255) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `cuentas`
 --
 
-INSERT INTO `cuentas` (`idCuenta`, `nombre`, `usuario`, `clave`, `email`, `formato`, `tipo`) VALUES
-(1, 'Pedro', 'priscal', 'priscal', 'pedrorisquez@hotmail.com', 'Oro', 'administrador');
+INSERT INTO `cuentas` (`idCuenta`, `nombre`, `usuario`, `clave`, `email`, `formato`, `tipo`, `Dv`, `gustos`) VALUES
+(1, 'Pedro', 'priscal', 'priscal', 'pedrorisquez@hotmail.com', 'Oro', 'administrador', 0, '');
 
 -- --------------------------------------------------------
 
@@ -181,6 +187,8 @@ CREATE TABLE `usuarios` (
 ,`email` varchar(150)
 ,`formato` varchar(15)
 ,`tipo` varchar(15)
+,`Dv` tinyint(1)
+,`gustos` varchar(255)
 );
 
 -- --------------------------------------------------------
@@ -190,7 +198,7 @@ CREATE TABLE `usuarios` (
 --
 DROP TABLE IF EXISTS `administradores`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `administradores`  AS  select `cuentas`.`idCuenta` AS `idCuenta`,`cuentas`.`nombre` AS `nombre`,`cuentas`.`usuario` AS `usuario`,`cuentas`.`clave` AS `clave`,`cuentas`.`email` AS `email`,`cuentas`.`formato` AS `formato`,`cuentas`.`tipo` AS `tipo` from `cuentas` where (`cuentas`.`tipo` = 'administrador') ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `administradores`  AS  select `cuentas`.`idCuenta` AS `idCuenta`,`cuentas`.`nombre` AS `nombre`,`cuentas`.`usuario` AS `usuario`,`cuentas`.`clave` AS `clave`,`cuentas`.`email` AS `email`,`cuentas`.`formato` AS `formato`,`cuentas`.`tipo` AS `tipo`,`cuentas`.`Dv` AS `Dv`,`cuentas`.`gustos` AS `gustos` from `cuentas` where (`cuentas`.`tipo` = 'administrador') ;
 
 -- --------------------------------------------------------
 
@@ -199,7 +207,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `autores`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `autores`  AS  select `cuentas`.`idCuenta` AS `idCuenta`,`cuentas`.`nombre` AS `nombre`,`cuentas`.`usuario` AS `usuario`,`cuentas`.`clave` AS `clave`,`cuentas`.`email` AS `email`,`cuentas`.`formato` AS `formato`,`cuentas`.`tipo` AS `tipo` from `cuentas` where (`cuentas`.`tipo` = 'autor') ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `autores`  AS  select `cuentas`.`idCuenta` AS `idCuenta`,`cuentas`.`nombre` AS `nombre`,`cuentas`.`usuario` AS `usuario`,`cuentas`.`clave` AS `clave`,`cuentas`.`email` AS `email`,`cuentas`.`formato` AS `formato`,`cuentas`.`tipo` AS `tipo`,`cuentas`.`Dv` AS `Dv`,`cuentas`.`gustos` AS `gustos` from `cuentas` where (`cuentas`.`tipo` = 'autor') ;
 
 -- --------------------------------------------------------
 
@@ -208,7 +216,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `usuarios`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `usuarios`  AS  select `cuentas`.`idCuenta` AS `idCuenta`,`cuentas`.`nombre` AS `nombre`,`cuentas`.`usuario` AS `usuario`,`cuentas`.`clave` AS `clave`,`cuentas`.`email` AS `email`,`cuentas`.`formato` AS `formato`,`cuentas`.`tipo` AS `tipo` from `cuentas` where (`cuentas`.`tipo` = 'usuario') ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `usuarios`  AS  select `cuentas`.`idCuenta` AS `idCuenta`,`cuentas`.`nombre` AS `nombre`,`cuentas`.`usuario` AS `usuario`,`cuentas`.`clave` AS `clave`,`cuentas`.`email` AS `email`,`cuentas`.`formato` AS `formato`,`cuentas`.`tipo` AS `tipo`,`cuentas`.`Dv` AS `Dv`,`cuentas`.`gustos` AS `gustos` from `cuentas` where (`cuentas`.`tipo` = 'usuario') ;
 
 --
 -- Índices para tablas volcadas
