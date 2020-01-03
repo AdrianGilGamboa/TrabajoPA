@@ -11,7 +11,9 @@ function create($cuenta) {
     $email = $cuenta['email'];
     $formato = $cuenta['formato'];
     $tipo = $cuenta['tipo'];
-    $query = "INSERT INTO cuentas (nombre, usuario, clave, email, formato, tipo) VALUES ('$nombre','$usuario','$clave','$email','$formato','$tipo')";
+    $Dv = $cuenta['Dv'];
+    $gustos = implode(",", $cuenta['gustos']);                                                                                                                              
+    $query = "INSERT INTO cuentas (nombre, usuario, clave, email, formato, tipo, Dv, gustos) VALUES ('$nombre','$usuario','$clave','$email','$formato','$tipo',$Dv,'$gustos')";
     $result = $con->query($query);
     if($result){
         $res = TRUE;
