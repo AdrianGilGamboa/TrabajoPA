@@ -2,7 +2,7 @@
 
 include "conexion.php";
 //Devuelve True si ha creado o False si hay error
-function create($comentario) {
+function createComentario($comentario) {
     $con = conexionBD();
     $res = FALSE;
     $texto = $comentario['texto'];
@@ -17,7 +17,7 @@ function create($comentario) {
 }
 
 //Devuelve False si no hay datos o un array con el datos
-function read($idComentario) {
+function readComentario($idComentario) {
     $con = conexionBD();
     $res = False;
     $query = "SELECT * FROM comentarios WHERE idComentario = $idComentario";
@@ -30,7 +30,7 @@ function read($idComentario) {
 }
 
 //Devuelve True si ha actualizado o False si hay error
-function update($comentario) {
+function updateComentario($comentario) {
     $con = conexionBD();
     $res = FALSE;
     $idComentario = $comentario['idComentario'];
@@ -46,7 +46,7 @@ function update($comentario) {
 }
 
 //Devuelve True si se ha borrado o  False y hay error
-function delete($idComentario) {
+function deleteComentario($idComentario) {
     $con = conexionBD();
     $res = FALSE;
     $query = "DELETE FROM comentarios WHERE idComentario = $idComentario";
@@ -59,7 +59,7 @@ function delete($idComentario) {
 }
 
 //Devuelve False si hay fallo/no hay datos o un array con los datos
-function readAll() {
+function readAllComentario() {
     $con = conexionBD();
     $res = FALSE;
     $query = "SELECT * FROM comentarios";

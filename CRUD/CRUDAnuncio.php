@@ -2,7 +2,7 @@
 
 include "conexion.php";
 //Devuelve True si ha creado o False si hay error
-function create($anuncio) {
+function createAnuncio($anuncio) {
     $con = conexionBD();
     $res = FALSE;
     $imagen = $anuncio['imagen'];
@@ -19,7 +19,7 @@ function create($anuncio) {
 }
 
 //Devuelve False si no hay datos o un array con el datos
-function read($id) {
+function readAnuncio($id) {
     $con = conexionBD();
     $res = False;
     $query = "SELECT * FROM anuncios WHERE idAnuncio = $id";
@@ -32,7 +32,7 @@ function read($id) {
 }
 
 //Devuelve True si ha actualizado o False si hay error
-function update($anuncio) {
+function updateAnuncio($anuncio) {
     $con = conexionBD();
     $res = FALSE;
     $id = $anuncio['idAnuncio'];
@@ -49,7 +49,7 @@ function update($anuncio) {
 }
 
 //Devuelve True si se ha borrado o  False y hay error
-function delete($id) {
+function deleteAnuncio($id) {
     $con = conexionBD();
     $res = FALSE;
     $query = "DELETE FROM anuncios WHERE idAnuncio = $id";
@@ -62,7 +62,7 @@ function delete($id) {
 }
 
 //Devuelve False si hay fallo/no hay datos o un array con los datos
-function readAll() {
+function readAllAnuncio() {
     $con = conexionBD();
     $res = FALSE;
     $query = "SELECT * FROM anuncios";
