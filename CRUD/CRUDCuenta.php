@@ -2,7 +2,7 @@
 
 include "conexion.php";
 //Devuelve True si ha creado o False si hay error
-function create($cuenta) {
+function createCuenta($cuenta) {
     $con = conexionBD();
     $res = FALSE;
     $nombre = $cuenta['nombre'];
@@ -21,7 +21,7 @@ function create($cuenta) {
 }
 
 //Devuelve False si no hay datos o un array con el datos
-function read($id) {
+function readCuenta($id) {
     $con = conexionBD();
     $res = False;
     $query = "SELECT * FROM cuentas WHERE idCuenta = $id";
@@ -34,7 +34,7 @@ function read($id) {
 }
 
 //Devuelve True si ha actualizado o False si hay error
-function update($cuenta) {
+function updateCuenta($cuenta) {
     $con = conexionBD();
     $res = FALSE;
     $id = $cuenta['idCuenta'];
@@ -54,7 +54,7 @@ function update($cuenta) {
 }
 
 //Devuelve True si se ha borrado o  False y hay error
-function delete($id) {
+function deleteCuenta($id) {
     $con = conexionBD();
     $res = FALSE;
     $query = "DELETE FROM cuentas WHERE idCuenta = $id";
@@ -67,7 +67,7 @@ function delete($id) {
 }
 
 //Devuelve False si hay fallo/no hay datos o un array con los datos
-function readAll() {
+function readAllCuenta() {
     $con = conexionBD();
     $res = FALSE;
     $query = "SELECT * FROM cuentas";
