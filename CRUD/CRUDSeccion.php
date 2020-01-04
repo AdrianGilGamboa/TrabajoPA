@@ -51,7 +51,7 @@ function deleteSeccion($id) {
     $result = $con->query($query);
     if ($result) {
         $res = TRUE;
-    }
+    } 
     desconectar($con);
     return $res;
 }

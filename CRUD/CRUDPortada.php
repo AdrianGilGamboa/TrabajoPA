@@ -59,7 +59,7 @@ function deletePortada($id) {
 //Devuelve False si hay fallo/no hay datos o un array con los datos
 function readAllPortada() {
     $con = conexionBD();
-    $res = FALSE;
+    $res = FALSE; 
     $query = "SELECT * FROM portadas";
     $result = $con->query($query);
     if ($result->num_rows !== 0) {
