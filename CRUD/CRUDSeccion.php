@@ -2,7 +2,7 @@
 
 include "conexion.php";
 //Devuelve True si ha creado o False si hay error
-function create($seccion) {
+function createSeccion($seccion) {
     $con = conexionBD();
     $res = FALSE;
     $categoria = $seccion['categoria'];
@@ -16,7 +16,7 @@ function create($seccion) {
 }
 
 //Devuelve False si no hay datos o un array con el datos
-function read($id) {
+function readSeccion($id) {
     $con = conexionBD();
     $res = False;
     $query = "SELECT * FROM secciones WHERE id = $id";
@@ -29,7 +29,7 @@ function read($id) {
 }
 
 //Devuelve True si ha actualizado o False si hay error
-function update($seccion) {
+function updateSeccion($seccion) {
     $con = conexionBD();
     $res = FALSE;
     $id = $seccion['id'];
@@ -44,7 +44,7 @@ function update($seccion) {
 }
 
 //Devuelve True si se ha borrado o  False y hay error
-function delete($id) {
+function deleteSeccion($id) {
     $con = conexionBD();
     $res = FALSE;
     $query = "DELETE FROM secciones WHERE id = $id";
@@ -57,7 +57,7 @@ function delete($id) {
 }
 
 //Devuelve False si hay fallo/no hay datos o un array con los datos
-function readAll() {
+function readAllSeccion() {
     $con = conexionBD();
     $res = FALSE;
     $query = "SELECT * FROM secciones";
