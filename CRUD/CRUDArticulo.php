@@ -2,7 +2,7 @@
 
 include "conexion.php";
 //Devuelve True si ha creado o False si hay error
-function create($articulo) {
+function createArticulo($articulo) {
     $con = conexionBD();
     $res = FALSE;
     $fecha = $articulo['texto'];
@@ -20,7 +20,7 @@ function create($articulo) {
 }
 
 //Devuelve False si no hay datos o un array con el datos
-function read($idArticulo) {
+function readArticulo($idArticulo) {
     $con = conexionBD();
     $res = False;
     $query = "SELECT * FROM articulos WHERE idArticulo = $idArticulo";
@@ -33,7 +33,7 @@ function read($idArticulo) {
 }
 
 //Devuelve True si ha actualizado o False si hay error
-function update($articulo) {
+function updateArticulo($articulo) {
     $con = conexionBD();
     $res = FALSE;
     $idArticulo = $articulo['idArticulo'];
@@ -52,7 +52,7 @@ function update($articulo) {
 }
 
 //Devuelve True si se ha borrado o  False y hay error
-function delete($idArticulo) {
+function deleteArticulo($idArticulo) {
     $con = conexionBD();
     $res = FALSE;
     $query = "DELETE FROM articulos WHERE idArticulo = $idArticulo";
@@ -65,7 +65,7 @@ function delete($idArticulo) {
 }
 
 //Devuelve False si hay fallo/no hay datos o un array con los datos
-function readAll() {
+function readAllArticulo() {
     $con = conexionBD();
     $res = FALSE;
     $query = "SELECT * FROM articulos";
