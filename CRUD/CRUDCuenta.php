@@ -84,3 +84,22 @@ function readAllCuenta() {
     desconectar($con);
     return $res;
 }
+
+function inicioDeSesionValido($usuario, $clave) {
+    $res = null;
+    $con = conexionBD();
+
+    $result = $con->query('SELECT * FROM cuentas WHERE UPPER(usuario) LIKE UPPER("' . $usuario . '") LIMIT 1');
+    if (!$result) {
+        die("Fallo de consulta sql" . $con->mysqli_errno);
+    }
+    if ($result->num_rows !== 0) {
+        $resultados = $result->fetch_assoc();
+        if (password_verify($clave, $resultados['clave'])) {
+            $res = $resultados;
+        }
+        
+    }
+    desconectar($con);
+    return $res;
+}
