@@ -10,18 +10,30 @@ include_once ('../CRUD/CRUDSeccion.php');
     </head>
     <body>
         <?php
+        $secciones = readAllSeccion();
         if (isset($_POST['btnRegistrar'])) {
+            $gustos = array();
             $filtros = Array(
                 'nombre' => FILTER_SANITIZE_MAGIC_QUOTES,
                 'usuario' => FILTER_SANITIZE_MAGIC_QUOTES,
                 'clave' => FILTER_SANITIZE_MAGIC_QUOTES,
                 'email' => FILTER_SANITIZE_EMAIL,
-                'Dv' => FILTER_SANITIZE_MAGIC_QUOTES
             );
-            
+            if(isset($_POST['Dv'])){
+                $Dv = TRUE;
+            }else{
+                $Dv = FALSE;
+            }
+            foreach ($secciones as $seccion) {
+                $aux = $seccion['categoria'];
+                if(isset($_POST[$aux])){
+                    array_push($gustos, $seccion['categoria']);
+                }
+            }
             $entradas = filter_input_array(INPUT_POST, $filtros);
-            if (registrar($entradas['usuario'], $entradas['password'], $entradas['email'], $entradas['perfil'])) {
-                header('Location: login.php');
+            echo $entradas['nombre'] . ' '. $entradas['usuario'] . ' '. $entradas['clave'] . ' '. $entradas['email'] . ' '. $Dv .' '. implode(',', $gustos);
+            if (registrar($entradas['nombre'], $entradas['usuario'], $entradas['clave'], $entradas['email'],$Dv, implode(',', $gustos))) {
+                header('Location: inicioSesion.php');
             } else {
                 echo "Datos no validos";
             }
@@ -33,12 +45,14 @@ include_once ('../CRUD/CRUDSeccion.php');
             Usuario: <input type="text" name="usuario" value=""><br/>
             Clave: <input type="password" name="clave"><br/>
             Email: <input type="text" name="email"><br/>
-            Gustos: <select name="perfil">
-                //secciones
-                <option value="P">Programador</option>
-                <option value="AP">Analista-Programador</option>
-                <option value="A">Analista</option>
-            </select><br/>
+            Gustos: <br/>
+            <?php
+            foreach ($secciones as $seccion) {
+                echo $seccion['categoria'];?>
+                <input type="checkbox" name="<?php echo $seccion['categoria'];?>" value="<?php echo $seccion['categoria'];?>"><br/>
+                <?php
+            }
+            ?>
             Discapacidad visual: <input type="checkbox" name="Dv"><br/>
             <input type="submit" name="btnRegistrar" value="Registrar"><br/>                                
         </form>

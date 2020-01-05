@@ -1,6 +1,6 @@
 <?php
 
-include "conexion.php";
+include_once "conexion.php";
 //Devuelve True si ha creado o False si hay error
 function createArticulo($articulo) {
     $con = conexionBD();

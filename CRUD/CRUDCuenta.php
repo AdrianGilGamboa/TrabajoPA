@@ -1,6 +1,7 @@
 <?php
 
-include "conexion.php";
+include_once "conexion.php";
+
 //Devuelve True si ha creado o False si hay error
 function createCuenta($cuenta) {
     $con = conexionBD();
@@ -12,10 +13,10 @@ function createCuenta($cuenta) {
     $formato = $cuenta['formato'];
     $tipo = $cuenta['tipo'];
     $Dv = $cuenta['Dv'];
-    $gustos = implode(",", $cuenta['gustos']);                                                                                                                              
+    $gustos = implode(",", $cuenta['gustos']);
     $query = "INSERT INTO cuentas (nombre, usuario, clave, email, formato, tipo, Dv, gustos) VALUES ('$nombre','$usuario','$clave','$email','$formato','$tipo',$Dv,'$gustos')";
     $result = $con->query($query);
-    if($result){
+    if ($result) {
         $res = TRUE;
     }
     desconectar($con);
@@ -98,7 +99,24 @@ function inicioDeSesionValido($usuario, $clave) {
         if (password_verify($clave, $resultados['clave'])) {
             $res = $resultados;
         }
-        
+    }
+    desconectar($con);
+    return $res;
+}
+
+function registrar($nombre, $usuario, $clave, $email, $Dv, $gustos) {
+    $res = False;
+    $con = conexionBD();
+    echo "<br/>" . $nombre . " " . $usuario . " " . $clave . " " . $email . " " . $Dv . " " . $gustos;
+    $claveEncriptada = password_hash($clave, PASSWORD_DEFAULT);
+    if ($Dv) {
+        $Dv = "TRUE";
+    } else {
+        $Dv = "FALSE";
+    }
+    $result = $con->query("INSERT INTO cuentas (nombre, usuario, clave, email, formato, tipo, Dv, gustos) VALUES ('$nombre', '$usuario','$claveEncriptada','$email','normal','usuario', $Dv, '$gustos')");
+    if ($result) {
+        $res = True;
     }
     desconectar($con);
     return $res;
