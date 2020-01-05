@@ -74,3 +74,18 @@ function readAllComentario() {
     desconectar($con);
     return $res;
 }
+function readAllComentariosFromID($idCuenta) {
+    $con = conexionBD();
+    $res = FALSE;
+    $query = "SELECT * FROM comentarios WHERE idCuenta=$idCuenta";
+    $result = $con->query($query);
+    if ($result->num_rows !== 0) {
+        $res = array();
+        for ($i = 0; $i < $result->num_rows; $i++) {
+            array_push($res, $result->fetch_assoc());
+        }
+    }
+
+    desconectar($con);
+    return $res;
+}
