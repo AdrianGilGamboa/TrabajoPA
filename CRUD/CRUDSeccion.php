@@ -1,6 +1,6 @@
 <?php
 
-include "conexion.php";
+include_once "conexion.php";
 //Devuelve True si ha creado o False si hay error
 function createSeccion($seccion) {
     $con = conexionBD();
@@ -68,7 +68,7 @@ function readAllSeccion() {
             array_push($res, $result->fetch_assoc());
         }
     }
-
+    
     desconectar($con);
     return $res;
 }

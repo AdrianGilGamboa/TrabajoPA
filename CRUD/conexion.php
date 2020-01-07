@@ -5,7 +5,7 @@ function conexionBD() {
     if ($con->connect_errno) {
         die("Error al conectaro con la base de datos: " . $con->connect_error);
     }
-    echo "Conexion establecida...<br>";
+    echo "<br/>Conexion establecida...<br>";
     return $con;
 }
 
