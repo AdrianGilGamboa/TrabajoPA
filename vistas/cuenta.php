@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <?php
-include("../CRUD/CRUDCuenta.php");
-include("../CRUD/CRUDComentario.php");
+include_once("../CRUD/CRUDCuenta.php");
+include_once("../CRUD/CRUDComentario.php");
+include_once("../CRUD/CRUDArticulo.php");
 
 function mediaPuntuacion($sumaTotal,$numComentarios){
-    $res=$sumaTotal/$numComentarios;
+ return    $res=$sumaTotal/$numComentarios;
 }
 ?>
 <html>
@@ -17,6 +18,7 @@ function mediaPuntuacion($sumaTotal,$numComentarios){
         session_start();
         $_SESSION['cuentaID'] = 1;
         $_SESSION['nombreUsuario'] = "Pedro";
+        $_SESSION['tipo'] = "Usuario";
 
         if (!isset($_SESSION['cuentaID'])) {
             header('Location:inicioSesion.php');
@@ -25,7 +27,7 @@ function mediaPuntuacion($sumaTotal,$numComentarios){
             $nombreUsuario = $_SESSION['nombreUsuario'];
             $idUsuario = $_SESSION['cuentaID'];
         }
-        $datosPersonales = read($idUsuario);
+        $datosPersonales = readCuenta($idUsuario);
         ?>
         <!--datos usuario--> 
         <h1> Datos <?php echo $nombreUsuario; ?></h1>
@@ -62,12 +64,19 @@ function mediaPuntuacion($sumaTotal,$numComentarios){
             </tr> 
         </table>
         <?php if ($_SESSION['tipo'] === 'Usuario') {
-            $comentarios = readAllComentariosFromID($idCuenta);
+            $sumaTotal=0;
+            $comentarios = readAllComentariosFromID($idUsuario);
             ?>
             <table cellpadding="10" border="1">
                 <tr>Comentario: </tr>
+<!--                comprobar si es mayor que 0, osea que no este vacio-->
     <?php foreach ($comentarios as $comentario) { ?> 
 
+                    <tr>
+                         <th>Id comentario: </th>     
+                         <th>texto: </th>     
+                         <th>puntuacion: </th>     
+                    </tr>
                     <tr>
                         <td align='center'><?php echo $comentario['idComentario']; ?></td>
                         <td align='center'><?php echo $comentario['texto']; ?></td>
@@ -77,17 +86,22 @@ function mediaPuntuacion($sumaTotal,$numComentarios){
                     </tr>
 
                     <?php $sumaTotal= $comentario['puntuacion'] + $sumaTotal;
-                          $numComentarios=$numComentarios+1; ?>
+                       ?>
 
-                <?php } $media=mediaPuntuacion($sumaTotal,$numComentarios); ?>
+                <?php } $media=mediaPuntuacion($sumaTotal,count($comentarios)); ?>
                     
                  <table cellpadding="10" border="1">
             <tr>
-                <th>Nombre</th>     
+                <th>Media puntuación comentarios: </th>     
+            </tr>
+            <tr>
+                <td align='center'><?php echo $media; ?></td>
+            </tr>
                     
                 <!--                si autor, listado de articulos-->
             <?php } else if ($_SESSION['tipo'] === 'autor') {
-                $articulos = readArticulosFromID($idCuenta);
+                echo "hola";
+                $articulos = readArticulosFromID($idUsuario);
                 ?>
                 <table cellpadding="10" border="1">
                     <tr>Comentario: </tr>
@@ -114,4 +128,5 @@ function mediaPuntuacion($sumaTotal,$numComentarios){
 
 <?php } ?>
                 </body>
+<!--                modificar cuenta.-->
                 </html>
