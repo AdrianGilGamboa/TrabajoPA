@@ -11,7 +11,7 @@ include_once ('../CRUD/CRUDCuenta.php');
         <?php
         session_start();
         if (isset($_SESSION['cuentaID'])) {
-            header('Location: portada.php');
+          //  header('Location: portada.php');
         }
         if (isset($_POST['btnLogin'])) {
             $filtros = Array(

@@ -1,6 +1,6 @@
 <?php
-
 include_once "conexion.php";
+
 //Devuelve True si ha creado o False si hay error
 function createComentario($comentario) {
     $con = conexionBD();
@@ -9,7 +9,7 @@ function createComentario($comentario) {
     $puntuacion = $comentario['puntuacion'];
     $query = "INSERT INTO comentarios (texto, puntuacion) VALUES ('$texto',$puntuacion)";
     $result = $con->query($query);
-    if($result){
+    if ($result) {
         $res = TRUE;
     }
     desconectar($con);
@@ -63,6 +63,21 @@ function readAllComentario() {
     $con = conexionBD();
     $res = FALSE;
     $query = "SELECT * FROM comentarios";
+    $result = $con->query($query);
+    if ($result->num_rows !== 0) {
+        $res = array();
+        for ($i = 0; $i < $result->num_rows; $i++) {
+            array_push($res, $result->fetch_assoc());
+        }
+    }
+
+    desconectar($con);
+    return $res;
+}
+function readAllComentariosFromID($idCuenta) {
+    $con = conexionBD();
+    $res = FALSE;
+    $query = "SELECT * FROM comentarios WHERE idCuenta=$idCuenta";
     $result = $con->query($query);
     if ($result->num_rows !== 0) {
         $res = array();

@@ -1,5 +1,5 @@
 <?php
-
+include_once ('../CRUD/CRUDCuenta.php');
 include_once "conexion.php";
 //Devuelve True si ha creado o False si hay error
 function createArticulo($articulo) {
@@ -79,4 +79,20 @@ function readAllArticulo() {
 
     desconectar($con);
     return $res;
+}
+function readArticulosFromID($idCuenta){
+    $con = conexionBD();
+    $res = FALSE;
+    $query = "SELECT * FROM articulos WHERE idCuenta=$idCuenta";
+    $result = $con->query($query);
+    if ($result->num_rows !== 0) {
+        $res = array();
+        for ($i = 0; $i < $result->num_rows; $i++) {
+            array_push($res, $result->fetch_assoc());
+        }
+    }
+
+    desconectar($con);
+    return $res;
+    
 }
