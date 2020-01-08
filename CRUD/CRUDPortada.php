@@ -2,7 +2,7 @@
 
 include_once "conexion.php";
 //Devuelve True si ha creado o False si hay error
-function create($portada) {
+function createPortada($portada) {
     $con = conexionBD();
     $res = FALSE;
     $fecha = $portada['fecha'];
@@ -16,7 +16,7 @@ function create($portada) {
 }
 
 //Devuelve False si no hay datos o un array con el datos
-function read($id) {
+function readPortada($id) {
     $con = conexionBD();
     $res = False;
     $query = "SELECT * FROM portadas WHERE idPortada = $id";
@@ -29,7 +29,7 @@ function read($id) {
 }
 
 //Devuelve True si ha actualizado o False si hay error
-function update($portada) {
+function updatePortada($portada) {
     $con = conexionBD();
     $res = FALSE;
     $id = $portada['idPortada'];
@@ -44,7 +44,7 @@ function update($portada) {
 }
 
 //Devuelve True si se ha borrado o  False y hay error
-function delete($id) {
+function deletePortada($id) {
     $con = conexionBD();
     $res = FALSE;
     $query = "DELETE FROM portadas WHERE idPortada = $id";
@@ -57,9 +57,9 @@ function delete($id) {
 }
 
 //Devuelve False si hay fallo/no hay datos o un array con los datos
-function readAll() {
+function readAllPortada() {
     $con = conexionBD();
-    $res = FALSE;
+    $res = FALSE; 
     $query = "SELECT * FROM portadas";
     $result = $con->query($query);
     if ($result->num_rows !== 0) {

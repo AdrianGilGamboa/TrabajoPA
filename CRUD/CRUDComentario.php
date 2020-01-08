@@ -1,6 +1,6 @@
 <?php
-
 include_once "conexion.php";
+
 //Devuelve True si ha creado o False si hay error
 function createComentario($comentario) {
     $con = conexionBD();
@@ -9,7 +9,7 @@ function createComentario($comentario) {
     $puntuacion = $comentario['puntuacion'];
     $query = "INSERT INTO comentarios (texto, puntuacion) VALUES ('$texto',$puntuacion)";
     $result = $con->query($query);
-    if($result){
+    if ($result) {
         $res = TRUE;
     }
     desconectar($con);

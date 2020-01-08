@@ -29,9 +29,10 @@ function readCuenta($id) {
     $res = False;
     $query = "SELECT * FROM cuentas WHERE idCuenta = $id";
     $result = $con->query($query);
-    if ($result->num_rows !== 0) {
+    if($result){
         $res = $result->fetch_assoc();
     }
+           
     desconectar($con);
     return $res;
 }
