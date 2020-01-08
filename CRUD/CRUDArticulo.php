@@ -1,5 +1,7 @@
 <?php
+
 include_once "conexion.php";
+
 //Devuelve True si ha creado o False si hay error
 function createArticulo($articulo) {
     $con = conexionBD();
@@ -11,7 +13,7 @@ function createArticulo($articulo) {
     $audio = $articulo['audio'];
     $query = "INSERT INTO articulos (fecha, titulo, descripcion, imagen, audio) VALUES ('$fecha','$titulo','$descripcion','$imagen','$audio')";
     $result = $con->query($query);
-    if($result){
+    if ($result) {
         $res = TRUE;
     }
     desconectar($con);
@@ -79,7 +81,8 @@ function readAllArticulo() {
     desconectar($con);
     return $res;
 }
-function readArticulosFromID($idCuenta){
+
+function readArticulosFromID($idCuenta) {
     $con = conexionBD();
     $res = FALSE;
     $query = "SELECT * FROM articulos WHERE idCuenta=$idCuenta";
@@ -93,5 +96,33 @@ function readArticulosFromID($idCuenta){
 
     desconectar($con);
     return $res;
+}
+
+function asociarArticulo($idArticulo, $idSeccion) {
+    $con = conexionBD();
+    $res = FALSE;
     
+    $query = "UPDATE articulos SET idSeccion = $idSeccion WHERE idArticulo=$idArticulo";
+    $result = $con->query($query);
+    if($result){
+        $res = TRUE;
+    }
+    desconectar($con);
+    return $res;
+}
+
+function leerArticulosDadaSeccion($idSeccion){
+        $con = conexionBD();
+    $res = FALSE;
+    $query = "SELECT * FROM articulos WHERE idSeccion=$idSeccion";
+    $result = $con->query($query);
+    if ($result->num_rows !== 0) {
+        $res = array();
+        for ($i = 0; $i < $result->num_rows; $i++) {
+            array_push($res, $result->fetch_assoc());
+        }
+    }
+
+    desconectar($con);
+    return $res;
 }

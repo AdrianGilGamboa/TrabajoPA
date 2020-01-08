@@ -4,8 +4,8 @@ include_once("../CRUD/CRUDCuenta.php");
 include_once("../CRUD/CRUDComentario.php");
 include_once("../CRUD/CRUDArticulo.php");
 
-function mediaPuntuacion($sumaTotal,$numComentarios){
- return    $res=$sumaTotal/$numComentarios;
+function mediaPuntuacion($sumaTotal, $numComentarios) {
+    return $res = $sumaTotal / $numComentarios;
 }
 ?>
 <html>
@@ -63,19 +63,20 @@ function mediaPuntuacion($sumaTotal,$numComentarios){
                 </td>
             </tr> 
         </table>
-        <?php if ($_SESSION['tipo'] === 'Usuario') {
-            $sumaTotal=0;
+        <?php
+        if ($_SESSION['tipo'] === 'Usuario') {
+            $sumaTotal = 0;
             $comentarios = readAllComentariosFromID($idUsuario);
             ?>
             <table cellpadding="10" border="1">
                 <tr>Comentario: </tr>
-<!--                comprobar si es mayor que 0, osea que no este vacio-->
-    <?php foreach ($comentarios as $comentario) { ?> 
+                <!--                comprobar si es mayor que 0, osea que no este vacio-->
+                <?php foreach ($comentarios as $comentario) { ?> 
 
                     <tr>
-                         <th>Id comentario: </th>     
-                         <th>texto: </th>     
-                         <th>puntuacion: </th>     
+                        <th>Id comentario: </th>     
+                        <th>texto: </th>     
+                        <th>puntuacion: </th>     
                     </tr>
                     <tr>
                         <td align='center'><?php echo $comentario['idComentario']; ?></td>
@@ -85,48 +86,49 @@ function mediaPuntuacion($sumaTotal,$numComentarios){
                         <!--falta hacer la media de la puntuación-->
                     </tr>
 
-                    <?php $sumaTotal= $comentario['puntuacion'] + $sumaTotal;
-                       ?>
+                    <?php $sumaTotal = $comentario['puntuacion'] + $sumaTotal;
+                    ?>
 
-                <?php } $media=mediaPuntuacion($sumaTotal,count($comentarios)); ?>
-                    
-                 <table cellpadding="10" border="1">
-            <tr>
-                <th>Media puntuación comentarios: </th>     
-            </tr>
-            <tr>
-                <td align='center'><?php echo $media; ?></td>
-            </tr>
-                    
-                <!--                si autor, listado de articulos-->
-            <?php } else if ($_SESSION['tipo'] === 'autor') {
-                echo "hola";
-                $articulos = readArticulosFromID($idUsuario);
-                ?>
+                <?php } $media = mediaPuntuacion($sumaTotal, count($comentarios)); ?>
+
                 <table cellpadding="10" border="1">
-                    <tr>Comentario: </tr>
-    <?php foreach ($articulos as $articulo) { ?> 
+                    <tr>
+                        <th>Media puntuación comentarios: </th>     
+                    </tr>
+                    <tr>
+                        <td align='center'><?php echo $media; ?></td>
+                    </tr>
 
-                        <tr>
-                            <td align='center'><?php echo $articulo['idArticulo']; ?></td>
-                            <td align='center'><?php echo $articulo['fecha']; ?></td>
-                            <td align='center'><?php echo $articulo['titulo']; ?></td>
-                            <td align='center'><?php echo $articulo['descripcion']; ?></td>
-                            <td align='center'><?php echo $articulo['imagen']; ?></td>
-                            <td align='center'><?php echo $articulo['audio']; ?></td>
-                            <td align='center'><?php echo $articulo['idSeccion']; ?></td>
-                            <td align='center'><?php echo $articulo['idPortada']; ?></td>
+                    <!--                si autor, listado de articulos-->
+                    <?php
+                } else if ($_SESSION['tipo'] === 'autor') {
+                    echo "hola";
+                    $articulos = readArticulosFromID($idUsuario);
+                    ?>
+                    <table cellpadding="10" border="1">
+                        <tr>Comentario: </tr>
+                        <?php foreach ($articulos as $articulo) { ?> 
+
+                            <tr>
+                                <td align='center'><?php echo $articulo['idArticulo']; ?></td>
+                                <td align='center'><?php echo $articulo['fecha']; ?></td>
+                                <td align='center'><?php echo $articulo['titulo']; ?></td>
+                                <td align='center'><?php echo $articulo['descripcion']; ?></td>
+                                <td align='center'><?php echo $articulo['imagen']; ?></td>
+                                <td align='center'><?php echo $articulo['audio']; ?></td>
+                                <td align='center'><?php echo $articulo['idSeccion']; ?></td>
+                                <td align='center'><?php echo $articulo['idPortada']; ?></td>
 
 
-                        </tr>
-    <?php } ?>
-<?php } else if ($_SESSION['tipo'] === 'administrador') { ?>
+                            </tr>
+                        <?php } ?>
+                    <?php } else if ($_SESSION['tipo'] === 'administrador') { ?>
 
-                    <div class="boton"><a href="gestionSeccion.php">Crear sección</a></div>
-                    <div class="boton"><a href="gestionPortada.php">Crear portada</a></div>
+                        <div class="boton"><a href="gestionSeccion.php">Crear sección</a></div>
+                        d<iv class="boton"><a href="gestionPortada.php">Crear portada</a></div>
 
 
-<?php } ?>
-                </body>
-<!--                modificar cuenta.-->
-                </html>
+                        <?php } ?>
+                        </body>
+                        <!--                modificar cuenta.-->
+                        </html>
