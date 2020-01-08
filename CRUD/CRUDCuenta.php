@@ -48,7 +48,9 @@ function updateCuenta($cuenta) {
     $email = $cuenta['email'];
     $formato = $cuenta['formato'];
     $tipo = $cuenta['tipo'];
-    $query = "UPDATE cuentas SET nombre = '$nombre', usuario = '$usuario', clave = '$clave', email = '$email', formato = '$formato', tipo = '$tipo' WHERE idCuenta = $id";
+    $Dv=$cuenta['Dv'];
+    $gustos=$cuenta['gustos'];
+    $query = "UPDATE cuentas SET nombre = '$nombre', usuario = '$usuario', clave = '$clave', email = '$email', formato = '$formato', tipo = '$tipo', Dv = $Dv, gustos='$gustos' WHERE idCuenta = $id";
     $result = $con->query($query);
     if ($result) {
         $res = True;
