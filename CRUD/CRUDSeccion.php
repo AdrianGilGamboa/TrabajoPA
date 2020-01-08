@@ -19,7 +19,7 @@ function createSeccion($seccion) {
 function readSeccion($id) {
     $con = conexionBD();
     $res = False;
-    $query = "SELECT * FROM secciones WHERE id = $id";
+    $query = "SELECT * FROM secciones WHERE idSeccion = $id";
     $result = $con->query($query);
     if ($result->num_rows !== 0) {
         $res = $result->fetch_assoc();
@@ -34,7 +34,7 @@ function updateSeccion($seccion) {
     $res = FALSE;
     $id = $seccion['id'];
     $categoria = $seccion['categoria'];
-    $query = "UPDATE secciones SET categoria = '$categoria' WHERE id = $id";
+    $query = "UPDATE secciones SET categoria = '$categoria' WHERE idSeccion = $id";
     $result = $con->query($query);
     if ($result) {
         $res = True;
@@ -47,7 +47,7 @@ function updateSeccion($seccion) {
 function deleteSeccion($id) {
     $con = conexionBD();
     $res = FALSE;
-    $query = "DELETE FROM secciones WHERE id = $id";
+    $query = "DELETE FROM secciones WHERE idSeccion = $id";
     $result = $con->query($query);
     if ($result) {
         $res = TRUE;

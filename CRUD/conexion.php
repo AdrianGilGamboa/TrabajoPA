@@ -1,11 +1,11 @@
 <?php
 function conexionBD() {
-    $baseDatos = require_once 'baseDatos.php';
+    $baseDatos = require 'baseDatos.php';
     $con = new mysqli($baseDatos['host'], $baseDatos['user'], $baseDatos['pass'], $baseDatos['database']);
     if ($con->connect_errno) {
         die("Error al conectaro con la base de datos: " . $con->connect_error);
     }
-    echo "<br/>Conexion establecida...<br>";
+    //echo "<br/>Conexion establecida...<br>";
     return $con;
 }
 
