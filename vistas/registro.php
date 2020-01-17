@@ -17,7 +17,7 @@ include_once ('../CRUD/CRUDSeccion.php');
                 'nombre' => FILTER_SANITIZE_MAGIC_QUOTES,
                 'usuario' => FILTER_SANITIZE_MAGIC_QUOTES,
                 'clave' => FILTER_SANITIZE_MAGIC_QUOTES,
-                'email' => FILTER_SANITIZE_EMAIL,
+                'email' => FILTER_SANITIZE_EMAIL
             );
             if(isset($_POST['Dv'])){
                 $Dv = TRUE;
@@ -31,7 +31,7 @@ include_once ('../CRUD/CRUDSeccion.php');
                 }
             }
             $entradas = filter_input_array(INPUT_POST, $filtros);
-            echo $entradas['nombre'] . ' '. $entradas['usuario'] . ' '. $entradas['clave'] . ' '. $entradas['email'] . ' '. $Dv .' '. implode(',', $gustos);
+            
             if (registrar($entradas['nombre'], $entradas['usuario'], $entradas['clave'], $entradas['email'],$Dv, implode(',', $gustos))) {
                 header('Location: inicioSesion.php');
             } else {
