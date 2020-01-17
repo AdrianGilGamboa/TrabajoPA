@@ -19,23 +19,33 @@ include_once ('../CRUD/CRUDSeccion.php');
                 'clave' => FILTER_SANITIZE_MAGIC_QUOTES,
                 'email' => FILTER_SANITIZE_EMAIL
             );
-            if(isset($_POST['Dv'])){
+            if (isset($_POST['Dv'])) {
                 $Dv = TRUE;
-            }else{
+            } else {
                 $Dv = FALSE;
             }
             foreach ($secciones as $seccion) {
                 $aux = $seccion['categoria'];
-                if(isset($_POST[$aux])){
+                if (isset($_POST[$aux])) {
                     array_push($gustos, $seccion['categoria']);
                 }
             }
             $entradas = filter_input_array(INPUT_POST, $filtros);
-            
-            if (registrar($entradas['nombre'], $entradas['usuario'], $entradas['clave'], $entradas['email'],$Dv, implode(',', $gustos))) {
-                header('Location: inicioSesion.php');
-            } else {
-                echo "Datos no validos";
+
+            $posible = true;
+            if (!preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*[@]([a-zA-Z0-9])+[.]([a-zA-Z0-9\._-])+$/", $entradas['email'])) {
+                $posible = false;
+            }
+            if (!preg_match("/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$Dv/", $entradas['clave'])) {
+                $posible = false;
+            }
+            if ($posible) {
+                if (registrar($entradas['nombre'], $entradas['usuario'], $entradas['clave'], $entradas['email'], $Dv, implode(',', $gustos))) {
+                    header('Location: inicioSesion.php');
+                } else {
+                    echo "Datos no validos";
+                }
+
             }
         }
         ?>
@@ -48,8 +58,9 @@ include_once ('../CRUD/CRUDSeccion.php');
             Gustos: <br/>
             <?php
             foreach ($secciones as $seccion) {
-                echo $seccion['categoria'];?>
-                <input type="checkbox" name="<?php echo $seccion['categoria'];?>" value="<?php echo $seccion['categoria'];?>"><br/>
+                echo $seccion['categoria'];
+                ?>
+                <input type="checkbox" name="<?php echo $seccion['categoria']; ?>" value="<?php echo $seccion['categoria']; ?>"><br/>
                 <?php
             }
             ?>

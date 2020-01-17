@@ -11,7 +11,7 @@ include_once ('../CRUD/CRUDCuenta.php');
         <?php
         session_start();
         if (isset($_SESSION['cuentaID'])) {
-          //  header('Location: portada.php');
+            header('Location: portada.php');
         }
         if (isset($_POST['btnLogin'])) {
             $filtros = Array(
@@ -20,7 +20,7 @@ include_once ('../CRUD/CRUDCuenta.php');
             );
             $entradas = filter_input_array(INPUT_POST, $filtros);
             setcookie('nombre', $entradas['usuario'], time() + 3600 * 24 * 30);
-            //header('Location: inicioSesion.php');
+            header('Location: inicioSesion.php');
             if (($cuenta = inicioDeSesionValido($entradas['usuario'], $entradas['clave'])) !== null) {
                 session_start();
                 $_SESSION['cuentaID'] = $cuenta['idCuenta'];

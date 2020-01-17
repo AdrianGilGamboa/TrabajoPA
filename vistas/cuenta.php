@@ -64,6 +64,7 @@ function mediaPuntuacion($sumaTotal, $numComentarios) {
             </tr> 
         </table>
         <?php
+
         if ($_SESSION['tipo'] === 'usuario') {
             $sumaTotal = 0;
             $comentarios = readAllComentariosFromID($idUsuario);
@@ -71,6 +72,7 @@ function mediaPuntuacion($sumaTotal, $numComentarios) {
             <table cellpadding="10" border="1">
                 <tr>Comentario: </tr>
                 <!--                comprobar si es mayor que 0, osea que no este vacio-->
+
                 <?php if ($comentarios) { ?>
                     <?php foreach ($comentarios as $comentario) { ?> 
 
@@ -83,6 +85,7 @@ function mediaPuntuacion($sumaTotal, $numComentarios) {
                             <td align='center'><?php echo $comentario['idComentario']; ?></td>
                             <td align='center'><?php echo $comentario['texto']; ?></td>
                             <td align='center'><?php echo $comentario['puntuacion']; ?></td>
+
 
                             <!--falta hacer la media de la puntuación-->
                         </tr>
@@ -125,11 +128,13 @@ function mediaPuntuacion($sumaTotal, $numComentarios) {
                                 <td align='center'><?php echo $articulo['idPortada']; ?></td>
 
 
+
                             </tr>
                         <?php } ?>
                     <?php } else if ($_SESSION['tipo'] === 'administrador') { ?>
 
                         <div class="boton"><a href="gestionSeccion.php">Crear sección</a></div>
+
                         <div class="boton"><a href="gestionPortada.php">Crear portada</a></div>
 
 
@@ -137,3 +142,4 @@ function mediaPuntuacion($sumaTotal, $numComentarios) {
                     </body>
                     <!--                modificar cuenta.-->
                     </html>
+
