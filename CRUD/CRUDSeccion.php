@@ -1,6 +1,7 @@
 <?php
 
 include_once "conexion.php";
+
 //Devuelve True si ha creado o False si hay error
 function createSeccion($seccion) {
     $con = conexionBD();
@@ -8,7 +9,7 @@ function createSeccion($seccion) {
     $categoria = $seccion['categoria'];
     $query = "INSERT INTO secciones (categoria) VALUES ('$categoria')";
     $result = $con->query($query);
-    if($result){
+    if ($result) {
         $res = TRUE;
     }
     desconectar($con);
@@ -51,7 +52,7 @@ function deleteSeccion($id) {
     $result = $con->query($query);
     if ($result) {
         $res = TRUE;
-    } 
+    }
     desconectar($con);
     return $res;
 }
@@ -68,7 +69,35 @@ function readAllSeccion() {
             array_push($res, $result->fetch_assoc());
         }
     }
+
+    desconectar($con);
+    return $res;
+}
+
+function obtenerID($categoria) {
+    $con = conexionBD();
+    $res = FALSE;
+    $query = "SELECT * FROM secciones WHERE categoria = '$categoria' LIMIT 1";
+    $result = $con->query($query);
     
+        if ($result->num_rows !== 0) {
+            $consulta = $result->fetch_assoc();
+            
+            $res = $consulta['idSeccion'];
+        }
+    
+    desconectar($con);
+    return $res;
+}
+function asociarSeccion($idCuenta, $idSeccion) {
+    $con = conexionBD();
+    $res = FALSE;
+    
+    $query = "UPDATE secciones SET idCuenta = $idCuenta WHERE idSeccion=$idSeccion";
+    $result = $con->query($query);
+    if($result){
+        $res = TRUE;
+    }
     desconectar($con);
     return $res;
 }
