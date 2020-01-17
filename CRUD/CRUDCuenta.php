@@ -29,10 +29,10 @@ function readCuenta($id) {
     $res = False;
     $query = "SELECT * FROM cuentas WHERE idCuenta = $id";
     $result = $con->query($query);
-    if($result){
+    if ($result) {
         $res = $result->fetch_assoc();
     }
-           
+
     desconectar($con);
     return $res;
 }
@@ -45,12 +45,13 @@ function updateCuenta($cuenta) {
     $nombre = $cuenta['nombre'];
     $usuario = $cuenta['usuario'];
     $clave = $cuenta['clave'];
+    $claveEncriptada = password_hash($clave, PASSWORD_DEFAULT);
     $email = $cuenta['email'];
     $formato = $cuenta['formato'];
     $tipo = $cuenta['tipo'];
-    $Dv=$cuenta['Dv'];
-    $gustos=$cuenta['gustos'];
-    $query = "UPDATE cuentas SET nombre = '$nombre', usuario = '$usuario', clave = '$clave', email = '$email', formato = '$formato', tipo = '$tipo', Dv = $Dv, gustos='$gustos' WHERE idCuenta = $id";
+    $Dv = $cuenta['Dv'];
+    $gustos = $cuenta['gustos'];
+    $query = "UPDATE cuentas SET nombre = '$nombre', usuario = '$usuario', clave = '$claveEncriptada', email = '$email', formato = '$formato', tipo = '$tipo', Dv = $Dv, gustos='$gustos' WHERE idCuenta = $id";
     $result = $con->query($query);
     if ($result) {
         $res = True;

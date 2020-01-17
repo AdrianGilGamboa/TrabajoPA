@@ -31,6 +31,7 @@ include_once ('../CRUD/CRUDSeccion.php');
                 }
             }
             $entradas = filter_input_array(INPUT_POST, $filtros);
+
             $posible = true;
             if (!preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*[@]([a-zA-Z0-9])+[.]([a-zA-Z0-9\._-])+$/", $entradas['email'])) {
                 $posible = false;
@@ -44,6 +45,7 @@ include_once ('../CRUD/CRUDSeccion.php');
                 } else {
                     echo "Datos no validos";
                 }
+
             }
         }
         ?>

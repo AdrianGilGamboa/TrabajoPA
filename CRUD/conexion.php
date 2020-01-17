@@ -1,7 +1,7 @@
 <?php
 function conexionBD() {
     $baseDatos = require 'baseDatos.php';
-  
+    
     $con = new mysqli($baseDatos['host'], $baseDatos['user'], $baseDatos['pass'], $baseDatos['database']);
 
     if ($con->connect_errno) {
