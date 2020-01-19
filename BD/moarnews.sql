@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-01-2020 a las 12:00:29
+-- Tiempo de generación: 18-01-2020 a las 19:11:12
 -- Versión del servidor: 10.1.31-MariaDB
 -- Versión de PHP: 5.6.35
 
@@ -65,9 +65,9 @@ CREATE TABLE `anuncios` (
   `imagen` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `duracion` int(45) NOT NULL,
   `descripcion` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
-  `idArticulo` int(15) NOT NULL,
-  `idPortada` int(15) NOT NULL,
-  `idAnunciante` int(15) NOT NULL
+  `idArticulo` int(15) DEFAULT NULL,
+  `idPortada` int(15) DEFAULT NULL,
+  `idAnunciante` int(15) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
@@ -78,15 +78,26 @@ CREATE TABLE `anuncios` (
 
 CREATE TABLE `articulos` (
   `idArticulo` int(11) NOT NULL,
-  `fecha` varchar(150) COLLATE utf8_spanish_ci NOT NULL,
+  `fecha` date NOT NULL,
   `titulo` varchar(150) COLLATE utf8_spanish_ci NOT NULL,
   `descripcion` varchar(155) COLLATE utf8_spanish_ci NOT NULL,
+  `texto` varchar(1000) COLLATE utf8_spanish_ci NOT NULL,
   `imagen` varchar(150) COLLATE utf8_spanish_ci NOT NULL,
   `audio` varchar(150) COLLATE utf8_spanish_ci NOT NULL,
-  `idCuenta` int(150) NOT NULL,
-  `idSeccion` int(150) NOT NULL,
-  `idAnuncio` int(150) NOT NULL,
-  `idPortada` int(150) NOT NULL
+  `idCuenta` int(150) DEFAULT NULL,
+  `idAnuncio` int(150) DEFAULT NULL,
+  `idPortada` int(150) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `articulossecciones`
+--
+
+CREATE TABLE `articulossecciones` (
+  `idSeccion` int(11) NOT NULL,
+  `idArticulo` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
@@ -117,9 +128,9 @@ CREATE TABLE `comentarios` (
   `idComentario` int(155) NOT NULL,
   `texto` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `puntuacion` varchar(150) COLLATE utf8_spanish_ci NOT NULL,
-  `idCuenta` int(155) NOT NULL,
-  `idArticulo` int(155) NOT NULL,
-  `idRespuesta` int(155) NOT NULL
+  `idCuenta` int(155) DEFAULT NULL,
+  `idArticulo` int(155) DEFAULT NULL,
+  `idRespuesta` int(155) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
@@ -145,7 +156,9 @@ CREATE TABLE `cuentas` (
 --
 
 INSERT INTO `cuentas` (`idCuenta`, `nombre`, `usuario`, `clave`, `email`, `formato`, `tipo`, `Dv`, `gustos`) VALUES
-(1, 'Pedro', 'priscal', 'priscal', 'pedrorisquez@hotmail.com', 'Oro', 'administrador', 0, '');
+(15, 'adminAdmin1', 'admin', '$2y$10$xAyhCGrp1jNH/PM/JD0azuc5aAXtIhkg62tCHblQ4.FkFhIHv/bPO', 'admin', 'oro', 'administrador', 0, ''),
+(16, 'autorAutor1', 'autor', '$2y$10$yBUpx8VIWyuQUIsCrFaMsOoKepNCjLYJ28zi311PfDzpp2ezEm4K6', 'autor', 'oro', 'autor', 0, ''),
+(17, 'usuarioUsuario1', 'usuario', '$2y$10$mwmRNmjGRdi580kTgRSRYOTZZ4l1jPcxtq8hIaOMSgnOX3cGRlCbm', 'usuario', 'plata', 'usuario', 0, '');
 
 -- --------------------------------------------------------
 
@@ -155,9 +168,9 @@ INSERT INTO `cuentas` (`idCuenta`, `nombre`, `usuario`, `clave`, `email`, `forma
 
 CREATE TABLE `portadas` (
   `idPortada` int(11) NOT NULL,
-  `fecha` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
-  `idAnuncio` int(11) NOT NULL,
-  `idCuenta` int(11) NOT NULL
+  `fecha` date NOT NULL,
+  `idAnuncio` int(11) DEFAULT NULL,
+  `idCuenta` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
@@ -169,9 +182,21 @@ CREATE TABLE `portadas` (
 CREATE TABLE `secciones` (
   `idSeccion` int(11) NOT NULL,
   `categoria` varchar(150) COLLATE utf8_spanish_ci NOT NULL,
-  `idArticulo` int(11) NOT NULL,
-  `idCuenta` int(11) NOT NULL
+  `idCuenta` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `secciones`
+--
+
+INSERT INTO `secciones` (`idSeccion`, `categoria`, `idCuenta`) VALUES
+(31, 'Spain', 15),
+(32, 'Economy', 15),
+(33, 'Sports', 15),
+(34, 'Culture', 15),
+(35, 'Technology', 15),
+(36, 'Music', 15),
+(37, 'International', 15);
 
 -- --------------------------------------------------------
 
@@ -243,9 +268,15 @@ ALTER TABLE `anuncios`
 ALTER TABLE `articulos`
   ADD PRIMARY KEY (`idArticulo`),
   ADD KEY `idCuenta` (`idCuenta`),
-  ADD KEY `idSeccion` (`idSeccion`),
   ADD KEY `idAnuncio` (`idAnuncio`),
   ADD KEY `idPortada` (`idPortada`);
+
+--
+-- Indices de la tabla `articulossecciones`
+--
+ALTER TABLE `articulossecciones`
+  ADD KEY `idSeccion` (`idSeccion`),
+  ADD KEY `idArticulo` (`idArticulo`);
 
 --
 -- Indices de la tabla `comentarios`
@@ -275,7 +306,6 @@ ALTER TABLE `portadas`
 --
 ALTER TABLE `secciones`
   ADD PRIMARY KEY (`idSeccion`),
-  ADD KEY `idArticulo` (`idArticulo`),
   ADD KEY `idCuenta` (`idCuenta`);
 
 --
@@ -310,7 +340,7 @@ ALTER TABLE `comentarios`
 -- AUTO_INCREMENT de la tabla `cuentas`
 --
 ALTER TABLE `cuentas`
-  MODIFY `idCuenta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idCuenta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `portadas`
@@ -322,7 +352,7 @@ ALTER TABLE `portadas`
 -- AUTO_INCREMENT de la tabla `secciones`
 --
 ALTER TABLE `secciones`
-  MODIFY `idSeccion` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idSeccion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- Restricciones para tablas volcadas
@@ -342,8 +372,14 @@ ALTER TABLE `anuncios`
 ALTER TABLE `articulos`
   ADD CONSTRAINT `articulos_ibfk_1` FOREIGN KEY (`idCuenta`) REFERENCES `cuentas` (`idCuenta`),
   ADD CONSTRAINT `articulos_ibfk_2` FOREIGN KEY (`idAnuncio`) REFERENCES `anuncios` (`idAnuncio`),
-  ADD CONSTRAINT `articulos_ibfk_3` FOREIGN KEY (`idSeccion`) REFERENCES `secciones` (`idSeccion`),
   ADD CONSTRAINT `articulos_ibfk_4` FOREIGN KEY (`idPortada`) REFERENCES `portadas` (`idPortada`);
+
+--
+-- Filtros para la tabla `articulossecciones`
+--
+ALTER TABLE `articulossecciones`
+  ADD CONSTRAINT `articulossecciones_ibfk_1` FOREIGN KEY (`idSeccion`) REFERENCES `secciones` (`idSeccion`),
+  ADD CONSTRAINT `articulossecciones_ibfk_2` FOREIGN KEY (`idArticulo`) REFERENCES `articulos` (`idArticulo`);
 
 --
 -- Filtros para la tabla `comentarios`
@@ -364,8 +400,7 @@ ALTER TABLE `portadas`
 -- Filtros para la tabla `secciones`
 --
 ALTER TABLE `secciones`
-  ADD CONSTRAINT `secciones_ibfk_1` FOREIGN KEY (`idCuenta`) REFERENCES `cuentas` (`idCuenta`),
-  ADD CONSTRAINT `secciones_ibfk_2` FOREIGN KEY (`idArticulo`) REFERENCES `articulos` (`idArticulo`);
+  ADD CONSTRAINT `secciones_ibfk_1` FOREIGN KEY (`idCuenta`) REFERENCES `cuentas` (`idCuenta`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
