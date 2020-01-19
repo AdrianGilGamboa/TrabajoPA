@@ -72,3 +72,29 @@ function readAllPortada() {
     desconectar($con);
     return $res;
 }
+
+function asociarPortada($idCuenta, $idPortada) {
+    $con = conexionBD();
+    $res = FALSE;
+    
+    $query = "UPDATE portadas SET idCuenta = $idCuenta WHERE idPortada=$idPortada";
+    $result = $con->query($query);
+    if($result){
+        $res = TRUE;
+    }
+    desconectar($con);
+    return $res;
+}
+
+function obtenerIDPortada($fecha){
+    $con = conexionBD();
+    $res = FALSE;
+    
+    $query = "SELECT idPortada from portadas where fecha=$fecha";
+    $result = $con->query($query);
+    if($result){
+        $res = TRUE;
+    }
+    desconectar($con);
+    return $res;
+}
