@@ -51,7 +51,7 @@ function hiloComentario($respuesta) {
     <body>
         <header>
             <h1>MoarNews</h1>
-            <h2>Tu peri&oacute;dico digital</h2>
+            <h2>The Digital Newspaper</h2>
         </header>
         <nav>
             <!-- Barra de navegacion -->
