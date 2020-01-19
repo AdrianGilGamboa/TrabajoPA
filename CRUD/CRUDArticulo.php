@@ -58,6 +58,8 @@ function updateArticulo($articulo) {
 function deleteArticulo($idArticulo) {
     $con = conexionBD();
     $res = FALSE;
+    $query = "DELETE FROM articulossecciones WHERE idArticulo = $idArticulo";
+    $result = $con->query($query);
     $query = "DELETE FROM articulos WHERE idArticulo = $idArticulo";
     $result = $con->query($query);
     if ($result) {

@@ -85,7 +85,19 @@ function readAllComentariosFromID($idCuenta) {
             array_push($res, $result->fetch_assoc());
         }
     }
-
+}
+//    comentarios en funcion de un articulo
+function readAllComentariosFromArticulo($idArticulo) {
+    $con = conexionBD();
+    $res = FALSE;
+    $query = "SELECT * FROM comentarios WHERE idArticulo=$idArticulo";
+    $result = $con->query($query);
+    if ($result->num_rows !== 0) {
+        $res = array();
+        for ($i = 0; $i < $result->num_rows; $i++) {
+            array_push($res, $result->fetch_assoc());
+        }
+    }
     desconectar($con);
     return $res;
 }
