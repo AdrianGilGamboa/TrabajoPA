@@ -103,18 +103,17 @@ function mediaPuntuacion($sumaTotal, $numComentarios) {
                         </tr>
 
                         <!--                si autor, listado de articulos-->
-                    <?php
+                        <?php
                     } else {
                         echo "No hay comentarios asociados a esta cuenta";
                     }
                     ?>
                     <?php
                 } else if ($_SESSION['tipo'] === 'autor') {
-                    echo "hola";
                     $articulos = readArticulosFromID($idUsuario);
                     ?>
                     <table cellpadding="10" border="1">
-                        <tr>Comentario: </tr>
+                        <tr>Articulos: </tr>
                         <?php foreach ($articulos as $articulo) { ?> 
 
                             <tr>
@@ -124,25 +123,28 @@ function mediaPuntuacion($sumaTotal, $numComentarios) {
                                 <td align='center'><?php echo $articulo['descripcion']; ?></td>
                                 <td align='center'><?php echo $articulo['imagen']; ?></td>
                                 <td align='center'><?php echo $articulo['audio']; ?></td>
-                                <td align='center'><?php echo $articulo['idPortada']; ?></td>
-
-
-
                             </tr>
-                             <div class="boton"><a href="gestionArticulo.php"> Article management</a></div>
-                        <?php } ?>
-                    <?php } else if ($_SESSION['tipo'] === 'administrador') { ?>
 
-                        <div class="boton"><a href="gestionSeccion.php">Create section</a></div>
+                        <?php }
+                        ?>
+                    </table>
+                    <div class="boton"><a href="gestionArticulo.php">Article management</a></div>
+                <?php } else if ($_SESSION['tipo'] === 'administrador') { ?>
 
-                        <div class="boton"><a href="gestionPortada.php">Create front page</a></div>
+                    <div class="boton"><a href="gestionSeccion.php">Create section</a></div>
+
+                    <div class="boton"><a href="gestionPortada.php">Create front page</a></div>
+
+                    <div class="boton"><a href="gestionAnuncios.php">Advertisement management</a></div>
 
 
-                    <?php } ?>
-                    </body>
-                    <!--   boton  modificar cuenta.-->
+                <?php }
+                ?>
+                <div class="boton"><a href="modificarCuenta.php">Modify account</a></div>
+                </body>
+                <!--   boton  modificar cuenta.-->
 
-                    <div class="boton"><a href="modificarCuenta.php">Modifica tu sesion</a></div>
 
-                    </html>
+
+                </html>
 

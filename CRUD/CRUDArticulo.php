@@ -2,11 +2,11 @@
 
 include_once "conexion.php";
 
-//Devuelve True si ha creado o False si hay error
+//Devuelve ID si ha creado o False si hay error
 function createArticulo($articulo) {
     $con = conexionBD();
     $res = FALSE;
-    $fecha = $articulo['texto'];
+    $fecha = $articulo['fecha'];
     $titulo = $articulo['titulo'];
     $descripcion = $articulo['descripcion'];
     $texto = $articulo['texto'];
@@ -15,7 +15,10 @@ function createArticulo($articulo) {
     $query = "INSERT INTO articulos (fecha, titulo, descripcion, texto, imagen, audio) VALUES ('$fecha','$titulo','$descripcion','$texto','$imagen','$audio')";
     $result = $con->query($query);
     if ($result) {
-        $res = TRUE;
+        $query = "SELECT * FROM articulos WHERE titulo = '$titulo'";
+        $result = $con->query($query);
+        $aux = $result->fetch_assoc();
+        $res = $aux['idArticulo'];
     }
     desconectar($con);
     return $res;
@@ -42,7 +45,7 @@ function updateArticulo($articulo) {
     $fecha = $articulo['texto'];
     $titulo = $articulo['titulo'];
     $descripcion = $articulo['descripcion'];
-    $texto=$articulo['texto'];
+    $texto = $articulo['texto'];
     $imagen = $articulo['imagen'];
     $audio = $articulo['audio'];
     $query = "UPDATE articulos SET fecha = '$fecha', titulo = '$titulo', descripcion = '$descripcion', texto='$texto', imagen = '$imagen', audio = '$audio' WHERE idArticulo = $idArticulo";
@@ -135,19 +138,19 @@ function leerArticulosDadaSeccion($idSeccion) {
     $idArticulos = leerArticulosSeccion($idSeccion);
     $con = conexionBD();
     $res = FALSE;
-    if($idArticulos){
+    if ($idArticulos) {
         $res = array();
         foreach ($idArticulos as $id) {
-        $idArticulo = $id['idArticulo'];
-        $query = "SELECT * FROM articulos WHERE idArticulo=$idArticulo";
-        $result = $con->query($query);
-        if ($result->num_rows !== 0) {
-            
-            array_push($res, $result->fetch_assoc());
+            $idArticulo = $id['idArticulo'];
+            $query = "SELECT * FROM articulos WHERE idArticulo=$idArticulo";
+            $result = $con->query($query);
+            if ($result->num_rows !== 0) {
+
+                array_push($res, $result->fetch_assoc());
+            }
         }
     }
-    }
-    
+
     desconectar($con);
     return $res;
 }
@@ -163,20 +166,19 @@ function borraSeccionDeArticulo($idArticulo) {
     desconectar($con);
     return $res;
 }
+
 function asociarArticuloPortada($idArticulo, $idPortada) {
     $con = conexionBD();
     $res = FALSE;
-    
+
     $query = "UPDATE articulos SET idPortada = $idPortada WHERE idArticulo=$idArticulo";
     $result = $con->query($query);
-    if($result){
+    if ($result) {
         $res = TRUE;
     }
     desconectar($con);
     return $res;
 }
-
-
 
 //Devuelve False si hay fallo/no hay datos o un array con los datos
 function readAllArticuloPorFecha() {
@@ -194,6 +196,7 @@ function readAllArticuloPorFecha() {
     desconectar($con);
     return $res;
 }
+
 function readComentariosArticuloPortada($idArticulo) {
     $con = conexionBD();
     $res = False;
@@ -209,8 +212,8 @@ function readComentariosArticuloPortada($idArticulo) {
     return $res;
 }
 
-function leerArticulosDadaPortada($idPortada){
-        $con = conexionBD();
+function leerArticulosDadaPortada($idPortada) {
+    $con = conexionBD();
     $res = FALSE;
     $query = "SELECT * FROM articulos WHERE idPortada=$idPortada";
     $result = $con->query($query);
@@ -225,16 +228,25 @@ function leerArticulosDadaPortada($idPortada){
     return $res;
 }
 
-
-
-function quitarArticuloDePortada($idArticulo){
-        $con = conexionBD();
+function quitarArticuloDePortada($idArticulo) {
+    $con = conexionBD();
     $res = FALSE;
     $query = "UPDATE set idPortada=NULL where idArticulo=$idArticulo";
     $con->query($query);
-    
+
 
     desconectar($con);
     return $res;
 }
+function asociarArticuloAutor($idArticulo, $idCuenta){
+    $con = conexionBD();
+    $res = FALSE;
+    $query = "UPDATE articulos SET idCuenta = $idCuenta WHERE idArticulo=$idArticulo";
+    $result = $con->query($query);
+    if ($result) {
+        $res = TRUE;
+    }
 
+    desconectar($con);
+    return $res;
+}
