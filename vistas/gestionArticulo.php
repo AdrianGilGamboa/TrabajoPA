@@ -39,6 +39,9 @@ include_once ("../CRUD/CRUDArticulo.php");
                 }
             }
             foreach ($borrar as $idArticulo) {
+                $articulo = readArticulo($idArticulo);
+                unlink("../imagenes/".$articulo['imagen']);
+                unlink("../anuncios/".$articulo['audio']);
                 deleteArticulo($idArticulo);
             }
         } else if (isset($_POST['modifica'])) {
@@ -169,7 +172,7 @@ include_once ("../CRUD/CRUDArticulo.php");
                         ?>
                     </table>
                     <input type="hidden" name="numAr" value="<?php echo $j; ?>">
-                    <input type="submit" name="borra" value="Borrar articulo">
+                    <input type="submit" name="borra" value="Delete article">
                 </form>
 
                 <?php
