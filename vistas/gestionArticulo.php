@@ -71,6 +71,60 @@ include_once ("../CRUD/CRUDArticulo.php");
 
 
             <?php
+        } else if (isset($_POST['crea'])) {
+            $insertar = TRUE;
+            $titulo = filter_var(trim($_POST['titulo']), FILTER_SANITIZE_MAGIC_QUOTES);
+            if ($titulo === "" or ! preg_match('/^[[:alpha:]]+$/', $titulo)) {
+                $insertar = False; //hacer con JS
+                echo "TITULO erroneo";
+            }
+            $descripcion = filter_var(trim($_POST['descripcion']), FILTER_SANITIZE_MAGIC_QUOTES);
+            if ($descripcion === "" or ! preg_match('/^[[:alpha:]]+$/', $descripcion)) {
+                $insertar = False; //hacer con JS
+                echo "DESCRIPCION erronea";
+            }
+            $texto = filter_var(trim($_POST['texto']), FILTER_SANITIZE_MAGIC_QUOTES);
+            if ($texto === "") {
+                $insertar = False; //hacer con JS
+                echo "TEXTO erroneo";
+            }
+            $fecha = $_POST['fecha'];
+            if (isset($_FILES['imagen'])) {
+                $imagen = $_FILES['imagen'];
+                if ($imagen['type'] !== 'image/png') {
+                    echo "formato de imagen incorrecto";
+                    $insertar = False;
+                } else {
+                    $nombreImagen = $imagen['name'];
+                }
+            }
+            if (isset($_FILES['audio'])) {
+                $audio = $_FILES['audio'];
+                if ($audio['type'] !== 'audio/mpeg') {
+                    echo "formato de audio incorrecto";
+                    $insertar = False;
+                } else {
+                    $nombreAudio = $audio['name'];
+                }
+            }
+            if ($insertar) {
+                $articulo = array(
+                    'titulo' => $titulo,
+                    'descripcion' => $descripcion,
+                    'texto' => $texto,
+                    'fecha' => $fecha,
+                    'imagen' => $nombreImagen,
+                    'audio' => $nombreAudio
+                );
+                if (($idArticulo=createArticulo($articulo))!==FALSE) {
+                    asociarArticuloAutor($idArticulo,$idCuenta);
+                    move_uploaded_file($imagen['tmp_name'], '../imagenes/' . $nombreImagen);
+                    move_uploaded_file($audio['tmp_name'], '../audios/' . $nombreAudio);
+                    echo "Article created";
+                } else {
+                    echo "Error creating";
+                }
+            }
         } else {
             if (isset($_POST['listarArt'])) {
                 $articulosPorAutor = readArticulosFromID($idCuenta);
@@ -96,7 +150,7 @@ include_once ("../CRUD/CRUDArticulo.php");
 
                 $articulosPorAutor = readArticulosFromID($idCuenta);
                 ?>
-                <form>
+                <form action="#" method="POST">
                     <table border = "2">
                         <tr>
                             <th></th>
@@ -129,7 +183,6 @@ include_once ("../CRUD/CRUDArticulo.php");
                             <th>Articulos</th>
                         </tr>
                         <?php
-                        
                         foreach ($articulosPorAutor as $articulo) {
                             ?>
                             <tr>
@@ -140,8 +193,40 @@ include_once ("../CRUD/CRUDArticulo.php");
                         }
                         ?>
                     </table>
-                    
+
                     <input type="submit" name="modifica" value="Modify article">
+                </form>
+                <?php
+            } else if (isset($_POST['creaArt'])) {
+                ?>
+                <form action="#" method="POST" enctype="multipart/form-data">
+                    <table>
+                        <tr>
+                            <td>Title of the article: </td>
+                            <td><input type="text" name="titulo"></td>
+                        </tr>
+                        <tr>
+                            <td>Description of the article: </td>
+                            <td><input type="text" name="descripcion"></td>
+                        </tr>
+                        <tr>
+                            <td>Text of the article: </td>
+                            <td><input type="text" name="texto"></td>
+                        </tr>
+                        <tr>
+                            <td>Date of the article: </td>
+                            <td><input type="date" name="fecha"></td>
+                        </tr>
+                        <tr>
+                            <td>Image: </td>
+                            <td><input type="file" name="imagen" /></td>
+                        </tr>
+                        <tr>
+                            <td>Audio: </td>
+                            <td><input type="file" name="audio" /></td>
+                        </tr>
+                        <input type="submit" name="crea" value="Create article">
+                    </table>
                 </form>
                 <?php
             }

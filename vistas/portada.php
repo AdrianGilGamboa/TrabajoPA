@@ -59,11 +59,22 @@ include_once ("../CRUD/CRUDSeccion.php");
                 <div class="imagenArticulo">
                     <a href="<?php
                     if ($articulo['imagen'] != NULL) {
-                        echo 'imagenes/' . $articulo['imagen'];
+                        echo '../imagenes/' . $articulo['imagen'];
                     }
-                    ?>"><?php
+                    ?>"><img src="../imagenes/<?php echo $articulo['imagen']; ?>"alt='<?php echo $articulo['nombre'];?>' width='300'><?php
                            if ($articulo['imagen'] != NULL) {
                                echo $articulo['imagen'];
+                           }
+                           ?></a>
+                </div>
+                <div class="audioArticulo">
+                    <a href="<?php
+                    if ($articulo['audio'] != NULL) {
+                        echo '../audios/' . $articulo['audio'];
+                    }
+                    ?>"><?php
+                           if ($articulo['audio'] != NULL) {
+                               echo $articulo['audio'];
                            }
                            ?></a>
                 </div>
