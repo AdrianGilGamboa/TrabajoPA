@@ -1,6 +1,7 @@
 <?php
 include_once ('../CRUD/CRUDArticulo.php');
 include_once ('../CRUD/CRUDSeccion.php');
+$idSeccion = $_POST['seccion'];
 
 function mostrarArticulos($idSeccion){
     $con = conexionBD();
@@ -51,9 +52,9 @@ function mostrarArticulos($idSeccion){
             <!-- Anuncios -->
         </aside>
         <article class="tituloSeccion">
-          <h3>Section <?php $seccion= readSeccion(3); echo $seccion['categoria'];?></h3>
+          <h3>Section <?php $seccion= readSeccion($idSeccion); echo $seccion['categoria'];?></h3>
         </article>
-        <?php mostrarArticulos(3);  //echo $articulo['titulo'];
+        <?php mostrarArticulos($idSeccion);  //echo $articulo['titulo'];
             ?>
 
         <footer>
