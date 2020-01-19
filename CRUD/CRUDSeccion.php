@@ -103,7 +103,6 @@ function asociarSeccion($idCuenta, $idSeccion) {
     }
     desconectar($con);
     return $res;
-}
 
 function leerSeccionDadoArticulo($idArticulo){
     $con = conexionBD();
@@ -124,3 +123,4 @@ function leerSeccionDadoArticulo($idArticulo){
     desconectar($con);
     return $res;
 }
+
