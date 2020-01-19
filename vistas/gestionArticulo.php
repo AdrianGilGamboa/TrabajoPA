@@ -42,7 +42,7 @@ include_once ("../CRUD/CRUDArticulo.php");
                 deleteArticulo($idArticulo);
             }
         } else if (isset($_POST['modifica'])) {
-            $idAr = $_POST['modifica'];
+            $idAr = $_POST['articulo'];
             $articulo = readArticulo($idAr);
             ?>
             <form action="#" method="POST">
@@ -78,14 +78,12 @@ include_once ("../CRUD/CRUDArticulo.php");
 
                 <table border = "2">
                     <tr>
-                        <th></th>
                         <th>Articulos</th>
                     </tr>
                     <?php
                     foreach ($articulosPorAutor as $articulo) {
                         ?>
                         <tr>
-
                             <td><?php echo $articulo['titulo']; ?></td>
                         </tr>
                         <?php
@@ -124,42 +122,14 @@ include_once ("../CRUD/CRUDArticulo.php");
             } else if (isset($_POST['modifArt'])) {
                 $articulosPorAutor = readArticulosFromID($idCuenta);
                 ?>
-                <form>
+                <form action="#" method="POST">
                     <table border = "2">
                         <tr>
                             <th></th>
                             <th>Articulos</th>
                         </tr>
                         <?php
-                        $j = 0;
-                        foreach ($articulosPorAutor as $articulo) {
-                            ?>
-                            <tr>
-                                <td><input type="checkbox" name="<?php echo $j++; ?>" value="<?php echo $articulo['idArticulo']; ?>"></td>
-                                <td><?php echo $articulo['titulo']; ?></td>
-                            </tr>
-                            <?php
-                        }
-                        ?>
-                    </table>
-                    <input type="hidden" name="numAr" value="<?php echo $j; ?>">
-                    <input type="submit" name="borra" value="Borrar articulo">
-                </form>
-
-
-
-                <?php
-            } else if (isset($_POST['modifArt'])) {
-                $articulosPorAutor = readArticulosFromID($idCuenta);
-                ?>
-                <form>
-                    <table border = "2">
-                        <tr>
-                            <th></th>
-                            <th>Articulos</th>
-                        </tr>
-                        <?php
-                        $j = 0;
+                        
                         foreach ($articulosPorAutor as $articulo) {
                             ?>
                             <tr>
@@ -170,8 +140,8 @@ include_once ("../CRUD/CRUDArticulo.php");
                         }
                         ?>
                     </table>
-                    <input type="hidden" name="numAr" value="<?php echo $j; ?>">
-                    <input type="submit" name="modifica" value="Modificar articulo">
+                    
+                    <input type="submit" name="modifica" value="Modify article">
                 </form>
                 <?php
             }
