@@ -64,7 +64,6 @@ function mediaPuntuacion($sumaTotal, $numComentarios) {
             </tr> 
         </table>
         <?php
-
         if ($_SESSION['tipo'] === 'usuario') {
             $sumaTotal = 0;
             $comentarios = readAllComentariosFromID($idUsuario);
@@ -104,10 +103,11 @@ function mediaPuntuacion($sumaTotal, $numComentarios) {
                         </tr>
 
                         <!--                si autor, listado de articulos-->
-                    <?php } else{
+                    <?php
+                    } else {
                         echo "No hay comentarios asociados a esta cuenta";
                     }
-?>
+                    ?>
                     <?php
                 } else if ($_SESSION['tipo'] === 'autor') {
                     echo "hola";
@@ -140,6 +140,9 @@ function mediaPuntuacion($sumaTotal, $numComentarios) {
 
                     <?php } ?>
                     </body>
-                    <!--                modificar cuenta.-->
+                    <!--   boton  modificar cuenta.-->
+
+                    <div class="boton"><a href="modificarCuenta.php">Modifica tu sesion</a></div>
+
                     </html>
 
