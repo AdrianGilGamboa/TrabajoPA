@@ -9,9 +9,10 @@ function createArticulo($articulo) {
     $fecha = $articulo['texto'];
     $titulo = $articulo['titulo'];
     $descripcion = $articulo['descripcion'];
+    $texto = $articulo['texto'];
     $imagen = $articulo['imagen'];
     $audio = $articulo['audio'];
-    $query = "INSERT INTO articulos (fecha, titulo, descripcion, imagen, audio) VALUES ('$fecha','$titulo','$descripcion','$imagen','$audio')";
+    $query = "INSERT INTO articulos (fecha, titulo, descripcion, texto, imagen, audio) VALUES ('$fecha','$titulo','$descripcion','$texto','$imagen','$audio')";
     $result = $con->query($query);
     if ($result) {
         $res = TRUE;
@@ -41,9 +42,10 @@ function updateArticulo($articulo) {
     $fecha = $articulo['texto'];
     $titulo = $articulo['titulo'];
     $descripcion = $articulo['descripcion'];
+    $texto=$articulo['texto'];
     $imagen = $articulo['imagen'];
     $audio = $articulo['audio'];
-    $query = "UPDATE articulos SET fecha = '$fecha', titulo = '$titulo', descripcion = '$descripcion', imagen = '$imagen', audio = '$audio' WHERE idArticulo = $idArticulo";
+    $query = "UPDATE articulos SET fecha = '$fecha', titulo = '$titulo', descripcion = '$descripcion', texto='$texto', imagen = '$imagen', audio = '$audio' WHERE idArticulo = $idArticulo";
     $result = $con->query($query);
     if ($result) {
         $res = True;
@@ -103,20 +105,20 @@ function readArticulosFromID($idCuenta) {
 function asociarArticulo($idArticulo, $idSeccion) {
     $con = conexionBD();
     $res = FALSE;
-    
-    $query = "UPDATE articulos SET idSeccion = $idSeccion WHERE idArticulo=$idArticulo";
+
+    $query = "INSERT INTO articulossecciones (idSeccion, idArticulo) VALUES ($idSeccion,$idArticulo)";
     $result = $con->query($query);
-    if($result){
+    if ($result) {
         $res = TRUE;
     }
     desconectar($con);
     return $res;
 }
 
-function leerArticulosDadaSeccion($idSeccion){
-        $con = conexionBD();
+function leerArticulosSeccion($idSeccion) {
+    $con = conexionBD();
     $res = FALSE;
-    $query = "SELECT * FROM articulos WHERE idSeccion=$idSeccion";
+    $query = "SELECT * FROM articulossecciones WHERE idSeccion=$idSeccion";
     $result = $con->query($query);
     if ($result->num_rows !== 0) {
         $res = array();
@@ -128,3 +130,111 @@ function leerArticulosDadaSeccion($idSeccion){
     desconectar($con);
     return $res;
 }
+
+function leerArticulosDadaSeccion($idSeccion) {
+    $idArticulos = leerArticulosSeccion($idSeccion);
+    $con = conexionBD();
+    $res = FALSE;
+    if($idArticulos){
+        $res = array();
+        foreach ($idArticulos as $id) {
+        $idArticulo = $id['idArticulo'];
+        $query = "SELECT * FROM articulos WHERE idArticulo=$idArticulo";
+        $result = $con->query($query);
+        if ($result->num_rows !== 0) {
+            
+            array_push($res, $result->fetch_assoc());
+        }
+    }
+    }
+    
+    desconectar($con);
+    return $res;
+}
+
+function borraSeccionDeArticulo($idArticulo) {
+    $con = conexionBD();
+    $res = FALSE;
+    $query = "DELETE FROM articulossecciones WHERE idArticulo=$idArticulo";
+    $result = $con->query($query);
+    if ($result) {
+        $res = TRUE;
+    }
+    desconectar($con);
+    return $res;
+}
+function asociarArticuloPortada($idArticulo, $idPortada) {
+    $con = conexionBD();
+    $res = FALSE;
+    
+    $query = "UPDATE articulos SET idPortada = $idPortada WHERE idArticulo=$idArticulo";
+    $result = $con->query($query);
+    if($result){
+        $res = TRUE;
+    }
+    desconectar($con);
+    return $res;
+}
+
+
+
+//Devuelve False si hay fallo/no hay datos o un array con los datos
+function readAllArticuloPorFecha() {
+    $con = conexionBD();
+    $res = FALSE;
+    $query = "SELECT * FROM articulos ORDER BY fecha DESC";
+    $result = $con->query($query);
+    if ($result->num_rows !== 0) {
+        $res = array();
+        for ($i = 0; $i < $result->num_rows; $i++) {
+            array_push($res, $result->fetch_assoc());
+        }
+    }
+
+    desconectar($con);
+    return $res;
+}
+function readComentariosArticuloPortada($idArticulo) {
+    $con = conexionBD();
+    $res = False;
+    $query = "SELECT * FROM comentarios WHERE idArticulo = $idArticulo";
+    $result = $con->query($query);
+    if ($result->num_rows !== 0) {
+        $res = array();
+        for ($i = 0; $i < $result->num_rows; $i++) {
+            array_push($res, $result->fetch_assoc());
+        }
+    }
+    desconectar($con);
+    return $res;
+}
+
+function leerArticulosDadaPortada($idPortada){
+        $con = conexionBD();
+    $res = FALSE;
+    $query = "SELECT * FROM articulos WHERE idPortada=$idPortada";
+    $result = $con->query($query);
+    if ($result->num_rows !== 0) {
+        $res = array();
+        for ($i = 0; $i < $result->num_rows; $i++) {
+            array_push($res, $result->fetch_assoc());
+        }
+    }
+
+    desconectar($con);
+    return $res;
+}
+
+
+
+function quitarArticuloDePortada($idArticulo){
+        $con = conexionBD();
+    $res = FALSE;
+    $query = "UPDATE set idPortada=NULL where idArticulo=$idArticulo";
+    $con->query($query);
+    
+
+    desconectar($con);
+    return $res;
+}
+
