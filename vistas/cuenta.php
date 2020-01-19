@@ -124,18 +124,18 @@ function mediaPuntuacion($sumaTotal, $numComentarios) {
                                 <td align='center'><?php echo $articulo['descripcion']; ?></td>
                                 <td align='center'><?php echo $articulo['imagen']; ?></td>
                                 <td align='center'><?php echo $articulo['audio']; ?></td>
-                                <td align='center'><?php echo $articulo['idSeccion']; ?></td>
                                 <td align='center'><?php echo $articulo['idPortada']; ?></td>
 
 
 
                             </tr>
+                             <div class="boton"><a href="gestionArticulo.php"> Article management</a></div>
                         <?php } ?>
                     <?php } else if ($_SESSION['tipo'] === 'administrador') { ?>
 
-                        <div class="boton"><a href="gestionSeccion.php">Crear sección</a></div>
+                        <div class="boton"><a href="gestionSeccion.php">Create section</a></div>
 
-                        <div class="boton"><a href="gestionPortada.php">Crear portada</a></div>
+                        <div class="boton"><a href="gestionPortada.php">Create front page</a></div>
 
 
                     <?php } ?>
