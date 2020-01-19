@@ -61,7 +61,7 @@ include_once ("../CRUD/CRUDSeccion.php");
                     if ($articulo['imagen'] != NULL) {
                         echo '../imagenes/' . $articulo['imagen'];
                     }
-                    ?>"><img src="../imagenes/<?php echo $articulo['imagen']; ?>"alt='<?php echo $articulo['nombre'];?>' width='300'><?php
+                    ?>"><img src="../imagenes/<?php echo $articulo['imagen']; ?>"alt='<?php echo $articulo['imagen'];?>' width='300'><?php
                            if ($articulo['imagen'] != NULL) {
                                echo $articulo['imagen'];
                            }
