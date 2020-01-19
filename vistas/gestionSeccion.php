@@ -124,7 +124,7 @@ function tiene($misArticulos, $articulo) {
             </form>
             <form action="#" method="POST">
                 <table border = "2">
-                    <input type="hidden" name="categoria" value="<?php echo $seccion['categoria']; ?>"><br/>
+                    Category: <input type="text" name="categoria" value="<?php echo $seccion['categoria']; ?>"><br/>
                     <caption>Add Articles</caption>
                     <tr>
                         <th></th>
