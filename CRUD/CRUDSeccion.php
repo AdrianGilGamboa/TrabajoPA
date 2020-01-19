@@ -20,7 +20,7 @@ function createSeccion($seccion) {
 function readSeccion($id) {
     $con = conexionBD();
     $res = False;
-    $query = "SELECT * FROM secciones WHERE idSeccion = $id";
+    $query = "SELECT * FROM secciones WHERE categoria = '$id'";
     $result = $con->query($query);
     if ($result->num_rows !== 0) {
         $res = $result->fetch_assoc();
@@ -103,7 +103,7 @@ function asociarSeccion($idCuenta, $idSeccion) {
     }
     desconectar($con);
     return $res;
-
+}
 function leerSeccionDadoArticulo($idArticulo){
     $con = conexionBD();
     $res = FALSE;
