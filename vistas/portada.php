@@ -102,6 +102,7 @@ include_once ("../CRUD/CRUDSeccion.php");
                 <div class="seccionArticulo">
                     <?php
                     $secciones = leerSeccionDadoArticulo($articulo['idArticulo']);
+                    //print_r($secciones);
                     if ($secciones) {
                         foreach ($secciones as $seccion) {
                             echo $seccion['categoria'];
