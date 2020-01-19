@@ -42,9 +42,35 @@ include_once ("../CRUD/CRUDArticulo.php");
                 deleteArticulo($idArticulo);
             }
         } else if (isset($_POST['modifica'])) {
-             $idAr = $_POST['modifica'];
-             
-          
+            $idAr = $_POST['modifica'];
+            $articulo = readArticulo($idAr);
+            ?>
+            <form action="#" method="POST">
+                <table cellpadding="10" border="1">
+                    <tr>
+                        <th>titulo</th>
+                        <th>fecha</th>
+                        <th>descripcion</th>
+                        <th>texto</th>
+                        <th>imagen</th>
+                        <th>audio</th>
+                        <th>Anuncio asociado al articulo</th>
+
+                    </tr>
+                    <tr>
+                        <td align='center'><?php echo $articulo['titulo']; ?></td>
+                        <td align='center'><?php echo $articulo['fecha']; ?></td>
+                        <td align='center'><?php echo $articulo['descripcion']; ?></td>
+                        <td align='center'><?php echo $articulo['texto']; ?></td>
+                        <td align='center'><?php echo $articulo['imagen']; ?></td>
+                        <td align='center'><?php echo $articulo['audio']; ?></td>
+                        <td align='center'><?php echo $articulo['idAnuncio']; ?></td> //como cojo el anuncio
+                    </tr>
+                </table>
+            </form>
+
+
+            <?php
         } else {
             if (isset($_POST['listarArt'])) {
                 $articulosPorAutor = readArticulosFromID($idCuenta);
