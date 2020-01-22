@@ -63,19 +63,23 @@ function hiloComentario($respuesta) {
             <!-- Anuncios -->
         </aside>
         <?php
-        $articulo=readArticulo(1);
+        $idArticulo = $_GET['idArticulo'];
+        $articulo=readArticulo($idArticulo);
         $autor= readCuenta($articulo['idCuenta']);
-       // print_r($autor);
         ?>
         <article>
-            <div class="imagenArticulo">
-                <a href="<?php if($articulo['imagen']!=NULL){echo 'imagenes/'.$articulo['imagen'];}?>"><?php if($articulo['imagen']!=NULL){echo $articulo['imagen'];}  ?></a>
-            </div>
             <div class="tituloArticulo">
                 <h2><?php  echo $articulo['titulo']; ?></h2>
             </div>
+            <div class="imagenArticulo">
+                <a href="<?php if($articulo['imagen']!=NULL){echo '../imagenes/'.$articulo['imagen'];}?>"><?php if($articulo['imagen']!=NULL){echo $articulo['imagen'];}  ?></a>
+            </div>
+            
             <div class="descripcionArticulo">
                 <?php echo $articulo['descripcion'];  ?>
+            </div>
+            <div class="textArticulo">
+                <?php echo $articulo['texto'];  ?>
             </div>
             <div class="fechaArticulo">
                 <?php echo $articulo['fecha']; ?>
