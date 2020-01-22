@@ -116,10 +116,21 @@ function leerSeccionDadoArticulo($idArticulo){
         }
         $res = array();
         foreach ($aux as $idSeccion) {
-            array_push($res, readSeccion($idSeccion['idSeccion']));
+            array_push($res, readSeccionId($idSeccion['idSeccion']));
         }
     }
     
+    desconectar($con);
+    return $res;
+}
+function readSeccionId($id) {
+    $con = conexionBD();
+    $res = False;
+    $query = "SELECT * FROM secciones WHERE idSeccion = '$id'";
+    $result = $con->query($query);
+    if ($result->num_rows !== 0) {
+        $res = $result->fetch_assoc();
+    }
     desconectar($con);
     return $res;
 }
