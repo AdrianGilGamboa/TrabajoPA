@@ -230,10 +230,25 @@ function leerArticulosDadaPortada($idPortada){
 function quitarArticuloDePortada($idArticulo){
         $con = conexionBD();
     $res = FALSE;
-    $query = "UPDATE set idPortada=NULL where idArticulo=$idArticulo";
+    $query = "UPDATE articulos set idPortada=NULL where idArticulo=$idArticulo";
     $con->query($query);
     
 
+    desconectar($con);
+    return $res;
+}
+
+function leerArticulosSinPortada(){
+        $con = conexionBD();
+    $res = False;
+    $query = "SELECT * FROM articulos WHERE idPortada is NULL";
+    $result = $con->query($query);
+    if ($result->num_rows !== 0) {
+        $res = array();
+        for ($i = 0; $i < $result->num_rows; $i++) {
+            array_push($res, $result->fetch_assoc());
+        }
+    }
     desconectar($con);
     return $res;
 }
