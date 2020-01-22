@@ -2,6 +2,7 @@
 include_once ("../CRUD/CRUDArticulo.php");
 include_once ("../CRUD/CRUDCuenta.php");
 include_once ("../CRUD/CRUDSeccion.php");
+include_once ("../CRUD/CRUDPortada.php");
 ?>
 <!DOCTYPE html>
 
@@ -29,7 +30,7 @@ include_once ("../CRUD/CRUDSeccion.php");
             <?php
             if ($hayCuenta) {
                 ?>
-            <a href="suscripcion.php">Suscribe</a>
+                <a href="suscripcion.php">Suscribe</a>
                 <?php
             }
             ?>
@@ -51,17 +52,20 @@ include_once ("../CRUD/CRUDSeccion.php");
             ?>
         </header>
         <?php
-        $articulos = readAllArticuloPorFecha();
+        $articulos = obtenerArticulosUltimaPortada();
         foreach ($articulos as $articulo) {
             $autor = readCuenta($articulo['idCuenta']);
             ?>
-            <article>
+        <a href="articulo.php?idArticulo=<?php echo $articulo['idArticulo'];?>"><article>
+                <div class="tituloArticulo">
+                    <h2><?php echo $articulo['titulo']; ?></h2>
+                </div>
                 <div class="imagenArticulo">
                     <a href="<?php
                     if ($articulo['imagen'] != NULL) {
                         echo '../imagenes/' . $articulo['imagen'];
                     }
-                    ?>"><img src="../imagenes/<?php echo $articulo['imagen']; ?>"alt='<?php echo $articulo['imagen'];?>' width='300'><?php
+                    ?>"><img src="../imagenes/<?php echo $articulo['imagen']; ?>"alt='<?php echo $articulo['imagen']; ?>' width='300'><?php
                            if ($articulo['imagen'] != NULL) {
                                echo $articulo['imagen'];
                            }
@@ -78,11 +82,12 @@ include_once ("../CRUD/CRUDSeccion.php");
                            }
                            ?></a>
                 </div>
-                <div class="tituloArticulo">
-                    <h2><?php echo $articulo['titulo']; ?></h2>
-                </div>
+
                 <div class="descripcionArticulo">
                     <?php echo $articulo['descripcion']; ?>
+                </div>
+                <div class="textArticulo">
+                    <?php echo $articulo['texto']; ?>
                 </div>
                 <div class="fechaArticulo">
                     <?php echo $articulo['fecha']; ?>
@@ -122,6 +127,7 @@ include_once ("../CRUD/CRUDSeccion.php");
                     ?>
                 </div>
             </article>
+            </a>
             <?php
         }
         ?>

@@ -89,10 +89,10 @@ include ("../CRUD/CRUDAnuncio.php");
             <input type="submit" name="listarPortada" value="View Front Pages">
         </form>
         <?php
-        //      session_start();
-        //     if(!isset($_SESSION['cuentaID'])){
-        //         header('Location: inicioSesion.php');
-        //     }
+              session_start();
+             if(!isset($_SESSION['cuentaID'])){
+                 header('Location: inicioSesion.php');
+             }
         if (isset($_SESSION['cuentaID'])) {
             if ($_SESSION['tipo'] === "administrador") {
                 $idCuenta = $_SESSION['cuentaID'];
@@ -402,7 +402,7 @@ include ("../CRUD/CRUDAnuncio.php");
             );
             if (createPortada($portada)) {
                 $idPortada = obtenerIDPortada($fecha);
-                //asociarPortada($idCuenta, $idPortada);
+                asociarPortada($idCuenta, $idPortada);
                 $res = TRUE;
                 foreach ($seleccionados as $idArticulo) {
                     if (!asociarArticuloPortada($idArticulo, $idPortada)) {
