@@ -33,14 +33,14 @@ function mediaPuntuacion($sumaTotal, $numComentarios) {
         <h1> Datos <?php echo $nombreUsuario; ?></h1>
         <table cellpadding="10" border="1">
             <tr>
-                <th>Nombre</th>
-                <th>Usuario</th>
-                <th>Clave</th>
+                <th>Name</th>
+                <th>User</th>
+                <th>Password</th>
                 <th>Email</th>
                 <th>Formato</th>
-                <th>Tipo</th>
-                <th>Discapacidad Visual</th>
-                <th>Gustos</th>
+                <th>Type</th>
+                <th>Visual disability</th>
+                <th>Preferences</th>
 
             </tr>
             <tr>
@@ -69,16 +69,16 @@ function mediaPuntuacion($sumaTotal, $numComentarios) {
             $comentarios = readAllComentariosFromID($idUsuario);
             ?>
             <table cellpadding="10" border="1">
-                <tr>Comentario: </tr>
+                <tr>Comments: </tr>
                 <!--                comprobar si es mayor que 0, osea que no este vacio-->
 
                 <?php if ($comentarios) { ?>
                     <?php foreach ($comentarios as $comentario) { ?> 
 
                         <tr>
-                            <th>Id comentario: </th>     
-                            <th>texto: </th>     
-                            <th>puntuacion: </th>     
+                            <th>identifier: </th>     
+                            <th>text: </th>     
+                            <th>puntuation: </th>     
                         </tr>
                         <tr>
                             <td align='center'><?php echo $comentario['idComentario']; ?></td>
@@ -96,7 +96,7 @@ function mediaPuntuacion($sumaTotal, $numComentarios) {
 
                     <table cellpadding="10" border="1">
                         <tr>
-                            <th>Media puntuación comentarios: </th>     
+                            <th>Average score comments: </th>     
                         </tr>
                         <tr>
                             <td align='center'><?php echo $media; ?></td>
@@ -105,7 +105,7 @@ function mediaPuntuacion($sumaTotal, $numComentarios) {
                         <!--                si autor, listado de articulos-->
                         <?php
                     } else {
-                        echo "No hay comentarios asociados a esta cuenta";
+                        echo "There is no comments associated to this account";
                     }
                     ?>
                     <?php
@@ -113,7 +113,7 @@ function mediaPuntuacion($sumaTotal, $numComentarios) {
                     $articulos = readArticulosFromID($idUsuario);
                     ?>
                     <table cellpadding="10" border="1">
-                        <tr>Articulos: </tr>
+                        <tr>Articles: </tr>
                         <?php foreach ($articulos as $articulo) { ?> 
 
                             <tr>
@@ -143,8 +143,10 @@ function mediaPuntuacion($sumaTotal, $numComentarios) {
                 <div class="boton"><a href="modificarCuenta.php">Modify account</a></div>
                 </body>
                 <!--   boton  modificar cuenta.-->
-
-
-
+                <footer id="footer">
+                      <strong>Copyright Programaci&oacute;n Avanzada.</strong>
+            <br>
+            
+                </footer>
                 </html>
 

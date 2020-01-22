@@ -42,7 +42,7 @@ function updateArticulo($articulo) {
     $con = conexionBD();
     $res = FALSE;
     $idArticulo = $articulo['idArticulo'];
-    $fecha = $articulo['texto'];
+    $fecha = $articulo['fecha'];
     $titulo = $articulo['titulo'];
     $descripcion = $articulo['descripcion'];
     $texto = $articulo['texto'];
@@ -242,6 +242,18 @@ function asociarArticuloAutor($idArticulo, $idCuenta){
     $con = conexionBD();
     $res = FALSE;
     $query = "UPDATE articulos SET idCuenta = $idCuenta WHERE idArticulo=$idArticulo";
+    $result = $con->query($query);
+    if ($result) {
+        $res = TRUE;
+    }
+
+    desconectar($con);
+    return $res;
+}
+function asociarArticuloAnuncio($idArticulo, $idAnuncio){
+    $con = conexionBD();
+     $res = FALSE;
+    $query = "UPDATE articulos SET idAnuncio = $idAnuncio WHERE idArticulo=$idArticulo";
     $result = $con->query($query);
     if ($result) {
         $res = TRUE;

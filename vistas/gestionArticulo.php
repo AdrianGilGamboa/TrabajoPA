@@ -3,6 +3,7 @@
 include_once ("../CRUD/CRUDComentario.php");
 include_once ("../CRUD/CRUDCuenta.php");
 include_once ("../CRUD/CRUDArticulo.php");
+include_once ("../CRUD/CRUDAnuncio.php");
 ?>
 <html>
     <head>
@@ -11,10 +12,10 @@ include_once ("../CRUD/CRUDArticulo.php");
     </head>
     <body>
         <form action="#" method="POST">
-            <input type="submit" name="creaArt" value="Crear Artículo">
-            <input type="submit" name="modifArt" value="Modificar Artículo">
-            <input type="submit" name="eliminaArt" value="Eliminar Artículo">
-            <input type="submit" name="listarArt" value="Listar Artículo">
+            <input type="submit" name="creaArt" value="Create article">
+            <input type="submit" name="modifArt" value="Modifiy article">
+            <input type="submit" name="eliminaArt" value="Delete article">
+            <input type="submit" name="listarArt" value="List all the articles">
         </form>
         <?php
         session_start();
@@ -29,9 +30,68 @@ include_once ("../CRUD/CRUDArticulo.php");
                 header('Location: portada.php');
             }
         }
-
+        if (isset($_POST['actualiza'])) {
+//            echo "hola";
+            $actualizar = TRUE;
+            $titulo = filter_var(trim($_POST['titulo']), FILTER_SANITIZE_MAGIC_QUOTES);
+            if ($titulo === "" or ! preg_match('/^[[:alpha:]]+$/', $titulo)) {
+                $actualizar = False; //hacer con JS
+                echo "wrong title";
+            }
+            $descripcion = filter_var(trim($_POST['descripcion']), FILTER_SANITIZE_MAGIC_QUOTES);
+            if ($descripcion === "" or ! preg_match('/^[[:alpha:]]+$/', $descripcion)) {
+                $actualizar = False; //hacer con JS
+                echo "wrong description";
+            }
+            $texto = filter_var(trim($_POST['texto']), FILTER_SANITIZE_MAGIC_QUOTES);
+            if ($texto === "") {
+                $actualizar = False; //hacer con JS
+                echo "wrong text";
+            }
+            $fecha = $_POST['fecha'];
+            if (isset($_FILES['imagen'])) {
+                $imagen = $_FILES['imagen'];
+                if ($imagen['type'] !== 'image/png') {
+                    echo "wrong format of image";
+                    $actualizar = False;
+                } else {
+                    $nombreImagen = $imagen['name'];
+                }
+            }
+            if (isset($_FILES['audio'])) {
+                $audio = $_FILES['audio'];
+                if ($audio['type'] !== 'audio/mpeg') {
+                    echo "wrong format of audio";
+                    $actualizar = False;
+                } else {
+                    $nombreAudio = $audio['name'];
+                }
+            }
+            if ($actualizar) {
+                $articulo = array(
+                    'idArticulo' => $_POST['idArticulo'],
+                    'titulo' => $titulo,
+                    'descripcion' => $descripcion,
+                    'texto' => $texto,
+                    'fecha' => $fecha,
+                    'imagen' => $nombreImagen,
+                    'audio' => $nombreAudio
+                );
+                if (($idArticulo = updateArticulo($articulo)) !== FALSE) {
+//                    asociarArticuloAutor($idArticulo, $idCuenta);
+//                    move_uploaded_file($imagen['tmp_name'], '../imagenes/' . $nombreImagen);
+//                    move_uploaded_file($audio['tmp_name'], '../audios/' . $nombreAudio);
+                    echo "Article created";
+                } else {
+                    echo "Error creating";
+                }
+            }
+        }
         if (isset($_POST['borra'])) {
             $num = $_POST['numAr'];
+            if ($idAr === NULL) {
+                header('Location: gestionArticulo.php');
+            }
             $borrar = array();
             for ($i = 0; $i < $num; $i++) {
                 if (isset($_POST[$i])) {
@@ -43,33 +103,42 @@ include_once ("../CRUD/CRUDArticulo.php");
             }
         } else if (isset($_POST['modifica'])) {
             $idAr = $_POST['articulo'];
+            if ($idAr === NULL) {
+                header('Location: gestionArticulo.php');
+            }
             $articulo = readArticulo($idAr);
             ?>
-            <form action="#" method="POST">
-                <table cellpadding="10" border="1">
-                    <tr>
-                        <th>titulo</th>
-                        <th>fecha</th>
-                        <th>descripcion</th>
-                        <th>texto</th>
-                        <th>imagen</th>
-                        <th>audio</th>
-                        <th>Anuncio asociado al articulo</th>
+            <form action="#" method="POST" enctype="multipart/form-data">
+                Title of the article:  <input type="text" name="titulo" value="<?php echo $articulo['titulo']; ?>"><br/>
+                Date of the article: <input type="date" name="fecha" value="<?php echo $articulo['fecha']; ?>"><br/>
+                Description of the article:<input type="text" name="descripcion" value="<?php echo $articulo['descripcion']; ?>"><br/>
+                Text of the article: <input type="text" name="texto" value="<?php echo $articulo['texto']; ?>"><br/>
+                Image: <input type="file" name="imagen" value="<?php echo $articulo['imagen']; ?>"><br/>
+                Audio: <input type="file" name="audio" value="<?php echo $articulo['audio']; ?>"><br/>
+                Anuncio asociado al articulo: 
+                
+                <!--                no estan puestos los seleccionados, solo los demas-->
+                <?php
+                $anuncios = readAllAnuncio();
+                if (!empty($anuncios)) {
+                    foreach ($anuncios as $anuncio) {
+                        echo $anuncio['descripcion'];
+                        echo $anuncio['imagen'];
+                        ?>
+                        <input type="checkbox" name="<?php echo $anuncio['descripcion']; ?>" value="<?php echo $anuncio['descripcion']; ?>" 
 
-                    </tr>
-                    <tr>
-                        <td align='center'><?php echo $articulo['titulo']; ?></td>
-                        <td align='center'><?php echo $articulo['fecha']; ?></td>
-                        <td align='center'><?php echo $articulo['descripcion']; ?></td>
-                        <td align='center'><?php echo $articulo['texto']; ?></td>
-                        <td align='center'><?php echo $articulo['imagen']; ?></td>
-                        <td align='center'><?php echo $articulo['audio']; ?></td>
-                        <td align='center'><?php echo $articulo['idAnuncio']; ?></td> //como cojo el anuncio
-                    </tr>
-                </table>
+                               <?php
+                           }
+                       } else {
+                           echo "There are no ads available to modify this article";
+                       }
+                       ?>
+                        
+                       <input type ="hidden" name ="idArticulo"  value ="<?php echo $idAr; ?>">
+                <input type="submit" name="actualiza" value="Actualizar"><br/>
             </form>
 
-
+            }
             <?php
         } else if (isset($_POST['crea'])) {
             $insertar = TRUE;
@@ -116,8 +185,8 @@ include_once ("../CRUD/CRUDArticulo.php");
                     'imagen' => $nombreImagen,
                     'audio' => $nombreAudio
                 );
-                if (($idArticulo=createArticulo($articulo))!==FALSE) {
-                    asociarArticuloAutor($idArticulo,$idCuenta);
+                if (($idArticulo = createArticulo($articulo)) !== FALSE) {
+                    asociarArticuloAutor($idArticulo, $idCuenta);
                     move_uploaded_file($imagen['tmp_name'], '../imagenes/' . $nombreImagen);
                     move_uploaded_file($audio['tmp_name'], '../audios/' . $nombreAudio);
                     echo "Article created";
@@ -180,7 +249,7 @@ include_once ("../CRUD/CRUDArticulo.php");
                     <table border = "2">
                         <tr>
                             <th></th>
-                            <th>Articulos</th>
+                            <th>Articles</th>
                         </tr>
                         <?php
                         foreach ($articulosPorAutor as $articulo) {
@@ -232,6 +301,5 @@ include_once ("../CRUD/CRUDArticulo.php");
             }
         }
         ?>
-
     </body>
 </html>
