@@ -33,6 +33,9 @@ function mostrarArticulos($idSeccion) {
                 <div class="descripcionSeccion">
                     <?php echo $articulo['descripcion']; ?>
                 </div>
+                <div class="textoSeccion">
+                    <?php echo $articulo['texto']; ?>
+                </div>
                 <div class="fechaSeccion">
                     <?php echo $articulo['fecha']; ?>
                 </div>

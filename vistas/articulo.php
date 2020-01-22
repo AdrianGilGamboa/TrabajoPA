@@ -48,6 +48,9 @@ function hiloComentario($respuesta) {
         <meta charset="UTF-8">
         <title></title>
     </head>
+    <style>
+        
+    </style>
     <body>
         <header>
             <h1>MoarNews</h1>
