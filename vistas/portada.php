@@ -9,9 +9,18 @@ include_once ("../CRUD/CRUDPortada.php");
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Portada del dia</title>
+        <meta http-equiv="X-UA-Compatible" content=="IE=edge"/>
+        <meta name="google" value="notranslate"/>
+
+        <link href="css.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+        <title>Cover of the day</title>
     </head>
     <body>
+        <!--[if lt IE 7]>
+           <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+       <![endif]-->
+
         <?php
         session_start();
         $hayCuenta = FALSE;
@@ -23,36 +32,52 @@ include_once ("../CRUD/CRUDPortada.php");
             $hayCuenta = FALSE;
         }
         ?>
-        <header>
-            <?php
-            include_once 'nav.php';
-            ?>
+        <header id="header">
+
             <?php
             if ($hayCuenta) {
                 ?>
-                <a href="suscripcion.php">Suscribe</a>
+
+                <nav class="left">
+                    <a href="#" class="button alt" ><?php echo date("Y-m-d") ?> </a>
+                </nav>
+
+                <a href="portada.php" class="logo">MoarNews</a>
+                <nav class="right">
+                    <a href="suscripcion.php" class="button alt" >Suscribe</a>
+                    <a href="cuenta.php" class="button alt"><?php echo $nombreUsuario; ?></a>  
+                </nav>
+
+
                 <?php
             }
             ?>
             <?php
             if (!$hayCuenta) {
                 ?>
-                <a href="inicioSesion.php">Login</a>
-                <a href="registro.php">Register</a>
+                <nav class="left">
+                    <a href="#" class="button alt" ><?php echo date("Y-m-d") ?> </a>
+                </nav>
+
+                <a href="portada.php" class="logo">MoarNews</a>
+                <nav class="right">
+                    <a href="inicioSesion.php"class="button alt">Log in</a>
+                    <a href="registro.php"  class="button alt">Register</a>
+                </nav>
                 <?php
             }
             ?>
-            <?php
-            if ($hayCuenta) {
-                ?>
-                <a href="cuenta.php"><?php echo $nombreUsuario; ?></a>
-                <a href="logout.php">Logout</a>
-                <?php
-            }
-            ?>
+
         </header>
         <?php
-        $articulos = obtenerArticulosUltimaPortada();
+
+        include_once 'nav.php';
+        ?>
+
+
+        <?php
+        $articulos = readAllArticuloPorFecha();
+
         foreach ($articulos as $articulo) {
             $autor = readCuenta($articulo['idCuenta']);
             ?>
@@ -131,8 +156,19 @@ include_once ("../CRUD/CRUDPortada.php");
             <?php
         }
         ?>
-        <footer>
+        <footer id="footer">
+            <div class="inner">
+                <h2>Get In Touch</h2>
+                <ul class="actions">
+                    <li><i class="icon fa-phone"></i> <a href="#">(034)954 34 92 00</a></li>
+                    <li><span class="icon fa-envelope"></span> <a href="#">moarNesws@gmail.com</a></li>
+                    <li><span class="icon fa-map-marker"></span> Ctra. de Utrera, 1, 41013 Sevilla </li>
+                </ul>
+            </div>
+            <div class="copyright">
+                &copy; Newspaper. MoarNews <a href="https://www.upo.es/portal/impe/web/portada/index.html">MoarNews</a>. Images <a href="../imagenes/logo.jpeg" alt="logo">MoarNews</a>.
 
+            </div>
         </footer>
 
     </body>
