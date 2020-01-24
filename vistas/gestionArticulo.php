@@ -66,7 +66,7 @@ include_once ("../CRUD/CRUDAnuncio.php");
             }
             if (!empty($_FILES['audio']["name"])) {
                 $audio = $_FILES['audio'];
-                if ($audio['type'] !== 'audio/mpeg') {
+                if ($audio['type'] !== 'audio/mpeg' && $audio['type'] !== 'audio/ogg') {
                     echo "wrong format of audio";
                     $actualizar = False;
                 } else {
@@ -192,7 +192,7 @@ include_once ("../CRUD/CRUDAnuncio.php");
             }
             if (isset($_FILES['audio'])) {
                 $audio = $_FILES['audio'];
-                if ($audio['type'] !== 'audio/mpeg') {
+                if ($audio['type'] !== 'audio/mpeg' && $audio['type'] !== 'audio/ogg') {
                     echo "formato de audio incorrecto";
                     $insertar = False;
                 } else {
