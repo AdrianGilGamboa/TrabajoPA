@@ -44,7 +44,12 @@ function hiloComentario($respuesta) {
 <html>
     <head>
         <meta charset="UTF-8">
-        <title></title>
+        <meta http-equiv="X-UA-Compatible" content=="IE=edge"/>
+        <meta name="google" value="notranslate"/>
+        <link href="css.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+        <title>Article</title>
+
     </head>
     <style>
 
@@ -54,13 +59,16 @@ function hiloComentario($respuesta) {
             <h1>MoarNews</h1>
             <h2>The Digital Newspaper</h2>
         </header>
-        <nav>
-            <!-- Barra de navegacion -->
-        </nav>
+
+        <?php
+        include_once 'nav.php';
+        ?>
+       
         <aside>
             <!-- Anuncios -->
         </aside>
         <?php
+
         $idArticulo = $_GET['idArticulo'];
         $articulo = readArticulo($idArticulo);
         $autor = readCuenta($articulo['idCuenta']);
@@ -68,6 +76,7 @@ function hiloComentario($respuesta) {
         <article>
             <div class="tituloArticulo">
                 <h2><?php echo $articulo['titulo']; ?></h2>
+
             </div>
             <div class="imagenSeccion">
                 <a href="<?php
@@ -79,6 +88,7 @@ function hiloComentario($respuesta) {
                            echo $articulo['imagen'];
                        }
                        ?></a>
+
             </div>
             <div class="audioArticulo">
                 <?php if ($articulo['audio'] != NULL) { ?>
@@ -88,19 +98,23 @@ function hiloComentario($respuesta) {
                 <?php } ?>
             </div>
             <div class="descripcionArticulo">
+
                 <?php echo $articulo['descripcion']; ?>
+
             </div>
             <div class="textoArticulo">
                 <?php echo $articulo['texto']; ?>
             </div>
             <div class="fechaArticulo">
-                <?php echo $articulo['fecha']; ?>
+<?php echo $articulo['fecha']; ?>
             </div>
             <div class="autorArticulo">
+
                 <?php echo $autor['nombre']; ?>
+
             </div>
             <div class="comentariosArticulo">
-                <?php readComentariosArticulo($articulo['idArticulo']); ?>
+<?php readComentariosArticulo($articulo['idArticulo']); ?>
             </div>
         </article>
         <footer>

@@ -9,9 +9,13 @@ function mediaPuntuacion($sumaTotal, $numComentarios) {
 }
 ?>
 <html>
-    <head>
+   <head>
         <meta charset="UTF-8">
-        <title></title>
+        <meta http-equiv="X-UA-Compatible" content=="IE=edge"/>
+        <meta name="google" value="notranslate"/>
+        <link href="css.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+        <title>Count</title>
     </head>
     <body>
         <?php
@@ -30,6 +34,10 @@ function mediaPuntuacion($sumaTotal, $numComentarios) {
         $datosPersonales = readCuenta($idUsuario);
         ?>
         <!--datos usuario--> 
+        <?php
+        include_once 'nav.php';
+        ?>
+        
         <h1> Datos <?php echo $nombreUsuario; ?></h1>
         <table cellpadding="10" border="1">
             <tr>
@@ -141,12 +149,22 @@ function mediaPuntuacion($sumaTotal, $numComentarios) {
                 <?php }
                 ?>
                 <div class="boton"><a href="modificarCuenta.php">Modify account</a></div>
-                </body>
-                <!--   boton  modificar cuenta.-->
                 <footer id="footer">
-                      <strong>Copyright Programaci&oacute;n Avanzada.</strong>
-            <br>
-            
+                    <div class="inner">
+                        <h2>Get In Touch</h2>
+                        <ul class="actions">
+                            <li><i class="icon fa-phone"></i> <a href="#">(034)954 34 92 00</a></li>
+                            <li><span class="icon fa-envelope"></span> <a href="#">moarNesws@gmail.com</a></li>
+                            <li><span class="icon fa-map-marker"></span> Ctra. de Utrera, 1, 41013 Sevilla </li>
+                        </ul>
+                    </div>
+                    <div class="copyright">
+                        &copy; Newspaper. MoarNews <a href="https://www.upo.es/portal/impe/web/portada/index.html">MoarNews</a>. Images <a href="../imagenes/logo.jpeg" alt="logo">MoarNews</a>.
+
+                    </div>
                 </footer>
+                </body>
+
+
                 </html>
 

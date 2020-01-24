@@ -74,25 +74,36 @@ include ("../CRUD/CRUDAnuncio.php");
 </style>
 
 <html>
-    <head>
+ <head>
         <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content=="IE=edge"/>
+        <meta name="google" value="notranslate"/>
+        <link href="css.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
         <title></title>
         <script type="text/javascript">
 
         </script>
     </head>
     <body>
-        <form action="#" method="POST" class="botonesGestionPortada">
+        <?php
+        include_once 'nav.php';
+        ?>
+       
+        <form action="#" method="POST">
+
             <input type="submit" name="creaPortada" value="Create Front Page">
             <input type="submit" name="modifPortada" value="Modify Front Page">
             <input type="submit" name="eliminaPortada" value="Delete Front Page">
             <input type="submit" name="listarPortada" value="View Front Pages">
         </form>
         <?php
+
               session_start();
              if(!isset($_SESSION['cuentaID'])){
                  header('Location: inicioSesion.php');
              }
+
         if (isset($_SESSION['cuentaID'])) {
             if ($_SESSION['tipo'] === "administrador") {
                 $idCuenta = $_SESSION['cuentaID'];
@@ -135,6 +146,7 @@ include ("../CRUD/CRUDAnuncio.php");
                         <input type="submit" name="añadiendoAnuncio" value="Add advertisement" class="botonesGestionPortada">
                     </form>
                     <?php
+
                 } else {
                     echo "No hay anuncios sin portadas asociadas";
                 }
@@ -148,8 +160,10 @@ include ("../CRUD/CRUDAnuncio.php");
                 if ($anuncioSinPortada) {
                     ?>
                     <form action="#" method="POST">
+
                         Date: <input type="date" name="fecha" value="<?php echo $portada['fecha']; ?>"><br/> 
                         Actual Advertisement: <?php echo $anuncioActual['descripcion']; ?>
+
                         <table border = "2">
                             <tr>
                                 <th></th>
@@ -544,6 +558,19 @@ include ("../CRUD/CRUDAnuncio.php");
             }
         }
         ?>
+        <footer id="footer">
+            <div class="inner">
+                <h2>Get In Touch</h2>
+                <ul class="actions">
+                    <li><i class="icon fa-phone"></i> <a href="#">(034)954 34 92 00</a></li>
+                    <li><span class="icon fa-envelope"></span> <a href="#">moarNesws@gmail.com</a></li>
+                    <li><span class="icon fa-map-marker"></span> Ctra. de Utrera, 1, 41013 Sevilla </li>
+                </ul>
+            </div>
+            <div class="copyright">
+                &copy; Newspaper. MoarNews <a href="https://www.upo.es/portal/impe/web/portada/index.html">MoarNews</a>. Images <a href="../imagenes/logo.jpeg" alt="logo">MoarNews</a>.
 
+            </div>
+        </footer>
     </body>
 </html>
