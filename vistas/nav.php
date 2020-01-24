@@ -3,6 +3,7 @@ include_once ("../CRUD/CRUDSeccion.php");
 $secciones = readAllSeccion();
 ?>
 
+
     <nav class="main-menu">
         <div class="settings"></div>
         <div class="scrollbar" id="style-1">
@@ -40,6 +41,9 @@ $secciones = readAllSeccion();
                         <span class="share"> 
 
 
+                        <div class="addthis_default_style addthis_32x32_style">
+
+
                             <div class="addthis_default_style addthis_32x32_style">
 
                                 <div style="position:absolute;
@@ -52,14 +56,17 @@ $secciones = readAllSeccion();
 
                                     <a href="https://twitter.com/share" target="_blank" class="share-popup"><img src="https://cdn1.iconfinder.com/data/icons/metro-ui-dock-icon-set--icons-by-dakirby/512/Twitter_alt.png" width="30px" height="30px"></a>
 
+
                                     <a href="https://plusone.google.com/_/+1/confirm?hl=en&url=_URL_&title=_TITLE_
                                        " target="_blank" class="share-popup"><img src="http://icons.iconarchive.com/icons/danleech/simple/512/google-plus-icon.png" width="30px" height="30px"></a>   
+
 
 
 
                                 </div>
                                 <script type="text/javascript">var addthis_config = {"data_track_addressbar": true};</script>
                                 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4ff17589278d8b3a"></script>
+
 
 
 
@@ -77,7 +84,9 @@ $secciones = readAllSeccion();
 
                     </a>
 
+
                 </li>
+
 
 
 
@@ -114,3 +123,4 @@ $secciones = readAllSeccion();
                     </ul>
                 </form>
                 </nav>
+

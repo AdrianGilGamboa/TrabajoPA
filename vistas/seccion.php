@@ -40,61 +40,64 @@ function mostrarArticulos($idSeccion) {
         </header>
         <?php
         include_once 'nav.php';
+        $idSeccion = $_GET['idSeccion'];
+        $seccion = readSeccionId($idSeccion);
         ?>
          
         <aside>
             <!-- Anuncios -->
         </aside>
-        <article class="tituloSeccion">
+        <section class="categoriaSeccion">
 
-            <h3>Section <?php
-        $idSeccion = $_GET['idSeccion'];
-        echo $idSeccion;
+            <h3>Section <?php echo $seccion['categoria'] ?></h3>
 
-        $seccion = readSeccionId($idSeccion);
-        echo $seccion['categoria'];
-        ?></h3>
 
-        </article>
-        <?php
-        $articulos = mostrarArticulos($idSeccion);  //echo $articulo['titulo'];
-        if ($articulos) {
-            foreach ($articulos as $articulo) {
-                ?><article>
-                    <div class="imagenSeccion">
-                        <a href="<?php
-                        if ($articulo['imagen'] != NULL) {
-                            echo 'imagenes/' . $articulo['imagen'];
-                        }
-                        ?>"><?php
-                               if ($articulo['imagen'] != NULL) {
-                                   echo $articulo['imagen'];
-                               }
-                               ?></a>
-                    </div>
-                    <div class="tituloSeccion">
-                        <h2><?php echo $articulo['titulo']; ?></h2>
-                    </div>
-                    <div class="descripcionSeccion">
-                        <?php echo $articulo['descripcion']; ?>
-                    </div>
-                    <div class="textoSeccion">
-                        <?php echo $articulo['texto']; ?>
-                    </div>
-                    <div class="fechaSeccion">
-                        <?php echo $articulo['fecha']; ?>
-                    </div>
-                    <div class="autorSeccion">
-                        <?php
-                        $autor = readCuenta($articulo['idCuenta']);
-                        echo $autor['nombre'];
-                        ?>
-                    </div>
-                </article><?php
+            <?php
+            $articulos = mostrarArticulos($idSeccion);  //echo $articulo['titulo'];
+            if ($articulos) {
+                foreach ($articulos as $articulo) {
+                    ?><article>
+                        <div class="tituloSeccion">
+                            <h2><?php echo $articulo['titulo']; ?></h2>
+                        </div>
+                        <div class="imagenSeccion">
+                            <a href="<?php
+                            if ($articulo['imagen'] != NULL) {
+                                echo '../imagenes/' . $articulo['imagen'];
+                            }
+                            ?>"><img src="../imagenes/<?php echo $articulo['imagen']; ?>"alt='<?php echo $articulo['imagen']; ?>' width='300'><?php
+                                   if ($articulo['imagen'] != NULL) {
+                                       echo $articulo['imagen'];
+                                   }
+                                   ?></a>
+                        </div>
+                        <div class="audioSeccion">
+                            <?php if ($articulo['audio'] != NULL) { ?>
+                                <audio controls>
+                                    <source src="<?php echo '../audios/' . $articulo['audio']; ?>" type="audio/mpeg">
+                                </audio>
+                            <?php } ?>
+                        </div>
+                        <div class="descripcionSeccion">
+                            <?php echo $articulo['descripcion']; ?>
+                        </div>
+                        <div class="textoSeccion">
+                            <?php echo $articulo['texto']; ?>
+                        </div>
+                        <div class="fechaSeccion">
+                            <?php echo $articulo['fecha']; ?>
+                        </div>
+                        <div class="autorSeccion">
+                            <?php
+                            $autor = readCuenta($articulo['idCuenta']);
+                            echo $autor['nombre'];
+                            ?>
+                        </div>
+                    </article><?php
+                }
             }
-        }
-        ?>
-
+            ?>
+        </section>
         <footer id="footer">
             <div class="inner">
                 <h2>Get In Touch</h2>
@@ -108,6 +111,7 @@ function mostrarArticulos($idSeccion) {
                 &copy; Newspaper. MoarNews <a href="https://www.upo.es/portal/impe/web/portada/index.html">MoarNews</a>. Images <a href="../imagenes/logo.jpeg" alt="logo">MoarNews</a>.
                 
             </div>
+
         </footer>
     </body>
     

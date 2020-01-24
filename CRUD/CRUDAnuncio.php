@@ -13,7 +13,10 @@ function createAnuncio($anuncio) {
     $query = "INSERT INTO anuncios (imagen, duracion, descripcion) VALUES ('$imagen',$duracion,'$descripcion')";
     $result = $con->query($query);
     if ($result) {
-        $res = TRUE;
+        $query = "SELECT * FROM anuncios WHERE descripcion = '$descripcion'";
+        $result = $con->query($query);
+        $aux = $result->fetch_assoc();
+        $res = $aux['idAnuncio'];
     }
     desconectar($con);
     return $res;
@@ -126,6 +129,18 @@ function leerAnunciosSinArticulo() {
         }
     }
 
+    desconectar($con);
+    return $res;
+}
+function asociaAnuncio($idAnuncio,$idAnunciante){
+    $con = conexionBD();
+    $res = FALSE;
+
+    $query = "UPDATE anuncios SET idAnunciante = $idAnunciante WHERE idAnuncio=$idAnuncio";
+    $result = $con->query($query);
+    if ($result) {
+        $res = TRUE;
+    }
     desconectar($con);
     return $res;
 }

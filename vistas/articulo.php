@@ -52,7 +52,7 @@ function hiloComentario($respuesta) {
 
     </head>
     <style>
-        
+
     </style>
     <body>
         <header>
@@ -70,28 +70,48 @@ function hiloComentario($respuesta) {
         <?php
 
         $idArticulo = $_GET['idArticulo'];
-        $articulo=readArticulo($idArticulo);
-        $autor= readCuenta($articulo['idCuenta']);
+        $articulo = readArticulo($idArticulo);
+        $autor = readCuenta($articulo['idCuenta']);
         ?>
         <article>
             <div class="tituloArticulo">
                 <h2><?php echo $articulo['titulo']; ?></h2>
+
             </div>
-            <div class="imagenArticulo">
-                <a href="<?php if($articulo['imagen']!=NULL){echo '../imagenes/'.$articulo['imagen'];}?>"><?php if($articulo['imagen']!=NULL){echo $articulo['imagen'];}  ?></a>
+            <div class="imagenSeccion">
+                <a href="<?php
+                if ($articulo['imagen'] != NULL) {
+                    echo '../imagenes/' . $articulo['imagen'];
+                }
+                ?>"><img src="../imagenes/<?php echo $articulo['imagen']; ?>"alt='<?php echo $articulo['imagen']; ?>' width='300'><?php
+                       if ($articulo['imagen'] != NULL) {
+                           echo $articulo['imagen'];
+                       }
+                       ?></a>
+
             </div>
-            
+            <div class="audioArticulo">
+                <?php if ($articulo['audio'] != NULL) { ?>
+                    <audio controls>
+                        <source src="<?php echo '../audios/' . $articulo['audio']; ?>" type="audio/mpeg">
+                    </audio>
+                <?php } ?>
+            </div>
             <div class="descripcionArticulo">
-<?php echo $articulo['descripcion']; ?>
+
+                <?php echo $articulo['descripcion']; ?>
+
             </div>
-            <div class="textArticulo">
-                <?php echo $articulo['texto'];  ?>
+            <div class="textoArticulo">
+                <?php echo $articulo['texto']; ?>
             </div>
             <div class="fechaArticulo">
 <?php echo $articulo['fecha']; ?>
             </div>
             <div class="autorArticulo">
-<?php echo $autor['nombre']; ?>
+
+                <?php echo $autor['nombre']; ?>
+
             </div>
             <div class="comentariosArticulo">
 <?php readComentariosArticulo($articulo['idArticulo']); ?>
