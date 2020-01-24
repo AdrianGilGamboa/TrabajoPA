@@ -217,12 +217,15 @@ function leerArticulosDadaPortada($idPortada) {
     $res = FALSE;
     $query = "SELECT * FROM articulos WHERE idPortada=$idPortada";
     $result = $con->query($query);
-    if ($result->num_rows !== 0) {
-        $res = array();
-        for ($i = 0; $i < $result->num_rows; $i++) {
-            array_push($res, $result->fetch_assoc());
+    if ($result) {
+        if ($result->num_rows !== 0) {
+            $res = array();
+            for ($i = 0; $i < $result->num_rows; $i++) {
+                array_push($res, $result->fetch_assoc());
+            }
         }
     }
+
 
     desconectar($con);
     return $res;
@@ -231,14 +234,15 @@ function leerArticulosDadaPortada($idPortada) {
 function quitarArticuloDePortada($idArticulo) {
     $con = conexionBD();
     $res = FALSE;
-    $query = "UPDATE set idPortada=NULL where idArticulo=$idArticulo";
+    $query = "UPDATE articulos set idPortada=NULL where idArticulo=$idArticulo";
     $con->query($query);
 
 
     desconectar($con);
     return $res;
 }
-function asociarArticuloAutor($idArticulo, $idCuenta){
+
+function asociarArticuloAutor($idArticulo, $idCuenta) {
     $con = conexionBD();
     $res = FALSE;
     $query = "UPDATE articulos SET idCuenta = $idCuenta WHERE idArticulo=$idArticulo";
@@ -250,15 +254,32 @@ function asociarArticuloAutor($idArticulo, $idCuenta){
     desconectar($con);
     return $res;
 }
-function asociarArticuloAnuncio($idArticulo, $idAnuncio){
+
+function asociarArticuloAnuncio($idArticulo, $idAnuncio) {
     $con = conexionBD();
-     $res = FALSE;
+    $res = FALSE;
+    $query = "UPDATE anuncios SET idArticulo = $idArticulo WHERE idAnuncio=$idAnuncio";
+    $result = $con->query($query);
     $query = "UPDATE articulos SET idAnuncio = $idAnuncio WHERE idArticulo=$idArticulo";
     $result = $con->query($query);
     if ($result) {
         $res = TRUE;
     }
+    desconectar($con);
+    return $res;
+}
 
+function leerArticulosSinPortada() {
+    $con = conexionBD();
+    $res = False;
+    $query = "SELECT * FROM articulos WHERE idPortada is NULL";
+    $result = $con->query($query);
+    if ($result->num_rows !== 0) {
+        $res = array();
+        for ($i = 0; $i < $result->num_rows; $i++) {
+            array_push($res, $result->fetch_assoc());
+        }
+    }
     desconectar($con);
     return $res;
 }

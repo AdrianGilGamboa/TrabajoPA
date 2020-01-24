@@ -41,7 +41,8 @@ include_once ("../CRUD/CRUDAnuncio.php");
             }
         }
         if (isset($_POST['actualiza'])) {
-//            echo "hola";
+            $idArticulo = $_POST['idArticulo'];
+            $articulo = readArticulo($idArticulo);
             $actualizar = TRUE;
             $titulo = filter_var(trim($_POST['titulo']), FILTER_SANITIZE_MAGIC_QUOTES);
             if ($titulo === "" or ! preg_match('/^[[:alpha:]]+$/', $titulo)) {
@@ -49,7 +50,7 @@ include_once ("../CRUD/CRUDAnuncio.php");
                 echo "wrong title";
             }
             $descripcion = filter_var(trim($_POST['descripcion']), FILTER_SANITIZE_MAGIC_QUOTES);
-            if ($descripcion === "" or ! preg_match('/^[[:alpha:]]+$/', $descripcion)) {
+            if ($descripcion === "") {
                 $actualizar = False; //hacer con JS
                 echo "wrong description";
             }
@@ -59,27 +60,36 @@ include_once ("../CRUD/CRUDAnuncio.php");
                 echo "wrong text";
             }
             $fecha = $_POST['fecha'];
-            if (isset($_FILES['imagen'])) {
+            $idAnuncio = $_POST['anuncio'];
+            if (!empty($_FILES['imagen']["name"])) {
                 $imagen = $_FILES['imagen'];
                 if ($imagen['type'] !== 'image/png') {
                     echo "wrong format of image";
                     $actualizar = False;
                 } else {
                     $nombreImagen = $imagen['name'];
+                    unlink("../imagenes/".$articulo['imagen']);
                 }
+            } else {
+                $nombreImagen = $articulo['imagen'];
+                
             }
-            if (isset($_FILES['audio'])) {
+            if (!empty($_FILES['audio']["name"])) {
                 $audio = $_FILES['audio'];
                 if ($audio['type'] !== 'audio/mpeg') {
                     echo "wrong format of audio";
                     $actualizar = False;
                 } else {
+                    unlink("../audio/".$articulo['audio']);
                     $nombreAudio = $audio['name'];
                 }
+            } else {
+                $nombreAudio = $articulo['audio'];
+                
             }
             if ($actualizar) {
                 $articulo = array(
-                    'idArticulo' => $_POST['idArticulo'],
+                    'idArticulo' => $idArticulo,
                     'titulo' => $titulo,
                     'descripcion' => $descripcion,
                     'texto' => $texto,
@@ -87,10 +97,16 @@ include_once ("../CRUD/CRUDAnuncio.php");
                     'imagen' => $nombreImagen,
                     'audio' => $nombreAudio
                 );
-                if (($idArticulo = updateArticulo($articulo)) !== FALSE) {
-//                    asociarArticuloAutor($idArticulo, $idCuenta);
-//                    move_uploaded_file($imagen['tmp_name'], '../imagenes/' . $nombreImagen);
-//                    move_uploaded_file($audio['tmp_name'], '../audios/' . $nombreAudio);
+                if (updateArticulo($articulo)) {
+                    asociarArticuloAnuncio($idArticulo, $idAnuncio);   
+                    if (!empty($_FILES['audio']["name"])) {
+                        move_uploaded_file($audio['tmp_name'], '../audios/' . $nombreAudio);
+                    }
+                    if (!empty($_FILES['imagen']["name"])) {
+                        move_uploaded_file($imagen['tmp_name'], '../imagenes/' . $nombreImagen);
+                    }
+                    
+                    
                     echo "Article created";
                 } else {
                     echo "Error creating";
@@ -109,6 +125,9 @@ include_once ("../CRUD/CRUDAnuncio.php");
                 }
             }
             foreach ($borrar as $idArticulo) {
+                $articulo = readArticulo($idArticulo);
+                unlink("../imagenes/" . $articulo['imagen']);
+                unlink("../anuncios/" . $articulo['audio']);
                 deleteArticulo($idArticulo);
             }
         } else if (isset($_POST['modifica'])) {
@@ -127,7 +146,7 @@ include_once ("../CRUD/CRUDAnuncio.php");
                 Audio: <input type="file" name="audio" value="<?php echo $articulo['audio']; ?>"><br/>
                 Anuncio asociado al articulo: 
 
-                <!--                no estan puestos los seleccionados, solo los demas-->
+
                 <?php
                 $anuncios = readAllAnuncio();
                 if (!empty($anuncios)) {
@@ -135,16 +154,21 @@ include_once ("../CRUD/CRUDAnuncio.php");
                         echo $anuncio['descripcion'];
                         echo $anuncio['imagen'];
                         ?>
-                        <input type="checkbox" name="<?php echo $anuncio['descripcion']; ?>" value="<?php echo $anuncio['descripcion']; ?>" 
+                        <input type="radio" name="anuncio" value="<?php echo $anuncio['idAnuncio']; ?>" <?php
+                        if ($idAr === $anuncio['idArticulo']) {
+                            echo "checked";
+                        }
+                        ?>> 
 
-                               <?php
-                           }
-                       } else {
-                           echo "There are no ads available to modify this article";
-                       }
-                       ?>
+                        <?php
+                    }
+                } else {
+                    echo "There are no ads available to modify this article";
+                }
+                ?>
 
-                       <input type ="hidden" name ="idArticulo"  value ="<?php echo $idAr; ?>">
+                <input type ="hidden" name ="idArticulo"  value ="<?php echo $idAr; ?>">
+
                 <input type="submit" name="actualiza" value="Actualizar"><br/>
             </form>
 
@@ -158,7 +182,7 @@ include_once ("../CRUD/CRUDAnuncio.php");
                 echo "TITULO erroneo";
             }
             $descripcion = filter_var(trim($_POST['descripcion']), FILTER_SANITIZE_MAGIC_QUOTES);
-            if ($descripcion === "" or ! preg_match('/^[[:alpha:]]+$/', $descripcion)) {
+            if ($descripcion === "") {
                 $insertar = False; //hacer con JS
                 echo "DESCRIPCION erronea";
             }
@@ -168,6 +192,7 @@ include_once ("../CRUD/CRUDAnuncio.php");
                 echo "TEXTO erroneo";
             }
             $fecha = $_POST['fecha'];
+            $idAnuncio = $_POST['anuncio'];
             if (isset($_FILES['imagen'])) {
                 $imagen = $_FILES['imagen'];
                 if ($imagen['type'] !== 'image/png') {
@@ -196,6 +221,7 @@ include_once ("../CRUD/CRUDAnuncio.php");
                     'audio' => $nombreAudio
                 );
                 if (($idArticulo = createArticulo($articulo)) !== FALSE) {
+                    asociarArticuloAnuncio($idArticulo, $idAnuncio);
                     asociarArticuloAutor($idArticulo, $idCuenta);
                     move_uploaded_file($imagen['tmp_name'], '../imagenes/' . $nombreImagen);
                     move_uploaded_file($audio['tmp_name'], '../audios/' . $nombreAudio);
@@ -248,7 +274,7 @@ include_once ("../CRUD/CRUDAnuncio.php");
                         ?>
                     </table>
                     <input type="hidden" name="numAr" value="<?php echo $j; ?>">
-                    <input type="submit" name="borra" value="Borrar articulo">
+                    <input type="submit" name="borra" value="Delete article">
                 </form>
 
                 <?php
@@ -304,8 +330,26 @@ include_once ("../CRUD/CRUDAnuncio.php");
                             <td>Audio: </td>
                             <td><input type="file" name="audio" /></td>
                         </tr>
-                        <input type="submit" name="crea" value="Create article">
+                        <tr>
+                            <?php
+                            $anuncios = leerAnunciosSinArticulo();
+                            if (!empty($anuncios)) {
+                                foreach ($anuncios as $anuncio) {
+                                    ?><td><?php
+                                        echo $anuncio['descripcion'];
+                                        echo $anuncio['imagen'];
+                                        ?>
+                                        <input type="radio" name="anuncio" value="<?php echo $anuncio['idAnuncio']; ?>"></td> 
+
+                                    <?php
+                                }
+                            } else {
+                                echo "There are no ads available to modify this article";
+                            }
+                            ?>
+                        </tr> 
                     </table>
+                    <input type="submit" name="crea" value="Create article">
                 </form>
                 <?php
             }

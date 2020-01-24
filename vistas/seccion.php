@@ -5,45 +5,18 @@ include_once ('../CRUD/CRUDCuenta.php');
 
 function mostrarArticulos($idSeccion) {
     $con = conexionBD();
-//    echo "soy::::" . $idSeccion;
-    $query = "SELECT * FROM secciones WHERE categoria = '$idSeccion' LIMIT 1";
+
+    $query = "SELECT * FROM secciones WHERE idSeccion = '$idSeccion'";
 
     $result = $con->query($query);
     $articuloAux = $result->fetch_assoc();
     $articulos = leerArticulosDadaSeccion($articuloAux['idSeccion']);
+
     if ($articulos) {
-        foreach ($articulos as $articulo) {
-            // echo mysqli_error();
-            //echo $valores['titulo'];
-            ?><article>
-                <div class="imagenSeccion">
-                    <a href="<?php
-                    if ($articulo['imagen'] != NULL) {
-                        echo 'imagenes/' . $articulo['imagen'];
-                    }
-                    ?>"><?php
-                           if ($articulo['imagen'] != NULL) {
-                               echo $articulo['imagen'];
-                           }
-                           ?></a>
-                </div>
-                <div class="tituloSeccion">
-                    <h2><?php echo $articulo['titulo']; ?></h2>
-                </div>
-                <div class="descripcionSeccion">
-                    <?php echo $articulo['descripcion']; ?>
-                </div>
-                <div class="fechaSeccion">
-                    <?php echo $articulo['fecha']; ?>
-                </div>
-                <div class="autorSeccion">
-                    <?php
-                    $autor = readCuenta($articulo['idCuenta']);
-                    echo $autor['nombre'];
-                    ?>
-                </div>
-            </article><?php
-        }
+        return $articulos;
+    } else {
+        return FALSE;
+
     }
 }
 ?>
@@ -75,13 +48,51 @@ function mostrarArticulos($idSeccion) {
         <article class="tituloSeccion">
 
             <h3>Section <?php
-                $idSeccion = $_POST['seccion'];
+        $idSeccion = $_GET['idSeccion'];
+        echo $idSeccion;
 
-                $seccion = readSeccion($idSeccion);
-                echo $seccion['categoria'];
-                ?></h3>
+        $seccion = readSeccionId($idSeccion);
+        echo $seccion['categoria'];
+        ?></h3>
+
         </article>
-        <?php mostrarArticulos($idSeccion);  //echo $articulo['titulo'];
+        <?php
+        $articulos = mostrarArticulos($idSeccion);  //echo $articulo['titulo'];
+        if ($articulos) {
+            foreach ($articulos as $articulo) {
+                ?><article>
+                    <div class="imagenSeccion">
+                        <a href="<?php
+                        if ($articulo['imagen'] != NULL) {
+                            echo 'imagenes/' . $articulo['imagen'];
+                        }
+                        ?>"><?php
+                               if ($articulo['imagen'] != NULL) {
+                                   echo $articulo['imagen'];
+                               }
+                               ?></a>
+                    </div>
+                    <div class="tituloSeccion">
+                        <h2><?php echo $articulo['titulo']; ?></h2>
+                    </div>
+                    <div class="descripcionSeccion">
+                        <?php echo $articulo['descripcion']; ?>
+                    </div>
+                    <div class="textoSeccion">
+                        <?php echo $articulo['texto']; ?>
+                    </div>
+                    <div class="fechaSeccion">
+                        <?php echo $articulo['fecha']; ?>
+                    </div>
+                    <div class="autorSeccion">
+                        <?php
+                        $autor = readCuenta($articulo['idCuenta']);
+                        echo $autor['nombre'];
+                        ?>
+                    </div>
+                </article><?php
+            }
+        }
         ?>
 
         <footer id="footer">
