@@ -5,7 +5,7 @@ include_once ('../CRUD/CRUDCuenta.php');
 
 function mostrarArticulos($idSeccion) {
     $con = conexionBD();
-    echo "soy::::" . $idSeccion;
+//    echo "soy::::" . $idSeccion;
     $query = "SELECT * FROM secciones WHERE categoria = '$idSeccion' LIMIT 1";
 
     $result = $con->query($query);
@@ -18,14 +18,14 @@ function mostrarArticulos($idSeccion) {
             ?><article>
                 <div class="imagenSeccion">
                     <a href="<?php
-            if ($articulo['imagen'] != NULL) {
-                echo 'imagenes/' . $articulo['imagen'];
-            }
-            ?>"><?php
-                       if ($articulo['imagen'] != NULL) {
-                           echo $articulo['imagen'];
-                       }
-                       ?></a>
+                    if ($articulo['imagen'] != NULL) {
+                        echo 'imagenes/' . $articulo['imagen'];
+                    }
+                    ?>"><?php
+                           if ($articulo['imagen'] != NULL) {
+                               echo $articulo['imagen'];
+                           }
+                           ?></a>
                 </div>
                 <div class="tituloSeccion">
                     <h2><?php echo $articulo['titulo']; ?></h2>
@@ -46,39 +46,58 @@ function mostrarArticulos($idSeccion) {
         }
     }
 }
-        ?>
+?>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
-        <title></title>
+        <title>section</title>
+        <link href="css.css" rel="stylesheet" type="text/css"/>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content=="IE=edge"/>
+        <meta name="google" value="notranslate"/>
+        <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     </head>
 
     <body>
         <header>
             <h1>MoarNews</h1>
             <h2>The Digital Newspaper</h2>
+
         </header>
         <?php
         include_once 'nav.php';
         ?>
+         
         <aside>
             <!-- Anuncios -->
         </aside>
         <article class="tituloSeccion">
 
             <h3>Section <?php
-        $idSeccion = $_POST['seccion'];
+                $idSeccion = $_POST['seccion'];
 
-        $seccion = readSeccion($idSeccion);
-        echo $seccion['categoria'];
-        ?></h3>
+                $seccion = readSeccion($idSeccion);
+                echo $seccion['categoria'];
+                ?></h3>
         </article>
         <?php mostrarArticulos($idSeccion);  //echo $articulo['titulo'];
         ?>
 
-        <footer>
-
+        <footer id="footer">
+            <div class="inner">
+                <h2>Get In Touch</h2>
+                <ul class="actions">
+                    <li><i class="icon fa-phone"></i> <a href="#">(034)954 34 92 00</a></li>
+                    <li><span class="icon fa-envelope"></span> <a href="#">moarNesws@gmail.com</a></li>
+                    <li><span class="icon fa-map-marker"></span> Ctra. de Utrera, 1, 41013 Sevilla </li>
+                </ul>
+            </div>
+            <div class="copyright">
+                &copy; Newspaper. MoarNews <a href="https://www.upo.es/portal/impe/web/portada/index.html">MoarNews</a>. Images <a href="../imagenes/logo.jpeg" alt="logo">MoarNews</a>.
+                
+            </div>
         </footer>
     </body>
+    
 </html>
