@@ -71,6 +71,7 @@ function mediaPuntuacion($sumaTotal, $numComentarios) {
                 </td>
             </tr> 
         </table>
+        <section>
         <?php
         if ($_SESSION['tipo'] === 'usuario') {
             $sumaTotal = 0;
@@ -149,6 +150,7 @@ function mediaPuntuacion($sumaTotal, $numComentarios) {
                 <?php }
                 ?>
                 <div class="boton"><a href="modificarCuenta.php">Modify account</a></div>
+                </section>
                 <footer id="footer">
                     <div class="inner">
                         <h2>Get In Touch</h2>
