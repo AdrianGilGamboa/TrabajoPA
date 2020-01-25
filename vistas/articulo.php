@@ -48,7 +48,8 @@ function hiloComentario($respuesta) {
         <meta name="google" value="notranslate"/>
         <link href="css.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-        <title>Article</title>
+        <title><?php $idArticulo = $_GET['idArticulo'];
+        $articulo = readArticulo($idArticulo);echo $articulo['titulo']; ?></title>
 
     </head>
     <style>
@@ -69,8 +70,7 @@ function hiloComentario($respuesta) {
         </aside>
         <?php
 
-        $idArticulo = $_GET['idArticulo'];
-        $articulo = readArticulo($idArticulo);
+        
         $autor = readCuenta($articulo['idCuenta']);
         ?>
         <article>

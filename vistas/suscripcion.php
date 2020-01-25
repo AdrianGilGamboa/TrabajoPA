@@ -14,9 +14,7 @@ and open the template in the editor.
         <title></title>
     </head>
     <body>
-        <?php
-        include_once 'nav.php';
-        ?>
+        
         
           
         <?php
@@ -36,9 +34,12 @@ and open the template in the editor.
             
         }
         ?>
+        <?php
+        include_once 'nav.php';
+        ?>
         <form action="#" method="POST">
-            <input type="submit" name="oro" value="Gold"><br/>
-            <input type="submit" name="plata" value="Silver"><br/>
+            <input type="submit" name="oro" value="Gold">
+            <input type="submit" name="plata" value="Silver">
             <input type="submit" name="bronce" value="Bronze">
         </form>
         <footer id="footer">

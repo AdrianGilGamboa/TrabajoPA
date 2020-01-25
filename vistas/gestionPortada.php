@@ -86,9 +86,7 @@ include ("../CRUD/CRUDAnuncio.php");
         </script>
     </head>
     <body>
-        <?php
-        include_once 'nav.php';
-        ?>
+        
        
         <form action="#" method="POST">
 
@@ -112,7 +110,9 @@ include ("../CRUD/CRUDAnuncio.php");
                 header('Location: cuenta.php');
             }
         }
-
+        
+        include_once 'nav.php';
+        
         $portadas = readAllPortada();
         $articulos = readAllArticulo();
 

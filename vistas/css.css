@@ -7,6 +7,7 @@ and open the template in the editor.
     Created on : 22-ene-2020, 11:34:04
     Author     : paula
 */
+/*header*/
 /* Header */
 /* Grid */
 
@@ -1802,19 +1803,7 @@ video {
 audio:not([controls]) {
     display: none;
     height: 0;
-
-
-body
-{
-    margin:0px;
-    padding:0px;
-    font-family: "Open Sans", arial;
-/*    color:#fff;*/
-    font-weight:300;
-
-
 }
-
 
 
 @import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
@@ -1828,7 +1817,6 @@ body
 
     height:73px; 
     float:left;
-
     background-repeat:no-repeat;
     width:250px;
     margin:0px;
@@ -1843,9 +1831,7 @@ body
 .scrollbar
 {
 
-
     /*    height: 90%;*/
-
     width: 100%;
     overflow-y: hidden;
     overflow-x: hidden;
@@ -1888,8 +1874,8 @@ body
 
 .fa-lg {
     font-size: 1em;
-
     color:black;
+
 
 }
 .fa {
@@ -1903,17 +1889,14 @@ body
     font-size:20px;
 }
 
-
 .main-menu:hover, nav.main-menu.expanded {
     width:250px;
     overflow:hidden;
     opacity:1;
-
 }
 
 .main-menu {
     background:white;
-
     position:absolute;
     top:0;
     bottom:0;
@@ -1926,21 +1909,16 @@ body
     -webkit-transform:translateZ(0) scale(1,1);
     box-shadow: 1px 0 15px rgba(0, 0, 0, 0.07);
     opacity:1;
-
     margin-top: 20px;
-
 }
 
 .main-menu>ul {
     margin:7px 0;
-
 }
-
 .main-menu li {
     position:relative;
     display:block;
     width:250px;
-
 }
 
 .main-menu li>a {
@@ -1991,7 +1969,6 @@ body
 .fa-book{
     color:#fff;
 }
-
 .main-menu .fb-like {
 
     left: 180px;
@@ -2040,8 +2017,9 @@ body
 
 a:hover,a:focus {
     text-decoration:none;
-
     border-left:0px solid #c8e7f0;
+
+
 
 }
 
@@ -2060,8 +2038,6 @@ nav ul,nav li {
     padding:0;
     text-transform: uppercase;
 }
-
-
 
 
 
@@ -2101,9 +2077,7 @@ nav ul,nav li {
 
 .main-menu li:hover>a,nav.main-menu li.active>a,.dropdown-menu>li>a:hover,.dropdown-menu>li>a:focus,.dropdown-menu>.active>a,.dropdown-menu>.active>a:hover,.dropdown-menu>.active>a:focus,.no-touch .dashboard-page nav.dashboard-menu ul li:hover a,.dashboard-page nav.dashboard-menu ul li.active a {
     color:#fff;
-
     background-color:#25a2c3; 
-
     text-shadow: 0px 0px 0px; 
 }
 .area {
@@ -2118,7 +2092,6 @@ nav ul,nav li {
     font-weight: 300;
     src: local('Titillium WebLight'), local('TitilliumWeb-Light'), url(http://themes.googleusercontent.com/static/fonts/titilliumweb/v2/anMUvcNT0H1YN4FII8wpr24bNCNEoFTpS2BTjF6FB5E.woff) format('woff');
 }
-
 /* Icon */
 
 .icon {
@@ -2717,4 +2690,3 @@ button:disabled,
     }
 
 }
-

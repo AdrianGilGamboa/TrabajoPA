@@ -16,9 +16,7 @@ include_once ("../CRUD/CRUDAnuncio.php");
     </head>
     
     <body>
-        <?php
-        include_once 'nav.php';
-        ?>
+        
          
           
         <form action="#" method="POST">
@@ -40,6 +38,9 @@ include_once ("../CRUD/CRUDAnuncio.php");
                 header('Location: portada.php');
             }
         }
+        
+        include_once 'nav.php';
+        
         if (isset($_POST['actualiza'])) {
             $idArticulo = $_POST['idArticulo'];
             $articulo = readArticulo($idArticulo);

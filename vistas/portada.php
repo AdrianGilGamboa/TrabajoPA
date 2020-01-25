@@ -138,8 +138,7 @@ include_once ("../CRUD/CRUDPortada.php");
                     </div>
                     <div class="seccionArticulo">
                         <?php
-                        $secciones = leerSeccionDadoArticulo($articulo['idArticulo']);
-                        //print_r($secciones);
+                        $secciones = leerSeccionDadoArticulo($articulo['idArticulo']);;
                         if ($secciones) {
                             foreach ($secciones as $seccion) {
                                 echo $seccion['categoria'];
