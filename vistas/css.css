@@ -7,9 +7,16 @@ and open the template in the editor.
     Created on : 22-ene-2020, 11:34:04
     Author     : paula
 */
-/* Header */
-/* Grid */
 
+/* Box Model */
+
+*, *:before, *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/* Grid */
 .row {
     border-bottom: solid 1px transparent;
     -moz-box-sizing: border-box;
@@ -1802,19 +1809,7 @@ video {
 audio:not([controls]) {
     display: none;
     height: 0;
-
-
-body
-{
-    margin:0px;
-    padding:0px;
-    font-family: "Open Sans", arial;
-/*    color:#fff;*/
-    font-weight:300;
-
-
 }
-
 
 
 @import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
@@ -1828,7 +1823,6 @@ body
 
     height:73px; 
     float:left;
-
     background-repeat:no-repeat;
     width:250px;
     margin:0px;
@@ -1838,14 +1832,97 @@ body
 
 }
 
+/* Section/Article */
 
+	section, article {
+		text-align: center;
+	}
+
+	header p {
+		color: #bbb;
+		position: relative;
+		margin: 0 0 1.5em 0;
+	}
+
+	header h1 + p {
+		font-size: 1.25em;
+		margin-top: -1em;
+	}
+
+	header h2 + p {
+		font-size: 1.25em;
+		margin-top: -1em;
+	}
+
+	header h3 + p {
+		font-size: 1.1em;
+		margin-top: -0.8em;
+	}
+
+	header h4 + p,
+	header h5 + p,
+	header h6 + p {
+		font-size: 0.9em;
+		margin-top: -0.6em;
+	}
+.image {
+		border: 0;
+		display: inline-block;
+		position: relative;
+	}
+
+		.image img {
+			display: block;
+		}
+
+		.image.left, .image.right {
+			max-width: 40%;
+		}
+
+			.image.left img, .image.right img {
+				width: 100%;
+			}
+
+		.image.left {
+			float: left;
+			padding: 0 1.5em 1em 0;
+			top: 0.25em;
+		}
+
+		.image.right {
+			float: right;
+			padding: 0 0 1em 1.5em;
+			top: 0.25em;
+		}
+
+		.image.fit {
+			display: block;
+			margin: 0 0 2em 0;
+			width: 100%;
+		}
+
+			.image.fit img {
+				width: 100%;
+			}
+
+		.image.round img {
+			border-radius: 100%;
+		}
+
+		.image.main {
+			display: block;
+			margin: 0 0 3em 0;
+			width: 100%;
+		}
+
+			.image.main img {
+				width: 100%;
+			}
 /* ScrolBar  */
 .scrollbar
 {
 
-
     /*    height: 90%;*/
-
     width: 100%;
     overflow-y: hidden;
     overflow-x: hidden;
@@ -1888,8 +1965,8 @@ body
 
 .fa-lg {
     font-size: 1em;
-
     color:black;
+
 
 }
 .fa {
@@ -1903,17 +1980,14 @@ body
     font-size:20px;
 }
 
-
 .main-menu:hover, nav.main-menu.expanded {
     width:250px;
     overflow:hidden;
     opacity:1;
-
 }
 
 .main-menu {
     background:white;
-
     position:absolute;
     top:0;
     bottom:0;
@@ -1926,21 +2000,16 @@ body
     -webkit-transform:translateZ(0) scale(1,1);
     box-shadow: 1px 0 15px rgba(0, 0, 0, 0.07);
     opacity:1;
-
     margin-top: 20px;
-
 }
 
 .main-menu>ul {
     margin:7px 0;
-
 }
-
 .main-menu li {
     position:relative;
     display:block;
     width:250px;
-
 }
 
 .main-menu li>a {
@@ -1961,8 +2030,6 @@ body
     text-shadow: 1px 1px 1px  #fff;  
 }
 
-
-
 .main-menu .nav-icon {
 
     position:relative;
@@ -1975,15 +2042,29 @@ body
 
 }
 
-.main-menu .nav-text  {
+.main-menu .nav-text a {
 
     position:relative;
-    /*    display:table-cell;*/
+    display:table-cell;
     vertical-align:middle;
     width:190px;
     font-family: 'Titillium Web', sans-serif;
-}
 
+}
+.nav-text a {
+    text-decoration: none;
+      position:relative;
+    display:table-cell;
+    vertical-align:middle;
+    color:black;
+    font-family: 'Titillium Web', sans-serif;
+    position:relative;
+    display:table-cell;
+    width:30px;
+    text-align:center;
+    vertical-align:middle;
+    font-size:20px;
+}
 .main-menu .share {
 }
 
@@ -1991,7 +2072,6 @@ body
 .fa-book{
     color:#fff;
 }
-
 .main-menu .fb-like {
 
     left: 180px;
@@ -2040,9 +2120,7 @@ body
 
 a:hover,a:focus {
     text-decoration:none;
-
     border-left:0px solid #c8e7f0;
-
 }
 
 nav {
@@ -2060,8 +2138,6 @@ nav ul,nav li {
     padding:0;
     text-transform: uppercase;
 }
-
-
 
 
 
@@ -2087,7 +2163,7 @@ nav ul,nav li {
 
 .darkerlishadowdown
 {
-    background-color:#ededed;
+    background-color:white;
     text-transform:capitalize;  
     -webkit-box-shadow: inset 0px -4px 5px -4px rgba(50, 50, 50, 0.55);
     -moz-box-shadow:    inset 0px -4px 5px -4px rgba(50, 50, 50, 0.55);
@@ -2101,9 +2177,7 @@ nav ul,nav li {
 
 .main-menu li:hover>a,nav.main-menu li.active>a,.dropdown-menu>li>a:hover,.dropdown-menu>li>a:focus,.dropdown-menu>.active>a,.dropdown-menu>.active>a:hover,.dropdown-menu>.active>a:focus,.no-touch .dashboard-page nav.dashboard-menu ul li:hover a,.dashboard-page nav.dashboard-menu ul li.active a {
     color:#fff;
-
     background-color:#25a2c3; 
-
     text-shadow: 0px 0px 0px; 
 }
 .area {
@@ -2118,7 +2192,6 @@ nav ul,nav li {
     font-weight: 300;
     src: local('Titillium WebLight'), local('TitilliumWeb-Light'), url(http://themes.googleusercontent.com/static/fonts/titilliumweb/v2/anMUvcNT0H1YN4FII8wpr24bNCNEoFTpS2BTjF6FB5E.woff) format('woff');
 }
-
 /* Icon */
 
 .icon {
@@ -2445,42 +2518,42 @@ button:disabled,
 }
 /* Wrapper */
 
-	.wrapper {
-		padding: 6em 0 4em 0;
-	}
+.wrapper {
+    padding: 6em 0 4em 0;
+}
 
-		.wrapper h1, .wrapper h2, .wrapper h3, .wrapper h4, .wrapper h5 {
-			color: #25a2c3;
-		}
+.wrapper h1, .wrapper h2, .wrapper h3, .wrapper h4, .wrapper h5 {
+    color: #25a2c3;
+}
 
-		.wrapper.style1 {
-			background: #f6755e;
-			color: #fcdcd6;
-		}
+.wrapper.style1 {
+    background: #f6755e;
+    color: #fcdcd6;
+}
 
-			.wrapper.style1 h1, .wrapper.style1 h2, .wrapper.style1 h3, .wrapper.style1 h4, .wrapper.style1 h5 {
-				color: #fff;
-			}
+.wrapper.style1 h1, .wrapper.style1 h2, .wrapper.style1 h3, .wrapper.style1 h4, .wrapper.style1 h5 {
+    color: #fff;
+}
 
-			.wrapper.style1 cite.author {
-				color: #fff;
-			}
+.wrapper.style1 cite.author {
+    color: #fff;
+}
 
-		@media screen and (max-width: 980px) {
+@media screen and (max-width: 980px) {
 
-			.wrapper {
-				padding: 3em 0 1em 0;
-			}
+    .wrapper {
+        padding: 3em 0 1em 0;
+    }
 
-		}
+}
 
-		@media screen and (max-width: 480px) {
+@media screen and (max-width: 480px) {
 
-			.wrapper {
-				padding: 2em 0 0.1em 0;
-			}
+    .wrapper {
+        padding: 2em 0 0.1em 0;
+    }
 
-		}
+}
 /*footer*/
 #footer {
     padding: 6em 0 4em 0;
@@ -2717,4 +2790,3 @@ button:disabled,
     }
 
 }
-
