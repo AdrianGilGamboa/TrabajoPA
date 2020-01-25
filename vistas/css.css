@@ -1480,6 +1480,11 @@ em, i {
 
 p {
     margin: 0 0 2em 0;
+    text-align: justify;
+    font-family: "Roboto", sans-serif;
+    color: #9a9a9a;
+    font-size: 16px;
+
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -1787,9 +1792,7 @@ body {
 }
 
 p {
-    font-family: "Roboto", sans-serif;
-    color: #9a9a9a;
-    font-size: 16px;
+
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -1981,7 +1984,7 @@ header h6 + p {
 }
 
 .main-menu:hover, nav.main-menu.expanded {
-    width:250px;
+    width:200px;
     overflow:hidden;
     opacity:1;
 }
@@ -2060,10 +2063,10 @@ header h6 + p {
     font-family: 'Titillium Web', sans-serif;
     position:relative;
     display:table-cell;
-    width:30px;
-    text-align:center;
+    width:20px;
+    /*    text-align:center;*/
     vertical-align:middle;
-    font-size:20px;
+    font-size:15px;
 }
 .main-menu .share {
 }
