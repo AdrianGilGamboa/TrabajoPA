@@ -14,9 +14,7 @@ and open the template in the editor.
         <title></title>
     </head>
     <body>
-        <?php
-        include_once 'nav.php';
-        ?>
+        
         
           
         <?php
@@ -35,6 +33,9 @@ and open the template in the editor.
         }else if(isset($_POST['bronce'])){
             
         }
+        ?>
+        <?php
+        include_once 'nav.php';
         ?>
         <form action="#" method="POST">
             <input type="submit" name="oro" value="Gold"><br/>
