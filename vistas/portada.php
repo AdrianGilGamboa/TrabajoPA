@@ -83,7 +83,7 @@ include_once ("../CRUD/CRUDPortada.php");
             foreach ($articulos as $articulo) {
                 $autor = readCuenta($articulo['idCuenta']);
                 ?>
-                <a href="articulo.php?idArticulo=<?php echo $articulo['idArticulo']; ?>"><article>
+                <a href="articulo.php?idArticulo=<?php echo $articulo['idArticulo']; ?>"><article class="inner">
 
                         <h2><?php echo $articulo['titulo']; ?></h2>
 
@@ -109,8 +109,8 @@ include_once ("../CRUD/CRUDPortada.php");
                         <div >
                             <h3><?php echo $articulo['descripcion']; ?></h3> 
                         </div>
-                        <div >
-                            <h4> <?php echo $articulo['texto']; ?></h4>
+                        <div>
+                            <p> <?php echo $articulo['texto']; ?></p>
                         </div>
                         <div class="fechaArticulo">
                             <?php echo $articulo['fecha']; ?>

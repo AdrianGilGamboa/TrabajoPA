@@ -81,23 +81,9 @@ $secciones = readAllSeccion();
             </li>
 
 
-
-<<<<<<< HEAD
             <ul>
                 <?php
                 foreach ($secciones as $seccion) {
-=======
-                <ul>
-                    <?php
-                    foreach ($secciones as $seccion) {
-                        ?>
-                        <li class="darkerlishadow">
-                            <i class="fa fa-book fa-lg"></i>
-                            <span class="nav-text"><a href="seccion.php?idSeccion=<?php echo $seccion['idSeccion']; ?>"><?php echo $seccion['categoria']; ?></a></span>                            
-                        </li>
-                        <?php
-                    }
->>>>>>> ae3d635b141badd08881a45f14c5824a50ee03e2
                     ?>
                     <li class="darkerlishadow">
                         <i class="fa fa-book fa-lg"></i>
@@ -114,7 +100,6 @@ $secciones = readAllSeccion();
                 </a>
             </li>   
 
-
             <ul class="logout">
                 <li>
                     <a href="logout.php">
@@ -123,25 +108,9 @@ $secciones = readAllSeccion();
                             LOGOUT
                         </span>
                     </a>
-<<<<<<< HEAD
+
                 </li>  
             </ul>
 
             </nav>
-=======
-                </li>   
 
-
-                <ul class="logout">
-                    <li>
-                        <a href="logout.php">
-                            <i class="fa fa-lightbulb-o fa-lg"></i>
-                            <span class="nav-text">
-                                LOGOUT
-                            </span>
-                        </a>
-                    </li>  
-                </ul>
-            
-            </nav>
->>>>>>> ae3d635b141badd08881a45f14c5824a50ee03e2

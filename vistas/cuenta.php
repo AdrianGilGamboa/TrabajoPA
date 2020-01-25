@@ -9,7 +9,7 @@ function mediaPuntuacion($sumaTotal, $numComentarios) {
 }
 ?>
 <html>
-   <head>
+    <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content=="IE=edge"/>
         <meta name="google" value="notranslate"/>
@@ -34,7 +34,7 @@ function mediaPuntuacion($sumaTotal, $numComentarios) {
         <?php
         include_once 'nav.php';
         ?>
-        
+
         <h1> Datos <?php echo $nombreUsuario; ?></h1>
         <table cellpadding="10" border="1">
             <tr>
@@ -69,44 +69,45 @@ function mediaPuntuacion($sumaTotal, $numComentarios) {
             </tr> 
         </table>
         <section>
-        <?php
-        if ($_SESSION['tipo'] === 'usuario') {
-            $sumaTotal = 0;
-            $comentarios = readAllComentariosFromID($idUsuario);
-            ?>
-            <table cellpadding="10" border="1">
-                <tr>Comments: </tr>
-                <!--                comprobar si es mayor que 0, osea que no este vacio-->
+            <?php
+            if ($_SESSION['tipo'] === 'usuario') {
+                $sumaTotal = 0;
+                $comentarios = readAllComentariosFromID($idUsuario);
+                ?>
+                <table cellpadding="10" border="1">
+                    <tr>Comments: </tr>
+                    <!--                comprobar si es mayor que 0, osea que no este vacio-->
 
-                <?php if ($comentarios) { ?>
-                    <?php foreach ($comentarios as $comentario) { ?> 
+                    <?php if ($comentarios) { ?>
+                        <?php foreach ($comentarios as $comentario) { ?> 
 
-                        <tr>
-                            <th>identifier: </th>     
-                            <th>text: </th>     
-                            <th>puntuation: </th>     
-                        </tr>
-                        <tr>
-                            <td align='center'><?php echo $comentario['idComentario']; ?></td>
-                            <td align='center'><?php echo $comentario['texto']; ?></td>
-                            <td align='center'><?php echo $comentario['puntuacion']; ?></td>
+                            <tr>
+                                <th>identifier: </th>     
+                                <th>text: </th>     
+                                <th>puntuation: </th>     
+                            </tr>
+                            <tr>
+                                <td align='center'><?php echo $comentario['idComentario']; ?></td>
+                                <td align='center'><?php echo $comentario['texto']; ?></td>
+                                <td align='center'><?php echo $comentario['puntuacion']; ?></td>
 
 
-                            <!--falta hacer la media de la puntuación-->
-                        </tr>
+                                <!--falta hacer la media de la puntuación-->
+                            </tr>
 
-                        <?php $sumaTotal = $comentario['puntuacion'] + $sumaTotal;
-                        ?>
+                            <?php $sumaTotal = $comentario['puntuacion'] + $sumaTotal;
+                            ?>
 
-                    <?php } $media = mediaPuntuacion($sumaTotal, count($comentarios)); ?>
+                        <?php } $media = mediaPuntuacion($sumaTotal, count($comentarios)); ?>
 
-                    <table cellpadding="10" border="1">
-                        <tr>
-                            <th>Average score comments: </th>     
-                        </tr>
-                        <tr>
-                            <td align='center'><?php echo $media; ?></td>
-                        </tr>
+                        <table cellpadding="10" border="1">
+                            <tr>
+                                <th>Average score comments: </th>     
+                            </tr>
+                            <tr>
+                                <td align='center'><?php echo $media; ?></td>
+                            </tr>
+                        </table>
 
                         <!--                si autor, listado de articulos-->
                         <?php
@@ -147,23 +148,23 @@ function mediaPuntuacion($sumaTotal, $numComentarios) {
                 <?php }
                 ?>
                 <div class="boton"><a href="modificarCuenta.php">Modify account</a></div>
-                </section>
-                <footer id="footer">
-                    <div class="inner">
-                        <h2>Get In Touch</h2>
-                        <ul class="actions">
-                            <li><i class="icon fa-phone"></i> <a href="#">(034)954 34 92 00</a></li>
-                            <li><span class="icon fa-envelope"></span> <a href="#">moarNesws@gmail.com</a></li>
-                            <li><span class="icon fa-map-marker"></span> Ctra. de Utrera, 1, 41013 Sevilla </li>
-                        </ul>
-                    </div>
-                    <div class="copyright">
-                        &copy; Newspaper. MoarNews <a href="https://www.upo.es/portal/impe/web/portada/index.html">MoarNews</a>. Images <a href="../imagenes/logo.jpeg" alt="logo">MoarNews</a>.
+        </section>
+        <footer id="footer">
+            <div class="inner">
+                <h2>Get In Touch</h2>
+                <ul class="actions">
+                    <li><i class="icon fa-phone"></i> <a href="#">(034)954 34 92 00</a></li>
+                    <li><span class="icon fa-envelope"></span> <a href="#">moarNesws@gmail.com</a></li>
+                    <li><span class="icon fa-map-marker"></span> Ctra. de Utrera, 1, 41013 Sevilla </li>
+                </ul>
+            </div>
+            <div class="copyright">
+                &copy; Newspaper. MoarNews <a href="https://www.upo.es/portal/impe/web/portada/index.html">MoarNews</a>. Images <a href="../imagenes/logo.jpeg" alt="logo">MoarNews</a>.
 
-                    </div>
-                </footer>
-                </body>
+            </div>
+        </footer>
+    </body>
 
 
-                </html>
+</html>
 

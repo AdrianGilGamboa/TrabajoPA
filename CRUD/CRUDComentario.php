@@ -85,6 +85,8 @@ function readAllComentariosFromID($idCuenta) {
             array_push($res, $result->fetch_assoc());
         }
     }
+    desconectar($con);
+    return $res;
 }
 //    comentarios en funcion de un articulo
 function readAllComentariosFromArticulo($idArticulo) {
