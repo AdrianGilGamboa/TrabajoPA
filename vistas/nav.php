@@ -112,5 +112,5 @@ $secciones = readAllSeccion();
                         </a>
                     </li>  
                 </ul>
-            
             </nav>
+
