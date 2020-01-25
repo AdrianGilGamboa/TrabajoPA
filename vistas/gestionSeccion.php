@@ -32,9 +32,7 @@ function tiene($misArticulos, $articulo) {
             <input type="submit" name="modifSect" value="Modify Section">
             <input type="submit" name="eliminaSect" value="Delete Section">
         </form>
-        <?php
-        include_once 'nav.php';
-        ?>
+        
         
         <?php
         session_start();
@@ -49,6 +47,9 @@ function tiene($misArticulos, $articulo) {
                 header('Location: cuenta.php');
             }
         }
+        
+        include_once 'nav.php';
+        
         $secciones = readAllSeccion();
         $articulos = readAllArticulo();
         if (isset($_POST['confirmar'])) {

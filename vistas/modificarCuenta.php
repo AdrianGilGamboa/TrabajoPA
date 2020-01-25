@@ -13,9 +13,7 @@ include_once("../CRUD/CRUDSeccion.php");
         <title></title>
     </head>
     <body>
-        <?php
-        include_once 'nav.php';
-        ?>
+        
         
           
         <?php
@@ -29,6 +27,9 @@ include_once("../CRUD/CRUDSeccion.php");
             $nombreUsuario = $_SESSION['nombreUsuario'];
             $idUsuario = $_SESSION['cuentaID'];
         }
+        
+        include_once 'nav.php';
+        
         $datosPersonales = readCuenta($idUsuario);
         $secciones = readAllSeccion();
         if (isset($_POST['btnActualizar'])) {

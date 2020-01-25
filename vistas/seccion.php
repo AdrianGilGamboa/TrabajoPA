@@ -24,7 +24,8 @@ function mostrarArticulos($idSeccion) {
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>section</title>
+        <title><?php $idSeccion = $_GET['idSeccion'];
+        $seccion = readSeccionId($idSeccion);echo $seccion['categoria']; ?></title>
         <link href="css.css" rel="stylesheet" type="text/css"/>
         <meta charset="utf-8"/>
         <meta http-equiv="X-UA-Compatible" content=="IE=edge"/>
@@ -40,8 +41,7 @@ function mostrarArticulos($idSeccion) {
         </header>
         <?php
         include_once 'nav.php';
-        $idSeccion = $_GET['idSeccion'];
-        $seccion = readSeccionId($idSeccion);
+        
         ?>
          
         <aside>
@@ -49,7 +49,7 @@ function mostrarArticulos($idSeccion) {
         </aside>
         <section class="categoriaSeccion">
 
-            <h3>Section <?php echo $seccion['categoria'] ?></h3>
+            <h3>Section <?php echo $seccion['categoria']; ?></h3>
 
 
             <?php

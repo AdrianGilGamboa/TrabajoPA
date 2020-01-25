@@ -20,9 +20,6 @@ function mediaPuntuacion($sumaTotal, $numComentarios) {
     <body>
         <?php
         session_start();
-//        $_SESSION['cuentaID'] = 1;
-//        $_SESSION['nombreUsuario'] = "Pedro";
-//        $_SESSION['tipo'] = "usuario";
 
         if (!isset($_SESSION['cuentaID'])) {
             header('Location:inicioSesion.php');

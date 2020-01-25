@@ -26,12 +26,8 @@ include_once ("../CRUD/CRUDAnunciante.php");
                 header('Location:cuenta.php');
             }
         }
-        ?>
-        <?php
+        
         include_once 'nav.php';
-        ?>
-         <?php
-        include_once 'header.php';
         ?>
           
         <form action="#" method="POST">
