@@ -82,7 +82,6 @@ $secciones = readAllSeccion();
 
 
 
-            <form action="seccion.php" method="POST">
                 <ul>
                     <?php
                     foreach ($secciones as $seccion) {
@@ -113,5 +112,4 @@ $secciones = readAllSeccion();
                         </a>
                     </li>  
                 </ul>
-            </form>
             </nav>
