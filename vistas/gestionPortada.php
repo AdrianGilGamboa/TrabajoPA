@@ -10,66 +10,11 @@ include ("../CRUD/CRUDAnuncio.php");
 
     form{
         text-align: center;
+        margin-bottom:50px;
     }
-
-    form input{
-        margin:10px;
+    #navegador{
+        margin-bottom:0px;
     }
-
-    .botonesGestionPortada{
-        margin:10px;
-    }
-
-    input[type=submit] {
-        background-color: #0693cd;
-        border: 0;
-        border-radius: 5px;
-        cursor: pointer;
-        color: #fff;
-        font-size:16px;
-        font-weight: bold;
-        line-height: 1.4;
-        padding: 10px;
-        width: 200px
-    }
-
-    table {
-        font-family: sans-serif;
-        font-size: 115%;
-        overflow: auto;
-        width: auto;
-        margin:auto;
-        margin-top:20px;
-    }
-
-    th {
-        background-color: #0693cd;
-        color: white;
-        font-weight: normal;
-        padding: 20px 30px;
-        text-align: center;
-    }
-    td {
-        background-color: rgb(238, 238, 238);
-        color: black;
-        padding: 20px 30px;
-    }
-
-
-
-    ul {
-        list-style-type: circle;
-        width: 500px;
-        margin: auto;
-    }
-
-    li {
-        padding: 10px;
-    }
-
-    
-
-
 
 </style>
 
@@ -97,10 +42,10 @@ include ("../CRUD/CRUDAnuncio.php");
         </form>
         <?php
 
-              session_start();
-             if(!isset($_SESSION['cuentaID'])){
-                 header('Location: inicioSesion.php');
-             }
+//              session_start();
+//             if(!isset($_SESSION['cuentaID'])){
+//                 header('Location: inicioSesion.php');
+//             }
 
         if (isset($_SESSION['cuentaID'])) {
             if ($_SESSION['tipo'] === "administrador") {
