@@ -136,7 +136,6 @@ include_once ("../CRUD/CRUDPortada.php");
                                     <?php
                                 }
                             }
-
                         }
                         ?>
                     </div>

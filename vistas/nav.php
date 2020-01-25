@@ -82,36 +82,35 @@ $secciones = readAllSeccion();
 
 
 
-            <form action="seccion.php" method="POST">
-                <ul>
-                    <?php
-                    foreach ($secciones as $seccion) {
-                        ?>
-                        <li class="darkerlishadow">
-                            <i class="fa fa-book fa-lg"></i>
-                            <span class="nav-text"><a href="seccion.php?idSeccion=<?php echo $seccion['idSeccion']; ?>"><?php echo $seccion['categoria']; ?></a></span>                            
-                        </li>
-                        <?php
-                    }
+            <ul>
+                <?php
+                foreach ($secciones as $seccion) {
                     ?>
-                </ul>
+                    <li class="darkerlishadow">
+                        <i class="fa fa-book fa-lg"></i>
+                        <span class="nav-text"><a href="seccion.php?idSeccion=<?php echo $seccion['idSeccion']; ?>"><?php echo $seccion['categoria']; ?></a></span>                            
+                    </li>
+                    <?php
+                }
+                ?>
+            </ul>
+            <li>
+                <a href="registro.php">
+                    <i class="fa fa-question-circle fa-lg"></i>
+                    <span class="nav-text">REGISTER</span>
+                </a>
+            </li>   
+
+
+            <ul class="logout">
                 <li>
-                    <a href="registro.php">
-                        <i class="fa fa-question-circle fa-lg"></i>
-                        <span class="nav-text">REGISTER</span>
+                    <a href="logout.php">
+                        <i class="fa fa-lightbulb-o fa-lg"></i>
+                        <span class="nav-text">
+                            LOGOUT
+                        </span>
                     </a>
-                </li>   
+                </li>  
+            </ul>
 
-
-                <ul class="logout">
-                    <li>
-                        <a href="logout.php">
-                            <i class="fa fa-lightbulb-o fa-lg"></i>
-                            <span class="nav-text">
-                                LOGOUT
-                            </span>
-                        </a>
-                    </li>  
-                </ul>
-            </form>
             </nav>
