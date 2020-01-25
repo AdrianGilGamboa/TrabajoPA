@@ -55,10 +55,54 @@ function hiloComentario($respuesta) {
     <style>
 
     </style>
-    <body>
-        <header>
-            <h1>MoarNews</h1>
-            <h2>The Digital Newspaper</h2>
+    <body class="inner">
+        <?php
+        session_start();
+        $hayCuenta = FALSE;
+        if (isset($_SESSION['cuentaID'])) {
+            $hayCuenta = TRUE;
+            $nombreUsuario = $_SESSION['nombreUsuario'];
+            $idUsuario = $_SESSION['cuentaID'];
+        } else {
+            $hayCuenta = FALSE;
+        }
+        ?>
+        <header id="header">
+
+            <?php
+            if ($hayCuenta) {
+                ?>
+
+                <nav class="left">
+                    <a href="#" class="button alt" ><?php echo date("Y-m-d") ?> </a>
+                </nav>
+
+                <a href="portada.php" class="logo">MoarNews</a>
+                <nav class="right">
+                    <a href="suscripcion.php" class="button alt" >Suscribe</a>
+                    <a href="cuenta.php" class="button alt"><?php echo $nombreUsuario; ?></a>  
+                </nav>
+
+
+                <?php
+            }
+            ?>
+            <?php
+            if (!$hayCuenta) {
+                ?>
+                <nav class="left">
+                    <a href="#" class="button alt" ><?php echo date("Y-m-d") ?> </a>
+                </nav>
+
+                <a href="portada.php" class="logo">MoarNews</a>
+                <nav class="right">
+                    <a href="inicioSesion.php"class="button alt">Log in</a>
+                    <a href="registro.php"  class="button alt">Register</a>
+                </nav>
+                <?php
+            }
+            ?>
+
         </header>
 
         <?php
@@ -73,12 +117,17 @@ function hiloComentario($respuesta) {
         
         $autor = readCuenta($articulo['idCuenta']);
         ?>
-        <article>
+        <article class="align-center">
             <div class="tituloArticulo">
-                <h2><?php echo $articulo['titulo']; ?></h2>
+                <h1><?php echo $articulo['titulo']; ?></h1>
 
             </div>
-            <div class="imagenSeccion">
+            <div class="descripcionArticulo">
+
+                <p> <?php echo $articulo['descripcion']; ?>
+
+            </div>
+            <div class="image">
                 <a href="<?php
                 if ($articulo['imagen'] != NULL) {
                     echo '../imagenes/' . $articulo['imagen'];
@@ -97,13 +146,9 @@ function hiloComentario($respuesta) {
                     </audio>
                 <?php } ?>
             </div>
-            <div class="descripcionArticulo">
-
-                <?php echo $articulo['descripcion']; ?>
-
-            </div>
+            
             <div class="textoArticulo">
-                <?php echo $articulo['texto']; ?>
+                <p><?php echo $articulo['texto']; ?></p>
             </div>
             <div class="fechaArticulo">
 <?php echo $articulo['fecha']; ?>
