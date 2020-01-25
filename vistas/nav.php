@@ -82,7 +82,6 @@ $secciones = readAllSeccion();
 
 
 
-            <form action="seccion.php" method="POST" id="navegador">
                 <ul>
                     <?php
                     foreach ($secciones as $seccion) {
@@ -95,7 +94,6 @@ $secciones = readAllSeccion();
                     }
                     ?>
                 </ul>
-                </form>
                 <li>
                     <a href="registro.php">
                         <i class="fa fa-question-circle fa-lg"></i>
