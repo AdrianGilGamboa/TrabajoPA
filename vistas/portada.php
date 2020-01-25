@@ -11,8 +11,8 @@ include_once ("../CRUD/CRUDPortada.php");
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content=="IE=edge"/>
         <meta name="google" value="notranslate"/>
-
         <link href="css.css" rel="stylesheet" type="text/css"/>
+
         <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
         <title>Cover of the day</title>
     </head>
@@ -70,69 +70,73 @@ include_once ("../CRUD/CRUDPortada.php");
 
         </header>
         <?php
-
         include_once 'nav.php';
         ?>
 
 
         <?php
         $articulos = readAllArticuloPorFecha();
+        ?>
+        <section>
 
-        foreach ($articulos as $articulo) {
-            $autor = readCuenta($articulo['idCuenta']);
-            ?>
-            <a href="articulo.php?idArticulo=<?php echo $articulo['idArticulo']; ?>"><article>
-                    <div class="tituloArticulo">
+            <?php
+            foreach ($articulos as $articulo) {
+                $autor = readCuenta($articulo['idCuenta']);
+                ?>
+                <a href="articulo.php?idArticulo=<?php echo $articulo['idArticulo']; ?>"><article>
+
                         <h2><?php echo $articulo['titulo']; ?></h2>
-                    </div>
-                    <div class="imagenArticulo">
-                        <a href="<?php
-                        if ($articulo['imagen'] != NULL) {
-                            echo '../imagenes/' . $articulo['imagen'];
-                        }
-                        ?>"><img src="../imagenes/<?php echo $articulo['imagen']; ?>"alt='<?php echo $articulo['imagen']; ?>' width='300'><?php
-                               if ($articulo['imagen'] != NULL) {
-                                   echo $articulo['imagen'];
-                               }
-                               ?></a>
-                    </div>
-                    <div class="audioArticulo">
-                        <?php  if ($articulo['audio'] != NULL) {?>
-                        <audio controls>
-                            <source src="<?php echo '../audios/' . $articulo['audio']; ?>" type="audio/mpeg">
-                        </audio>
-                        <?php }?>
-                    </div>
 
-                    <div class="descripcionArticulo">
-                        <?php echo $articulo['descripcion']; ?>
-                    </div>
-                    <div class="textoArticulo">
-                        <?php echo $articulo['texto']; ?>
-                    </div>
-                    <div class="fechaArticulo">
-                        <?php echo $articulo['fecha']; ?>
-                    </div>
-                    <div class="autorArticulo">
-                        <?php echo $autor['nombre']; ?>
-                    </div>
-                    <div class="comentariosArticulo">
-                        <?php
-                        $comentarios = readComentariosArticuloPortada($articulo['idArticulo']);
-                        if ($comentarios) {
-                            foreach ($comentarios as $comentario) {
-                                ?>
-                                <p><?php echo $comentario['texto']; ?></p>
-                                <strong><?php echo $comentario['puntuacion']; ?></strong>
-                                <?php
-                                if ($hayCuenta) {
+                        <div class="image">
+                            <a href="<?php
+                            if ($articulo['imagen'] != NULL) {
+                                echo '../imagenes/' . $articulo['imagen'];
+                            }
+                            ?>"><img src="../imagenes/<?php echo $articulo['imagen']; ?>"alt='<?php echo $articulo['imagen']; ?>' width='300'><?php
+                                   if ($articulo['imagen'] != NULL) {
+                                       echo $articulo['imagen'];
+                                   }
+                                   ?></a>
+                        </div>
+                        <div class="audioArticulo">
+                            <?php if ($articulo['audio'] != NULL) { ?>
+                                <audio controls>
+                                    <source src="<?php echo '../audios/' . $articulo['audio']; ?>" type="audio/mpeg">
+                                </audio>
+                            <?php } ?>
+                        </div>
+
+                        <div >
+                            <h3><?php echo $articulo['descripcion']; ?></h3> 
+                        </div>
+                        <div >
+                            <h4> <?php echo $articulo['texto']; ?></h4>
+                        </div>
+                        <div class="fechaArticulo">
+                            <?php echo $articulo['fecha']; ?>
+                        </div>
+                        <div>
+                            <h5><?php echo $autor['nombre']; ?></h5>
+                        </div>
+                        <div class="comentariosArticulo">
+                            <?php
+                            $comentarios = readComentariosArticuloPortada($articulo['idArticulo']);
+                            if ($comentarios) {
+                                foreach ($comentarios as $comentario) {
                                     ?>
-                                    <button>Comment</button>
+                                    <p><?php echo $comentario['texto']; ?></p>
+                                    <strong><?php echo $comentario['puntuacion']; ?></strong>
+                                    <?php
+                                    if ($hayCuenta) {
+                                        ?>
+                                        <button>Comment</button>
+                                        <?php
+                                    }
+                                    ?>
                                     <?php
                                 }
-                                ?>
-                                <?php
                             }
+
                         }
                         ?>
                     </div>
@@ -142,15 +146,15 @@ include_once ("../CRUD/CRUDPortada.php");
                         if ($secciones) {
                             foreach ($secciones as $seccion) {
                                 echo $seccion['categoria'];
+
                             }
-                        }
-                        ?>
-                    </div>
-                </article>
-            </a>
-            <?php
-        }
-        ?>
+                            ?>
+                        </div>
+                    </article> </a>
+                <?php
+            }
+            ?>
+        </section>
         <footer id="footer">
             <div class="inner">
                 <h2>Get In Touch</h2>
