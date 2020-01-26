@@ -27,10 +27,10 @@ function tiene($misArticulos, $articulo) {
         <title></title>
     </head>
     <body>
-        <form action="#" method="POST">
-            <input type="submit" name="creaSect" value="Create Section">
-            <input type="submit" name="modifSect" value="Modify Section">
-            <input type="submit" name="eliminaSect" value="Delete Section">
+        <form  class="actions" action="#" method="POST">
+            <input class="button special fit small"  type="submit" name="creaSect" value="Create Section">
+            <input class="button special fit small"type="submit" name="modifSect" value="Modify Section">
+            <input class="button special fit small" type="submit" name="eliminaSect" value="Delete Section">
         </form>
         
         
@@ -105,10 +105,10 @@ function tiene($misArticulos, $articulo) {
             $articulosEnSeccion = leerArticulosDadaSeccion($idSeccion);
             ?>
             <form action="#" method="POST">
-                Category: <input type="text" name="categoria" value="<?php echo $seccion['categoria']; ?>"><br/> 
+                Category: <input class="centrar" type="text" name="categoria" value="<?php echo $seccion['categoria']; ?>"><br/> 
 
-                <table border = "2">
-                    <caption>Delete Articles</caption>
+                <table border = "2" >
+  
                     <tr>
                         <th></th>
                         <th>Articles</th>

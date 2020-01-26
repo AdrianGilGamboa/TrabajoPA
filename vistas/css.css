@@ -1391,6 +1391,7 @@ body.is-loading *, body.is-loading *:before, body.is-loading *:after {
     max-width: 50%;
 }
 
+
 @media screen and (max-width: 1280px) {
 
     .inner {
@@ -1673,6 +1674,8 @@ body.is-loading *, body.is-loading *:before, body.is-loading *:after {
 
 form {
     padding: 20px;
+    margin: 60px auto 60px auto;
+    
 }
 form li{
     text-decoration: none;
@@ -2430,8 +2433,8 @@ nav ul,nav li {
 }
 
 table {
-    margin: 30px auto 30px auto;
-    width: 60%;
+    margin: 60px auto 60px auto;
+    width: 40%;
     font-family: sans-serif;
     font-size: 115%;
 }
