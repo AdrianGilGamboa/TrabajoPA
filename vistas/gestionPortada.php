@@ -42,18 +42,18 @@ include ("../CRUD/CRUDAnuncio.php");
         </form>
         <?php
         session_start();
-        if (!isset($_SESSION['cuentaID'])) {
-            header('Location: inicioSesion.php');
-        }
-
-        if (isset($_SESSION['cuentaID'])) {
-            if ($_SESSION['tipo'] === "administrador") {
-                $idCuenta = $_SESSION['cuentaID'];
-                $nombre = $_SESSION['nombreUsuario'];
-            } else {
-                header('Location: cuenta.php');
-            }
-        }
+//        if (!isset($_SESSION['cuentaID'])) {
+//            header('Location: inicioSesion.php');
+//        }
+//
+//        if (isset($_SESSION['cuentaID'])) {
+//            if ($_SESSION['tipo'] === "administrador") {
+//                $idCuenta = $_SESSION['cuentaID'];
+//                $nombre = $_SESSION['nombreUsuario'];
+//            } else {
+//                header('Location: cuenta.php');
+//            }
+//        }
 
         include_once 'nav.php';
 
@@ -459,6 +459,8 @@ if (isset($_POST['creaPortada'])) {
                         <th>Author User</th>
                         <th>Author Name</th>
                         <th>Articles</th>
+                        <th>Advertisement</th>
+                        
                     </tr>
         <?php
         foreach ($portadas as $portada) {
@@ -486,10 +488,19 @@ if (isset($_POST['creaPortada'])) {
                                         }
                                         ?>
                                     </ul>
+                               <?php } ?>
+                                </td>
+                                <td>
+                                    <?php
+                                    if($portada['idAnuncio']){
+                                    $anuncio = readAnuncio($portada['idAnuncio']);
+                                echo $anuncio['descripcion'];
+                                    }
+                                    ?>
                                 </td>
                             </tr>
                 <?php
-            }
+            
         }
         ?>
                 </table>
