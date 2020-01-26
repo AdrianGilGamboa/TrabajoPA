@@ -85,6 +85,9 @@ function mostrarArticulos($idSeccion) {
         </header>
         <?php
         include_once 'nav.php';
+
+        $seccion = readSeccionId($idSeccion);
+
         ?>
 
         <aside>
