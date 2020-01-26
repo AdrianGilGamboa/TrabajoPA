@@ -105,7 +105,7 @@ function tiene($misArticulos, $articulo) {
             $articulosEnSeccion = leerArticulosDadaSeccion($idSeccion);
             ?>
             <form action="#" method="POST">
-                Category: <input class="centrar" type="text" name="categoria" value="<?php echo $seccion['categoria']; ?>"><br/> 
+                Category: <input class="" type="text" name="categoria" value="<?php echo $seccion['categoria']; ?>"><br/> 
 
                 <table border = "2" >
   

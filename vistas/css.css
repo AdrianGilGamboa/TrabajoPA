@@ -1112,6 +1112,7 @@ and open the template in the editor.
 
     .\-6u\28small\29 {
         margin-left: 60%;
+ 
         
     }
 
@@ -1676,8 +1677,10 @@ form {
     padding: 20px;
     margin: 60px auto 60px auto;
 
+
     margin-left: 70px;
     text-align: center;
+
 
     
 }
@@ -1778,7 +1781,6 @@ select {
 textarea {
     padding: 0.75em 1em;
 }
-
 /*
 input[type="radio"] {
     -moz-appearance: none;
@@ -1786,7 +1788,6 @@ input[type="radio"] {
     -ms-appearance: none;
     appearance: none;
     display: block;
-    float: left;
     margin-right: -2em;
     opacity: 0;
     width: 1em;
