@@ -35,7 +35,7 @@ function mediaPuntuacion($sumaTotal, $numComentarios) {
         include_once 'nav.php';
         ?>
 
-        <h1> Datos <?php echo $nombreUsuario; ?></h1>
+        <h1 class="centrar"> Datos <?php echo $nombreUsuario; ?></h1>
         <table cellpadding="10" border="1">
             <tr>
                 <th>Name</th>
@@ -140,19 +140,19 @@ function mediaPuntuacion($sumaTotal, $numComentarios) {
                         }
                         ?>
                     </table>
-                    <div class="boton"><a href="gestionArticulo.php">Article management</a></div>
+                    <div class="button alt small"><a href="gestionArticulo.php">Article management</a></div>
                 <?php } else if ($_SESSION['tipo'] === 'administrador') { ?>
 
-                    <div class="boton"><a href="gestionSeccion.php">Section management</a></div>
+                    <div class="button alt small"><a href="gestionSeccion.php">Section management</a></div>
 
-                    <div class="boton"><a href="gestionPortada.php">Front page management</a></div>
+                    <div class="button alt small"><a href="gestionPortada.php">Front page management</a></div>
 
-                    <div class="boton"><a href="gestionAnuncios.php">Advertisement management</a></div>
+                    <div class="button alt small"><a href="gestionAnuncios.php">Advertisement management</a></div>
 
 
                 <?php }
                 ?>
-                <div class="boton"><a href="modificarCuenta.php">Modify account</a></div>
+                <div class="button alt small"><a href="modificarCuenta.php">Modify account</a></div>
         </section>
         
         
@@ -161,7 +161,7 @@ function mediaPuntuacion($sumaTotal, $numComentarios) {
                 <h2>Get In Touch</h2>
                 <ul class="actions">
                     <li><i class="icon fa-phone"></i> <a href="#">(034)954 34 92 00</a></li>
-                    <li><span class="icon fa-envelope"></span> <a href="#">moarNesws@gmail.com</a></li>
+                    <li><span class="icon fa-envelope"></span> <a href="#">moarnewspa@gmail.com</a></li>
                     <li><span class="icon fa-map-marker"></span> Ctra. de Utrera, 1, 41013 Sevilla </li>
                 </ul>
             </div>
