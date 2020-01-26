@@ -125,3 +125,28 @@ function registrar($nombre, $usuario, $clave, $email, $Dv, $gustos) {
     desconectar($con);
     return $res;
 }
+
+function cuentaDadoComentario($idCuenta) {
+    $con = conexionBD();
+    $res = False;
+    $query = "SELECT * FROM cuentas WHERE idCuenta = $idCuenta";
+    $result = $con->query($query);
+    if ($result) {
+        $res = $result->fetch_assoc();
+    }
+
+    desconectar($con);
+    return $res;
+}
+
+function formato($formato,$idCuenta){
+    $con = conexionBD();
+    $res = False;
+    $query = "UPDATE cuentas SET formato = '$formato' WHERE idCuenta = $idCuenta";
+    $result = $con->query($query);
+    if ($result) {
+        $res = True;
+    }
+    desconectar($con);
+    return $res;
+}

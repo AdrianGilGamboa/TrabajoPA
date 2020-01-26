@@ -13,6 +13,7 @@ include_once ('../CRUD/CRUDCuenta.php');
         <meta http-equiv="X-UA-Compatible" content=="IE=edge"/>
         <meta name="google" value="notranslate"/>
         <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+        <script src="../js/scripts.js" type="text/javascript"></script>
     </head>
     <body>
        
@@ -48,7 +49,7 @@ include_once ('../CRUD/CRUDCuenta.php');
         }
         ?>
         <h2 class="">Inicio Sesion</h2>
-        <form  class="" action="#" method="POST">
+        <form  class="" action="#" method="POST" onsubmit="return validaInicioSesion()">
             <div class="">
             Usuario: <input type="text" name="usuario" value="<?php echo $nombre; ?>" /> <br>
             Clave: <input type="password" name="clave" /> <br><br>

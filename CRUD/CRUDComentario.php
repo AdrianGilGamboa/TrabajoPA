@@ -1,4 +1,5 @@
 <?php
+
 include_once "conexion.php";
 
 //Devuelve True si ha creado o False si hay error
@@ -10,7 +11,10 @@ function createComentario($comentario) {
     $query = "INSERT INTO comentarios (texto, puntuacion) VALUES ('$texto',$puntuacion)";
     $result = $con->query($query);
     if ($result) {
-        $res = TRUE;
+        $query = "SELECT * FROM comentarios WHERE texto = '$texto'";
+        $result = $con->query($query);
+        $aux = $result->fetch_assoc();
+        $res = $aux['idComentario'];
     }
     desconectar($con);
     return $res;
@@ -74,6 +78,7 @@ function readAllComentario() {
     desconectar($con);
     return $res;
 }
+
 function readAllComentariosFromID($idCuenta) {
     $con = conexionBD();
     $res = FALSE;
@@ -88,6 +93,7 @@ function readAllComentariosFromID($idCuenta) {
     desconectar($con);
     return $res;
 }
+
 //    comentarios en funcion de un articulo
 function readAllComentariosFromArticulo($idArticulo) {
     $con = conexionBD();
@@ -100,6 +106,81 @@ function readAllComentariosFromArticulo($idArticulo) {
             array_push($res, $result->fetch_assoc());
         }
     }
+    desconectar($con);
+    return $res;
+}
+
+function asociaComentarioArticulo($idComentario, $idArticulo) {
+    $con = conexionBD();
+    $res = FALSE;
+    $query = "UPDATE comentarios SET idArticulo = $idArticulo WHERE idComentario = $idComentario";
+    $result = $con->query($query);
+    if ($result) {
+        $res = True;
+    }
+    desconectar($con);
+    return $res;
+}
+
+function asociaComentarioCuenta($idComentario, $idCuenta) {
+    $con = conexionBD();
+    $res = FALSE;
+    $query = "UPDATE comentarios SET idCuenta = $idCuenta WHERE idComentario = $idComentario";
+    $result = $con->query($query);
+    if ($result) {
+        $res = True;
+    }
+    desconectar($con);
+    return $res;
+}
+
+function asociaComentarioComentario($idComentario, $idRespuesta) {
+    $con = conexionBD();
+    $res = FALSE;
+    $query = "UPDATE comentarios SET idRespuesta = $idRespuesta WHERE idComentario = $idComentario";
+    $result = $con->query($query);
+    if ($result) {
+        $res = True;
+    }
+    desconectar($con);
+    return $res;
+}
+
+function meGusta($idComentario) {
+    $con = conexionBD();
+    $res = FALSE;
+    $query = "SELECT * FROM comentarios WHERE idComentario = $idComentario";
+    $result = $con->query($query);
+    $aux = $result->fetch_assoc();
+    $puntuacion = $aux['puntuacion'];
+    if ($puntuacion < 5 && $puntuacion >= 0) {
+        $puntuacion = $puntuacion+1;
+        $query = "UPDATE comentarios SET puntuacion = $puntuacion WHERE idComentario = $idComentario";
+        $result = $con->query($query);
+        if ($result) {
+            $res = True;
+        }
+    }
+
+    desconectar($con);
+    return $res;
+}
+function noMeGusta($idComentario) {
+    $con = conexionBD();
+    $res = FALSE;
+    $query = "SELECT * FROM comentarios WHERE idComentario = $idComentario";
+    $result = $con->query($query);
+    $aux = $result->fetch_assoc();
+    $puntuacion = $aux['puntuacion'];
+    if ($puntuacion <= 5 && $puntuacion > 0) {
+        $puntuacion = $puntuacion-1;
+        $query = "UPDATE comentarios SET puntuacion = $puntuacion WHERE idComentario = $idComentario";
+        $result = $con->query($query);
+        if ($result) {
+            $res = True;
+        }
+    }
+
     desconectar($con);
     return $res;
 }

@@ -200,7 +200,7 @@ function readAllArticuloPorFecha() {
 function readComentariosArticuloPortada($idArticulo) {
     $con = conexionBD();
     $res = False;
-    $query = "SELECT * FROM comentarios WHERE idArticulo = $idArticulo";
+    $query = "SELECT * FROM comentarios WHERE idArticulo = $idArticulo and idRespuesta is NULL";
     $result = $con->query($query);
     if ($result->num_rows !== 0) {
         $res = array();
