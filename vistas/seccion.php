@@ -153,13 +153,39 @@ function mostrarArticulos($idSeccion) {
                                     foreach ($comentarios as $comentario) {
                                         ?>Autor: <?php
                                         $autor = cuentaDadoComentario($comentario['idCuenta']);
-                                        echo $autor['nombre'];
                                         ?>
+                                        <span style="color: <?php
+                                        if ($autor['formato'] === "gold") {
+                                            echo "gold";
+                                        } else if ($autor['formato'] === "silver") {
+                                            echo "silver";
+                                        } else if ($autor['formato'] === "bronze") {
+                                            echo "brown";
+                                        }
+                                        ?>"><?php
+                                                  echo $autor['nombre'];
+                                                  ?></span>
+
                                         <p><?php echo $comentario['texto']; ?></p>
-                                        Rating: <?php echo $comentario['puntuacion']; ?>
                                         <?php
-                                        if ($hayCuenta) {
+                                        $puntuacion = $comentario['puntuacion'];
+                                        for ($index = 0; $index < $puntuacion; $index++) {
                                             ?>
+                                            <span style="font-size: 33px;color: <?php
+                                            if ($autor['formato'] === "gold") {
+                                                echo "gold";
+                                            } else if ($autor['formato'] === "silver") {
+                                                echo "silver";
+                                            } else if ($autor['formato'] === "bronze") {
+                                                echo "brown";
+                                            }
+                                            ?>">☆</span>
+                                                  <?php
+                                              }
+                                              ?>
+                                              <?php
+                                              if ($hayCuenta) {
+                                                  ?>
                                             <form action="comentario.php" method="POST">
                                                 <input type="hidden" name="articulo" value="<?php echo $articulo['idArticulo']; ?>">
                                                 <input type="hidden" name="cuenta" value="<?php echo $idUsuario; ?>">
