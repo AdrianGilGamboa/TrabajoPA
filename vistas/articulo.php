@@ -78,9 +78,9 @@ function hiloComentario($respuesta, $idUsuario, $idArticulo) {
 
     </head>
     <style>
-.comentariosArticuloEnArticulo ul{
-    text-align: left;
-}
+        .comentariosArticuloEnArticulo ul{
+            text-align: left;
+        }
     </style>
     <body>
         <?php
