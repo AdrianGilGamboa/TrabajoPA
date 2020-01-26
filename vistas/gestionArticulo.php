@@ -12,6 +12,7 @@ include_once ("../CRUD/CRUDAnuncio.php");
         <meta name="google" value="notranslate"/>
         <link href="css.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+        <script src="../js/scripts.js" type="text/javascript"></script>
         <title></title>
     </head>
     
