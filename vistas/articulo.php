@@ -82,7 +82,7 @@ function hiloComentario($respuesta, $idUsuario, $idArticulo) {
     text-align: left;
 }
     </style>
-    <body class="inner">
+    <body>
         <?php
         session_start();
         $hayCuenta = FALSE;
