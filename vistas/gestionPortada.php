@@ -11,10 +11,17 @@ include ("../CRUD/CRUDAnuncio.php");
     form{
         text-align: center;
         margin-bottom:50px;
+        
     }
     #navegador{
         margin-bottom:0px;
     }
+    
+    .wrong{
+        text-align: center;
+        color:red;
+    }
+    
 
 </style>
 
@@ -91,10 +98,11 @@ include ("../CRUD/CRUDAnuncio.php");
                     </form>
                     <?php
                 } else {
-                    echo "No hay anuncios sin portadas asociadas";
+                    echo '<div class="wrong">No advertisement without associated fron pages</div>';
                 }
             } else {
-                echo "Ya tiene un anuncio asociado, puedes modificarlo";
+                echo '<div class="wrong">You already have an associated advertisement, you can modify it
+</div>';
                 $idPortada = $_POST['portada'];
                 $portada = readPortada($idPortada);
 
@@ -127,7 +135,7 @@ include ("../CRUD/CRUDAnuncio.php");
                     </form>
             <?php
         } else {
-            echo "No hay anuncios sin portadas asociadas";
+            echo '<div class="wrong">No advertisement without associated fron pages</div>';
         }
     }
 }
@@ -162,10 +170,11 @@ if (isset($_POST['cambiarAnuncio'])) {
                     </form>
             <?php
         } else {
-            echo "No hay anuncios sin portadas asociadas";
+            echo '<div class="wrong">No advertisement without associated fron pages</div>';
         }
     } else {
-        echo "Primero debe añadir un anuncio para modificarlo por otro";
+        echo '<div class="wrong">You must first add an advertisement to modify it by another
+</div>';
         $idPortada = $_POST['portada'];
         $portada = readPortada($idPortada);
         $anuncioSinPortada = leerAnunciosSinPortada();
@@ -194,7 +203,7 @@ if (isset($_POST['cambiarAnuncio'])) {
                     </form>
             <?php
         } else {
-            echo "No hay anuncios sin portadas asociadas";
+            echo '<div class="wrong">No advertisement without associated fron pages</div>';
         }
     }
 }
@@ -232,7 +241,8 @@ if (isset($_POST['borraArticulo'])) {
                 </form>
         <?php
     } else {
-        echo "Todos los articulos estan asociados a una portada";
+        echo '<div class="wrong">All items are associated with a front page
+</div>';
     }
 }
 if (isset($_POST['añadeArticulo'])) {
@@ -268,7 +278,8 @@ if (isset($_POST['añadeArticulo'])) {
                 </form>
         <?php
     } else {
-        echo "No hay articulos sin portadas";
+        echo '<div class="wrong">
+There are no articles without front pages</div>';
     }
 }
 if (isset($_POST['borra'])) {
@@ -280,12 +291,12 @@ if (isset($_POST['borra'])) {
         }
     }
     foreach ($borrar as $idPortada) {
-        echo $idPortada;
         //$idPortada = obtenerIDPortada($fecha);
         if (quitarArticulosDePortada($idPortada)) {
             deletePortada($idPortada);
         } else {
-            echo "ERROR, no se ha podido quitar los articulos de la portada";
+            echo '<div class="wrong">
+ERROR, the front page advertisement could not be removed</div>';
         }
     }
 } else if (isset($_POST['añadiendoArticulos'])) {
@@ -321,7 +332,6 @@ if (isset($_POST['borra'])) {
         }
     }
 } else if (isset($_POST['añadiendoAnuncio'])) {
-    echo "Añadiendo anuncio";
     //$num = $_POST['numAr'];
     $idAnuncio = $_POST['anuncio'];
     $fecha = $_POST['fecha'];
@@ -333,7 +343,6 @@ if (isset($_POST['borra'])) {
         $res = FALSE;
     }
 } else if (isset($_POST['cambiandoAnuncio'])) {
-    echo "Modificando";
     $idAnuncio = $_POST['anuncio'];
     $fecha = $_POST['fecha'];
     $idPortada = obtenerIDPortada($fecha);
@@ -366,7 +375,8 @@ if (isset($_POST['crea'])) {
             }
         }
     } else {
-        echo "Error al crear la portada";
+        echo '<div class="wrong">ERROR to create cover
+</div>';
     }
 }
 if (isset($_POST['creaPortada'])) {
@@ -416,7 +426,7 @@ if (isset($_POST['creaPortada'])) {
                 </form>
         <?php
     } else {
-        echo "No Front Pages created";
+        echo '<div class="wrong">No Front Pages created</div>';
     }
 } else if (isset($_POST['eliminaPortada'])) {
     if ($portadas) {
@@ -445,7 +455,7 @@ if (isset($_POST['creaPortada'])) {
                 </form>
         <?php
     } else {
-        echo "No Front Pages created";
+        echo '<div class="wrong">No Front Pages created</div>';
     }
 } else if (isset($_POST['listarPortada'])) {
     $portadas = readAllPortada();

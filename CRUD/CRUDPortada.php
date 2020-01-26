@@ -123,7 +123,6 @@ function tieneAnuncio($idPortada) {
         $valores = $result->fetch_assoc();
     }
     if (($valores['idAnuncio']) == NULL) {
-        echo "No es un numero";
         $res = false;
     }
     desconectar($con);
