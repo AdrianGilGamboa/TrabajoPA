@@ -24,6 +24,7 @@ include_once ('../CRUD/CRUDComentario.php');
 
     </head>
     <style>
+
 .comentariosArticuloEnArticulo ul{
     text-align: left;
 }
