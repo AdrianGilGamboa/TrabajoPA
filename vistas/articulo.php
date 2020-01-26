@@ -49,6 +49,7 @@ include_once ('../CRUD/CRUDComentario.php');
             $idUsuario = $_SESSION['cuentaID'];
         } else {
             $hayCuenta = FALSE;
+            $idUsuario="";
         }
         if (isset($_POST['like'])) {
             $idComentario = $_POST['idComentario'];

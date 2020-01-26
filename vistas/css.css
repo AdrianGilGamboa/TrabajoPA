@@ -1675,6 +1675,8 @@ body.is-loading *, body.is-loading *:before, body.is-loading *:after {
 form {
     padding: 20px;
     margin: 60px auto 60px auto;
+    margin-left: 70px;
+    text-align: center;
     
 }
 form li{
@@ -1775,7 +1777,7 @@ textarea {
     padding: 0.75em 1em;
 }
 
-input[type="radio"] {
+/*input[type="radio"] {
     -moz-appearance: none;
     -webkit-appearance: none;
     -ms-appearance: none;
@@ -1786,7 +1788,7 @@ input[type="radio"] {
     opacity: 0;
     width: 1em;
     z-index: -1;
-}
+}*/
 
 input[type="checkbox"] + label,
 input[type="radio"] + label {
