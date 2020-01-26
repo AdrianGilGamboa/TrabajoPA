@@ -181,6 +181,10 @@ include_once ("../CRUD/CRUDComentario.php");
                                                   <?php
                                               }
                                               ?>
+<<<<<<< HEAD
+=======
+                                        <br/>
+>>>>>>> eaccda845b999f83a1afca9f6a452a8359124207
                                               <?php
                                               if ($hayCuenta) {
                                                   ?>
@@ -232,6 +236,7 @@ include_once ("../CRUD/CRUDComentario.php");
                                             </table>
                                         </div>
                                         <?php
+
                                     }
                                 }
                                 ?>
