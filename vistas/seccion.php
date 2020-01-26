@@ -87,7 +87,6 @@ function mostrarArticulos($idSeccion) {
         include_once 'nav.php';
 
         $seccion = readSeccionId($idSeccion);
-
         ?>
 
         <aside>
@@ -102,63 +101,103 @@ function mostrarArticulos($idSeccion) {
             $articulos = mostrarArticulos($idSeccion);  //echo $articulo['titulo'];
             if ($articulos) {
                 foreach ($articulos as $articulo) {
-                    ?><article>
-                        <div class="tituloSeccion">
+                    $autor = readCuenta($articulo['idCuenta']);
+                    ?>
+
+                    <a href="articulo.php?idArticulo=<?php echo $articulo['idArticulo']; ?>">
+                        <article class="inner">
+
                             <h2><?php echo $articulo['titulo']; ?></h2>
-                        </div>
-                        <div class="imagenSeccion">
-                            <a href="<?php
-                            if ($articulo['imagen'] != NULL) {
-                                echo '../imagenes/' . $articulo['imagen'];
+
+                            <div class="image">
+                                <a href="<?php
+                                if ($articulo['imagen'] != NULL) {
+                                    echo '../imagenes/' . $articulo['imagen'];
+                                }
+                                ?>"><img src="../imagenes/<?php echo $articulo['imagen']; ?>"alt='<?php echo $articulo['imagen']; ?>' width='300'><?php
+                                       if ($articulo['imagen'] != NULL) {
+                                           echo $articulo['imagen'];
+                                       }
+                                       ?></a>
+                            </div>
+                            <div class="audioArticulo">
+                                <?php if ($articulo['audio'] != NULL) { ?>
+                                    <audio controls>
+                                        <source src="<?php echo '../audios/' . $articulo['audio']; ?>" type="audio/mpeg">
+                                    </audio>
+                                <?php } ?>
+                            </div>
+
+                            <div >
+                                <h3><?php echo $articulo['descripcion']; ?></h3> 
+                            </div>
+                            <div>
+                                <p> <?php echo $articulo['texto']; ?></p>
+                            </div>
+                            <div class="fechaArticulo">
+                                <?php echo $articulo['fecha']; ?>
+                            </div>
+                            <div>
+                                <h5><?php echo $autor['nombre']; ?></h5>
+                            </div>
+
+                            <form action="comentario.php" method="POST">
+                                <input type="hidden" name="articulo" value="<?php echo $articulo['idArticulo']; ?>">
+                                <input type="hidden" name="cuenta" value="<?php echo $idUsuario; ?>">
+                                <input class="small" type="submit" name="comentar" value="Comment article">
+                            </form>
+                            <div class="comentariosArticulo">
+                                <?php
+                                $comentarios = readComentariosArticuloPortada($articulo['idArticulo']);
+                                if ($comentarios) {
+                                    foreach ($comentarios as $comentario) {
+                                        ?>Autor: <?php
+                                        $autor = cuentaDadoComentario($comentario['idCuenta']);
+                                        echo $autor['nombre'];
+                                        ?>
+                                        <p><?php echo $comentario['texto']; ?></p>
+                                        Rating: <?php echo $comentario['puntuacion']; ?>
+                                        <?php
+                                        if ($hayCuenta) {
+                                            ?>
+                                            <form action="comentario.php" method="POST">
+                                                <input type="hidden" name="articulo" value="<?php echo $articulo['idArticulo']; ?>">
+                                                <input type="hidden" name="cuenta" value="<?php echo $idUsuario; ?>">
+                                                <input type="hidden" name="comentario" value="<?php echo $comentario['idComentario']; ?>">
+                                                <input class="small" type="submit" name="responder" value="Reply comment">
+                                            </form>
+                                            <form action="#" method="POST">
+                                                <input type="hidden" name="idComentario" value="<?php echo $comentario['idComentario']; ?>">
+                                                <input class="small" type="submit" name="like" value="Like">
+                                                <input class="small" type="submit" name="dislike" value="Dislike">
+                                            </form>
+                                            <?php
+                                        }
+                                        ?>
+                                        <br/>
+                                        <?php
+                                    }
+                                }
                             }
-                            ?>"><img src="../imagenes/<?php echo $articulo['imagen']; ?>"alt='<?php echo $articulo['imagen']; ?>' width='300'><?php
-                                   if ($articulo['imagen'] != NULL) {
-                                       echo $articulo['imagen'];
-                                   }
-                                   ?></a>
-                        </div>
-                        <div class="audioSeccion">
-        <?php if ($articulo['audio'] != NULL) { ?>
-                                <audio controls>
-                                    <source src="<?php echo '../audios/' . $articulo['audio']; ?>" type="audio/mpeg">
-                                </audio>
-        <?php } ?>
-                        </div>
-                        <div class="descripcionSeccion">
-        <?php echo $articulo['descripcion']; ?>
-                        </div>
-                        <div class="textoSeccion">
-        <?php echo $articulo['texto']; ?>
-                        </div>
-                        <div class="fechaSeccion">
-        <?php echo $articulo['fecha']; ?>
-                        </div>
-                        <div class="autorSeccion">
-                            <?php
-                            $autor = readCuenta($articulo['idCuenta']);
-                            echo $autor['nombre'];
-                            ?>
-                        </div>
-                    </article><?php
-                }
-            }
-            ?>
-        </section>
-        <footer id="footer">
-            <div class="inner">
-                <h2>Get In Touch</h2>
-                <ul class="actions">
-                    <li><i class="icon fa-phone"></i> <a href="#">(034)954 34 92 00</a></li>
-                    <li><span class="icon fa-envelope"></span> <a href="#">moarNesws@gmail.com</a></li>
-                    <li><span class="icon fa-map-marker"></span> Ctra. de Utrera, 1, 41013 Sevilla </li>
-                </ul>
-            </div>
-            <div class="copyright">
-                &copy; Newspaper. MoarNews <a href="https://www.upo.es/portal/impe/web/portada/index.html">MoarNews</a>. Images <a href="../imagenes/logo.jpeg" alt="logo">MoarNews</a>.
+                        }
+                        ?>
+                    </div>
+                </article> </a>
+            <footer id="footer">
+                <div class="inner">
+                    <h2>Get In Touch</h2>
+                    <ul class="actions">
+                        <li><i class="icon fa-phone"></i> <a href="#">(034)954 34 92 00</a></li>
+                        <li><span class="icon fa-envelope"></span> <a href="#">moarNesws@gmail.com</a></li>
+                        <li><span class="icon fa-map-marker"></span> Ctra. de Utrera, 1, 41013 Sevilla </li>
+                    </ul>
+                </div>
+                <div class="copyright">
+                    &copy; Newspaper. MoarNews <a href="https://www.upo.es/portal/impe/web/portada/index.html">MoarNews</a>. Images <a href="../imagenes/logo.jpeg" alt="logo">MoarNews</a>.
 
-            </div>
+                </div>
 
-        </footer>
+            </footer>
     </body>
 
 </html>
