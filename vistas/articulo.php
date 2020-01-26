@@ -31,6 +31,7 @@ include_once ('../CRUD/CRUDComentario.php');
 
 .comentario{
     margin-bottom:0;
+    margin-top:0;
     float:left;
 }
 

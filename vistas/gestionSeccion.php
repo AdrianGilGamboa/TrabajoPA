@@ -26,7 +26,7 @@ function tiene($misArticulos, $articulo) {
         <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
         <title></title>
     </head>
-    <body>
+    <body class="inner">
         <form  class="actions" action="#" method="POST">
             <input class="button special fit small"  type="submit" name="creaSect" value="Create Section">
             <input class="button special fit small"type="submit" name="modifSect" value="Modify Section">
