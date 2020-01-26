@@ -31,6 +31,7 @@ include_once ('../CRUD/CRUDComentario.php');
 
 .comentario{
     margin-bottom:0;
+    margin-top:0;
     float:left;
 }
 
@@ -49,6 +50,7 @@ include_once ('../CRUD/CRUDComentario.php');
             $idUsuario = $_SESSION['cuentaID'];
         } else {
             $hayCuenta = FALSE;
+            $idUsuario="";
         }
         if (isset($_POST['like'])) {
             $idComentario = $_POST['idComentario'];

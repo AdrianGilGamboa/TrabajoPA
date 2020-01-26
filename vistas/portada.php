@@ -149,6 +149,55 @@ include_once ("../CRUD/CRUDComentario.php");
                                 $comentarios = readComentariosArticuloPortada($articulo['idArticulo']);
                                 if ($comentarios) {
                                     foreach ($comentarios as $comentario) {
+                                        ?>Autor: <?php
+                                        $autor = cuentaDadoComentario($comentario['idCuenta']);
+                                        ?>
+                                        <span style="color: <?php
+                                        if ($autor['formato'] === "gold") {
+                                            echo "gold";
+                                        } else if ($autor['formato'] === "silver") {
+                                            echo "silver";
+                                        } else if ($autor['formato'] === "bronze") {
+                                            echo "brown";
+                                        }
+                                        ?>"><?php
+                                                  echo $autor['nombre'];
+                                                  ?></span>
+
+                                        <p><?php echo $comentario['texto']; ?></p>
+                                        <?php
+                                        $puntuacion = $comentario['puntuacion'];
+                                        for ($index = 0; $index < $puntuacion; $index++) {
+                                            ?>
+                                            <span style="font-size: 33px;color: <?php
+                                            if ($autor['formato'] === "gold") {
+                                                echo "gold";
+                                            } else if ($autor['formato'] === "silver") {
+                                                echo "silver";
+                                            } else if ($autor['formato'] === "bronze") {
+                                                echo "brown";
+                                            }
+                                            ?>">☆</span>
+                                                  <?php
+                                              }
+                                              ?>
+                                              <?php
+                                              if ($hayCuenta) {
+                                                  ?>
+                                            <form action="comentario.php" method="POST">
+                                                <input type="hidden" name="articulo" value="<?php echo $articulo['idArticulo']; ?>">
+                                                <input type="hidden" name="cuenta" value="<?php echo $idUsuario; ?>">
+                                                <input type="hidden" name="comentario" value="<?php echo $comentario['idComentario']; ?>">
+                                                <input class="small" type="submit" name="responder" value="Reply comment">
+                                            </form>
+                                            <form action="#" method="POST">
+                                                <input type="hidden" name="idComentario" value="<?php echo $comentario['idComentario']; ?>">
+                                                <input class="small" type="submit" name="like" value="Like">
+                                                <input class="small" type="submit" name="dislike" value="Dislike">
+                                            </form>
+                                            <?php
+                                        }
+
                                         ?>
                                         <div class="table-wrapper">
                                             <table class="alt">
