@@ -181,6 +181,7 @@ include_once ("../CRUD/CRUDComentario.php");
                                                   <?php
                                               }
                                               ?>
+                                        <br/>
                                               <?php
                                               if ($hayCuenta) {
                                                   ?>
@@ -198,40 +199,6 @@ include_once ("../CRUD/CRUDComentario.php");
                                             <?php
                                         }
 
-                                        ?>
-                                        <div class="table-wrapper">
-                                            <table class="alt">
-                                                <tr>
-                                                    <td>  Autor: <?php
-                                                        $autor = cuentaDadoComentario($comentario['idCuenta']);
-                                                        echo $autor['nombre'];
-                                                        ?></td>
-<!--                                                    <td width="10px"></td>-->
-
-                                                    <td><p><?php echo $comentario['texto']; ?></p><td>
-                                                    <td> Rating: <?php echo $comentario['puntuacion']; ?></td>
-                                                    
-                                                <?php
-                                                if ($hayCuenta) {
-                                                    ?>
-                                                    <form action="comentario.php" method="POST">
-                                                        <input type="hidden" name="articulo" value="<?php echo $articulo['idArticulo']; ?>">
-                                                        <input type="hidden" name="cuenta" value="<?php echo $idUsuario; ?>">
-                                                        <input type="hidden" name="comentario" value="<?php echo $comentario['idComentario']; ?>">
-                                                        <input class="small" type="submit" name="responder" value="Reply comment">
-                                                    </form>
-                                                    <form action="#" method="POST">
-                                                        <input type="hidden" name="idComentario" value="<?php echo $comentario['idComentario']; ?>">
-                                                        <input class="small" type="submit" name="like" value="Like">
-                                                        <input class="small" type="submit" name="dislike" value="Dislike">
-                                                    </form>
-                                                    <?php
-                                                }
-                                                ?>
-                                                <br/>
-                                            </table>
-                                        </div>
-                                        <?php
                                     }
                                 }
                                 ?>
