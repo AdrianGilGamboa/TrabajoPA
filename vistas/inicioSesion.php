@@ -54,8 +54,8 @@ include_once ('../CRUD/CRUDCuenta.php');
             <div class="row uniform">
                 <div class="\-6u\28small\29">
                     Usuario: <input type="text" name="usuario" value="<?php echo $nombre; ?>" placeholder="Name" /> <br>
-                    </div>
-                    <div class="\-6u\28small\29">
+                </div>
+                <div class="\-6u\28small\29">
                     Clave: <input type="password" name="clave" placeholder="Password" /> <br><br>
                 </div>
             </div>                   
@@ -63,13 +63,15 @@ include_once ('../CRUD/CRUDCuenta.php');
             <div class="row uniform">
                 <ul class="actions">
                     <li><input class="small"  type="submit" name="btnLogin" value="Entrar"/></li>
-                    <li><input class="small" type="reset" name="btnCancelar" value="Cancelar"/></li>
-                    <li><input class="small" type="submit" name="btnRegistro" value="Registro" /></li>
+                    <li><input class="small" type="reset" name="btnCancelar" value="Cancelar"/></li>                    
                     <li><input class="small" type="reset" value="Reset" class="alt" /></li>
                 </ul>
 
             </div>
 
+        </form>
+        <form action="#" method="POST">
+            <input class="small" type="submit" name="btnRegistro" value="Registro" />
         </form>
         <footer id="footer">
             <div class="inner">

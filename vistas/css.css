@@ -1388,7 +1388,7 @@ body.is-loading *, body.is-loading *:before, body.is-loading *:after {
 
 .inner {
     margin: 0 auto;
-    max-width: 65em;
+    max-width: 50%;
 }
 
 
@@ -1673,7 +1673,6 @@ body.is-loading *, body.is-loading *:before, body.is-loading *:after {
 /* Form */
 
 form {
-    
     padding: 20px;
     margin: 60px auto 60px auto;
     
@@ -2784,13 +2783,13 @@ ol li {
 }
 
 ul {
-    list-style: disc;
+/*    list-style: disc;*/
     margin: 0 0 2em 0;
     padding-left: 1em;
 }
 
 ul li {
-    padding-left: 0.5em;
+/*    padding-left: 0.5em;*/
 }
 
 ul.alt {
@@ -2950,6 +2949,7 @@ dl dd {
     background: #25a2c3;
     text-align: center;
     color: #c8e7f0;
+    clear: both;
 }
 
 #footer .actions{
