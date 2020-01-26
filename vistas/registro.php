@@ -54,22 +54,26 @@ include_once ('../CRUD/CRUDSeccion.php');
             }
         }
         ?>
-        <h2>Registro de usuario</h2>
-        <form action="#" method="POST">
+        <h2 class="centrar">Registro de usuario</h2>
+        <form action="#" method="POST" style="padding-left: 25%;padding-top: 10px;padding-right: 25%;margin-left: 30px;">
             Nombre: <input type="text" name="nombre" value=""><br/>
             Usuario: <input type="text" name="usuario" value=""><br/>
             Clave: <input type="password" name="clave"><br/>
             Email: <input type="text" name="email"><br/>
             Gustos: <br/>
+            <table>
             <?php
             foreach ($secciones as $seccion) {
-                echo $seccion['categoria'];
-                ?>
-                <input type="checkbox" name="<?php echo $seccion['categoria']; ?>" value="<?php echo $seccion['categoria']; ?>"><br/>
-                <?php
+                ?> <tr> <td><?php echo $seccion['categoria'];?></td> 
+                
+                 <td> <input class="gustos" type="checkbox" name="<?php echo $seccion['categoria']; ?>" value="<?php echo $seccion['categoria']; ?>"></td> </tr>
+               
+                    <?php
             }
             ?>
-            Discapacidad visual: <input type="checkbox" name="Dv"><br/>
+                </table>
+            Discapacidad visual: <input type="checkbox" name="Dv"><br/><br/>
+            
             <input type="submit" name="btnRegistrar" value="Registrar"><br/>                                
         </form>
         <footer id="footer">
