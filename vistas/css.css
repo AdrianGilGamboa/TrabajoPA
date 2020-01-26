@@ -1112,6 +1112,7 @@ and open the template in the editor.
 
     .\-6u\28small\29 {
         margin-left: 60%;
+ 
         
     }
 
@@ -1675,7 +1676,12 @@ body.is-loading *, body.is-loading *:before, body.is-loading *:after {
 form {
     padding: 20px;
     margin: 60px auto 60px auto;
-    margin-left:70px;
+
+
+    margin-left: 70px;
+    text-align: center;
+
+
     
 }
 form li{
@@ -1782,7 +1788,6 @@ input[type="radio"] {
     -ms-appearance: none;
     appearance: none;
     display: block;
-    float: left;
     margin-right: -2em;
     opacity: 0;
     width: 1em;
