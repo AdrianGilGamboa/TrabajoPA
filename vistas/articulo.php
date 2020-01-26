@@ -58,7 +58,7 @@ function hiloComentario($respuesta) {
     <style>
 
     </style>
-    <body class="inner">
+    <body>
         <?php
         session_start();
         $hayCuenta = FALSE;

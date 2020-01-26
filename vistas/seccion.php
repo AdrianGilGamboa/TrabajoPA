@@ -16,7 +16,6 @@ function mostrarArticulos($idSeccion) {
         return $articulos;
     } else {
         return FALSE;
-
     }
 }
 ?>
@@ -24,26 +23,70 @@ function mostrarArticulos($idSeccion) {
 <html>
     <head>
         <meta charset="UTF-8">
-        <title><?php $idSeccion = $_GET['idSeccion'];
-        $seccion = readSeccionId($idSeccion);echo $seccion['categoria']; ?></title>
+        <title classs="centrar"><?php
+            $idSeccion = $_GET['idSeccion'];
+            $seccion = readSeccionId($idSeccion);
+            echo $seccion['categoria'];
+            ?></title>
         <link href="css.css" rel="stylesheet" type="text/css"/>
-        <meta charset="utf-8"/>
         <meta http-equiv="X-UA-Compatible" content=="IE=edge"/>
         <meta name="google" value="notranslate"/>
         <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     </head>
 
     <body>
-        <header>
-            <h1>MoarNews</h1>
-            <h2>The Digital Newspaper</h2>
+        <?php
+        session_start();
+        $hayCuenta = FALSE;
+        if (isset($_SESSION['cuentaID'])) {
+            $hayCuenta = TRUE;
+            $nombreUsuario = $_SESSION['nombreUsuario'];
+            $idUsuario = $_SESSION['cuentaID'];
+        } else {
+            $hayCuenta = FALSE;
+        }
+        ?>
+        <header id="header">
+
+            <?php
+            if ($hayCuenta) {
+                ?>
+
+                <nav class="left">
+                    <a href="#" class="button alt" ><?php echo date("Y-m-d") ?> </a>
+                </nav>
+
+                <a href="portada.php" class="logo">MoarNews</a>
+                <nav class="right">
+                    <a href="suscripcion.php" class="button alt" >Suscribe</a>
+                    <a href="cuenta.php" class="button alt"><?php echo $nombreUsuario; ?></a>  
+                </nav>
+
+
+                <?php
+            }
+            ?>
+            <?php
+            if (!$hayCuenta) {
+                ?>
+                <nav class="left">
+                    <a href="#" class="button alt" ><?php echo date("Y-m-d") ?> </a>
+                </nav>
+
+                <a href="portada.php" class="logo">MoarNews</a>
+                <nav class="right">
+                    <a href="inicioSesion.php"class="button alt">Log in</a>
+                    <a href="registro.php"  class="button alt">Register</a>
+                </nav>
+                <?php
+            }
+            ?>
 
         </header>
         <?php
         include_once 'nav.php';
-        
         ?>
-         
+
         <aside>
             <!-- Anuncios -->
         </aside>
@@ -72,20 +115,20 @@ function mostrarArticulos($idSeccion) {
                                    ?></a>
                         </div>
                         <div class="audioSeccion">
-                            <?php if ($articulo['audio'] != NULL) { ?>
+        <?php if ($articulo['audio'] != NULL) { ?>
                                 <audio controls>
                                     <source src="<?php echo '../audios/' . $articulo['audio']; ?>" type="audio/mpeg">
                                 </audio>
-                            <?php } ?>
+        <?php } ?>
                         </div>
                         <div class="descripcionSeccion">
-                            <?php echo $articulo['descripcion']; ?>
+        <?php echo $articulo['descripcion']; ?>
                         </div>
                         <div class="textoSeccion">
-                            <?php echo $articulo['texto']; ?>
+        <?php echo $articulo['texto']; ?>
                         </div>
                         <div class="fechaSeccion">
-                            <?php echo $articulo['fecha']; ?>
+        <?php echo $articulo['fecha']; ?>
                         </div>
                         <div class="autorSeccion">
                             <?php
@@ -109,10 +152,10 @@ function mostrarArticulos($idSeccion) {
             </div>
             <div class="copyright">
                 &copy; Newspaper. MoarNews <a href="https://www.upo.es/portal/impe/web/portada/index.html">MoarNews</a>. Images <a href="../imagenes/logo.jpeg" alt="logo">MoarNews</a>.
-                
+
             </div>
 
         </footer>
     </body>
-    
+
 </html>

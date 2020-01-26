@@ -15,7 +15,7 @@ include_once ('../CRUD/CRUDCuenta.php');
         <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     </head>
     <body>
-       
+
         <?php
         session_start();
         if (isset($_SESSION['cuentaID'])) {
@@ -47,17 +47,26 @@ include_once ('../CRUD/CRUDCuenta.php');
             $nombre = '';
         }
         ?>
-        <h2 class="">Inicio Sesion</h2>
-        <form  class="" action="#" method="POST">
-            <div class="">
-            Usuario: <input type="text" name="usuario" value="<?php echo $nombre; ?>" /> <br>
-            Clave: <input type="password" name="clave" /> <br><br>
+        <h2 class="centrar">Inicio Sesion</h2>
+        <form class= "inner" action="#" method="POST">
+            <div class="row uniform">
+                <div class="\-6u\28small\29">
+                    Usuario: <input type="text" name="usuario" value="<?php echo $nombre; ?>" placeholder="Name" /> <br>
+                    </div>
+                    <div class="\-6u\28small\29">
+                    Clave: <input type="password" name="clave" placeholder="Password" /> <br><br>
+                </div>
+            </div>                   
+
+            <div class="row uniform">
+                <ul class="actions">
+                    <li><input class="small"  type="submit" name="btnLogin" value="Entrar"/></li>
+                    <li><input class="small" type="reset" name="btnCancelar" value="Cancelar"/></li>
+                    <li><input class="small" type="submit" name="btnRegistro" value="Registro" /></li>
+                    <li><input class="small" type="reset" value="Reset" class="alt" /></li>
+                </ul>
             </div>
-            <input class=""  type="submit" name="btnLogin" value="Entrar"/>
-            <input class="" type="reset" name="btnCancelar" value="Cancelar"/> <br><br>                                
-        </form>
-        <form class="" action="#" method="POST">
-            <input type="submit" name="btnRegistro" value="Registro"/>                                
+
         </form>
         <footer id="footer">
             <div class="inner">

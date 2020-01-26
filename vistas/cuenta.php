@@ -42,7 +42,7 @@ function mediaPuntuacion($sumaTotal, $numComentarios) {
                 <th>User</th>
                 <th>Password</th>
                 <th>Email</th>
-                <th>Formato</th>
+                <th>Format</th>
                 <th>Type</th>
                 <th>Visual disability</th>
                 <th>Preferences</th>
@@ -149,6 +149,8 @@ function mediaPuntuacion($sumaTotal, $numComentarios) {
                 ?>
                 <div class="boton"><a href="modificarCuenta.php">Modify account</a></div>
         </section>
+        
+        
         <footer id="footer">
             <div class="inner">
                 <h2>Get In Touch</h2>
