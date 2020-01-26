@@ -19,7 +19,7 @@ include ("../CRUD/CRUDAnuncio.php");
 </style>
 
 <html>
- <head>
+    <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content=="IE=edge"/>
         <meta name="google" value="notranslate"/>
@@ -31,8 +31,8 @@ include ("../CRUD/CRUDAnuncio.php");
         </script>
     </head>
     <body>
-        
-       
+
+
         <form action="#" method="POST">
 
             <input type="submit" name="creaPortada" value="Create Front Page">
@@ -41,11 +41,10 @@ include ("../CRUD/CRUDAnuncio.php");
             <input type="submit" name="listarPortada" value="View Front Pages">
         </form>
         <?php
-
-//              session_start();
-//             if(!isset($_SESSION['cuentaID'])){
-//                 header('Location: inicioSesion.php');
-//             }
+        session_start();
+        if (!isset($_SESSION['cuentaID'])) {
+            header('Location: inicioSesion.php');
+        }
 
         if (isset($_SESSION['cuentaID'])) {
             if ($_SESSION['tipo'] === "administrador") {
@@ -55,9 +54,9 @@ include ("../CRUD/CRUDAnuncio.php");
                 header('Location: cuenta.php');
             }
         }
-        
+
         include_once 'nav.php';
-        
+
         $portadas = readAllPortada();
         $articulos = readAllArticulo();
 
@@ -91,7 +90,6 @@ include ("../CRUD/CRUDAnuncio.php");
                         <input type="submit" name="añadiendoAnuncio" value="Add advertisement" class="botonesGestionPortada">
                     </form>
                     <?php
-
                 } else {
                     echo "No hay anuncios sin portadas asociadas";
                 }
@@ -114,33 +112,33 @@ include ("../CRUD/CRUDAnuncio.php");
                                 <th></th>
                                 <th>Advertisements to change</th>
                             </tr>
-                            <?php
-                            foreach ($anuncioSinPortada as $anuncio) {
-                                ?>
+            <?php
+            foreach ($anuncioSinPortada as $anuncio) {
+                ?>
                                 <tr>
                                     <td><input type="radio" name="anuncio" value="<?php echo $anuncio['idAnuncio']; ?>" required></td>
                                     <td><?php echo $anuncio['descripcion']; ?></td>
                                 </tr>
-                                <?php
-                            }
-                            ?>
+                <?php
+            }
+            ?>
                         </table>
                         <input type="submit" name="cambiandoAnuncio" value="Change advertisement" class="botonesGestionPortada">
                     </form>
-                    <?php
-                } else {
-                    echo "No hay anuncios sin portadas asociadas";
-                }
-            }
+            <?php
+        } else {
+            echo "No hay anuncios sin portadas asociadas";
         }
-        if (isset($_POST['cambiarAnuncio'])) {
-            $idPortada = $_POST['portada'];
-            $portada = readPortada($idPortada);
-            if (tieneAnuncio($portada['idPortada'])) {
-                $anuncioSinPortada = leerAnunciosSinPortada();
-                $anuncioActual = obtenerAnuncioDePortada($portada['idPortada']);
-                if ($anuncioSinPortada) {
-                    ?>
+    }
+}
+if (isset($_POST['cambiarAnuncio'])) {
+    $idPortada = $_POST['portada'];
+    $portada = readPortada($idPortada);
+    if (tieneAnuncio($portada['idPortada'])) {
+        $anuncioSinPortada = leerAnunciosSinPortada();
+        $anuncioActual = obtenerAnuncioDePortada($portada['idPortada']);
+        if ($anuncioSinPortada) {
+            ?>
                     <form action="#" method="POST">
                         Date: <input type="date" name="fecha" value="<?php echo $portada['fecha']; ?>"><br/> 
                         Actual Advertisement: <?php echo $anuncioActual['descripcion']; ?>
@@ -149,67 +147,66 @@ include ("../CRUD/CRUDAnuncio.php");
                                 <th></th>
                                 <th>Advertisements to change</th>
                             </tr>
-                            <?php
-                            foreach ($anuncioSinPortada as $anuncio) {
-                                ?>
+            <?php
+            foreach ($anuncioSinPortada as $anuncio) {
+                ?>
                                 <tr>
                                     <td><input type="radio" name="anuncio" value="<?php echo $anuncio['idAnuncio']; ?>" required></td>
                                     <td><?php echo $anuncio['descripcion']; ?></td>
                                 </tr>
-                                <?php
-                            }
-                            ?>
+                <?php
+            }
+            ?>
                         </table>
                         <input type="submit" name="cambiandoAnuncio" value="Change advertisement" class="botonesGestionPortada">
                     </form>
-                    <?php
-                } else {
-                    echo "No hay anuncios sin portadas asociadas";
-                }
-            } else {
-                echo "Primero debe añadir un anuncio para modificarlo por otro";
-                $idPortada = $_POST['portada'];
-                $portada = readPortada($idPortada);
-                    $anuncioSinPortada = leerAnunciosSinPortada();
-                    if ($anuncioSinPortada) {
-                        ?>
-                        <form action="#" method="POST">
-                            Date: <input type="date" name="fecha" value="<?php echo $portada['fecha']; ?>"><br/> 
-
-                            <table border = "2">
-                                <tr>
-                                    <th></th>
-                                    <th>Advertisements to add</th>
-                                </tr>
-                                <?php
-                                foreach ($anuncioSinPortada as $anuncio) {
-                                    ?>
-                                    <tr>
-                                        <td><input type="radio" name="anuncio" value="<?php echo $anuncio['idAnuncio']; ?>" required></td>
-                                        <td><?php echo $anuncio['descripcion']; ?></td>
-                                    </tr>
-                                    <?php
-                                }
-                                ?>
-                            </table>
-                            <input type="submit" name="añadiendoAnuncio" value="Add advertisement" class="botonesGestionPortada">
-                        </form>
-                        <?php
-                    } else {
-                        echo "No hay anuncios sin portadas asociadas";
-                    }
-                }
-            
+            <?php
+        } else {
+            echo "No hay anuncios sin portadas asociadas";
         }
+    } else {
+        echo "Primero debe añadir un anuncio para modificarlo por otro";
+        $idPortada = $_POST['portada'];
+        $portada = readPortada($idPortada);
+        $anuncioSinPortada = leerAnunciosSinPortada();
+        if ($anuncioSinPortada) {
+            ?>
+                    <form action="#" method="POST">
+                        Date: <input type="date" name="fecha" value="<?php echo $portada['fecha']; ?>"><br/> 
 
-        if (isset($_POST['borraArticulo'])) {
-            $idPortada = $_POST['portada'];
-            $portada = readPortada($idPortada);
-
-
-            $articulosEnPortada = leerArticulosDadaPortada($idPortada);
-            if ($articulosEnPortada) {
+                        <table border = "2">
+                            <tr>
+                                <th></th>
+                                <th>Advertisements to add</th>
+                            </tr>
+            <?php
+            foreach ($anuncioSinPortada as $anuncio) {
                 ?>
+                                <tr>
+                                    <td><input type="radio" name="anuncio" value="<?php echo $anuncio['idAnuncio']; ?>" required></td>
+                                    <td><?php echo $anuncio['descripcion']; ?></td>
+                                </tr>
+                <?php
+            }
+            ?>
+                        </table>
+                        <input type="submit" name="añadiendoAnuncio" value="Add advertisement" class="botonesGestionPortada">
+                    </form>
+            <?php
+        } else {
+            echo "No hay anuncios sin portadas asociadas";
+        }
+    }
+}
+
+if (isset($_POST['borraArticulo'])) {
+    $idPortada = $_POST['portada'];
+    $portada = readPortada($idPortada);
+
+
+    $articulosEnPortada = leerArticulosDadaPortada($idPortada);
+    if ($articulosEnPortada) {
+        ?>
                 <form action="#" method="POST">
                     Date: <input type="text" name="fecha" value="<?php echo $portada['fecha']; ?>"><br/> 
 
@@ -218,34 +215,34 @@ include ("../CRUD/CRUDAnuncio.php");
                             <th></th>
                             <th>Article to remove</th>
                         </tr>
-                        <?php
-                        $j = 0;
-                        foreach ($articulosEnPortada as $articulo) {
-                            ?>
+        <?php
+        $j = 0;
+        foreach ($articulosEnPortada as $articulo) {
+            ?>
                             <tr>
                                 <td><input type="checkbox" name="<?php echo $j++; ?>" value="<?php echo $articulo['idArticulo']; ?>"></td>
                                 <td><?php echo $articulo['titulo']; ?></td>
                             </tr>
-                            <?php
-                        }
-                        ?>
+            <?php
+        }
+        ?>
                     </table>
                     <input type="hidden" name="numAr" value="<?php echo $j; ?>">
                     <input type="submit" name="eliminandoArticulos" value="Delete articles" class="botonesGestionPortada">
                 </form>
-                <?php
-            } else {
-                echo "Todos los articulos estan asociados a una portada";
-            }
-        }
-        if (isset($_POST['añadeArticulo'])) {
-            $idPortada = $_POST['portada'];
-            $portada = readPortada($idPortada);
+        <?php
+    } else {
+        echo "Todos los articulos estan asociados a una portada";
+    }
+}
+if (isset($_POST['añadeArticulo'])) {
+    $idPortada = $_POST['portada'];
+    $portada = readPortada($idPortada);
 
 
-            $articulosSinPortada = leerArticulosSinPortada();
-            if ($articulosSinPortada) {
-                ?>
+    $articulosSinPortada = leerArticulosSinPortada();
+    if ($articulosSinPortada) {
+        ?>
                 <form action="#" method="POST">
                     Date: <input type="date" name="fecha" value="<?php echo $portada['fecha']; ?>"><br/> 
 
@@ -254,126 +251,126 @@ include ("../CRUD/CRUDAnuncio.php");
                             <th></th>
                             <th>Articles to add</th>
                         </tr>
-                        <?php
-                        $j = 0;
-                        foreach ($articulosSinPortada as $articulo) {
-                            ?>
+        <?php
+        $j = 0;
+        foreach ($articulosSinPortada as $articulo) {
+            ?>
                             <tr>
                                 <td><input type="checkbox" name="<?php echo $j++; ?>" value="<?php echo $articulo['idArticulo']; ?>"></td>
                                 <td><?php echo $articulo['titulo']; ?></td>
                             </tr>
-                            <?php
-                        }
-                        ?>
+            <?php
+        }
+        ?>
                     </table>
                     <input type="hidden" name="numAr" value="<?php echo $j; ?>">
                     <input type="submit" name="añadiendoArticulos" value="Add articles" class="botonesGestionPortada">
                 </form>
-                <?php
-            } else {
-                echo "No hay articulos sin portadas";
-            }
+        <?php
+    } else {
+        echo "No hay articulos sin portadas";
+    }
+}
+if (isset($_POST['borra'])) {
+    $num = $_POST['numAr'];
+    $borrar = array();
+    for ($i = 0; $i < $num; $i++) {
+        if (isset($_POST[$i])) {
+            array_push($borrar, $_POST[$i]);
         }
-        if (isset($_POST['borra'])) {
-            $num = $_POST['numAr'];
-            $borrar = array();
-            for ($i = 0; $i < $num; $i++) {
-                if (isset($_POST[$i])) {
-                    array_push($borrar, $_POST[$i]);
-                }
-            }
-            foreach ($borrar as $idPortada) {
-                echo $idPortada;
-                //$idPortada = obtenerIDPortada($fecha);
-                if (quitarArticulosDePortada($idPortada)) {
-                    deletePortada($idPortada);
-                } else {
-                    echo "ERROR, no se ha podido quitar los articulos de la portada";
-                }
-            }
-        } else if (isset($_POST['añadiendoArticulos'])) {
-            $num = $_POST['numAr'];
-            $fecha = $_POST['fecha'];
-            $seleccionados = array();
-            for ($i = 0; $i < $num; $i++) {
-                if (isset($_POST[$i])) {
-                    array_push($seleccionados, $_POST[$i]);
-                }
-            }
-            $idPortada = obtenerIDPortada($fecha);
-            $res = TRUE;
-            foreach ($seleccionados as $idArticulo) {
-                if (!asociarArticuloPortada($idArticulo, $idPortada)) {
-                    $res = FALSE;
-                }
-            }
-        } else if (isset($_POST['eliminandoArticulos'])) {
-            $num = $_POST['numAr'];
-            $fecha = $_POST['fecha'];
-            $seleccionados = array();
-            for ($i = 0; $i < $num; $i++) {
-                if (isset($_POST[$i])) {
-                    array_push($seleccionados, $_POST[$i]);
-                }
-            }
-            $idPortada = obtenerIDPortada($fecha);
-            $res = TRUE;
-            foreach ($seleccionados as $idArticulo) {
-                if (!quitarArticuloDePortada($idArticulo)) {
-                    $res = FALSE;
-                }
-            }
-        } else if (isset($_POST['añadiendoAnuncio'])) {
-            echo "Añadiendo anuncio";
-            //$num = $_POST['numAr'];
-            $idAnuncio = $_POST['anuncio'];
-            $fecha = $_POST['fecha'];
-            $idPortada = obtenerIDPortada($fecha);
-            echo $idPortada;
-            $res = TRUE;
+    }
+    foreach ($borrar as $idPortada) {
+        echo $idPortada;
+        //$idPortada = obtenerIDPortada($fecha);
+        if (quitarArticulosDePortada($idPortada)) {
+            deletePortada($idPortada);
+        } else {
+            echo "ERROR, no se ha podido quitar los articulos de la portada";
+        }
+    }
+} else if (isset($_POST['añadiendoArticulos'])) {
+    $num = $_POST['numAr'];
+    $fecha = $_POST['fecha'];
+    $seleccionados = array();
+    for ($i = 0; $i < $num; $i++) {
+        if (isset($_POST[$i])) {
+            array_push($seleccionados, $_POST[$i]);
+        }
+    }
+    $idPortada = obtenerIDPortada($fecha);
+    $res = TRUE;
+    foreach ($seleccionados as $idArticulo) {
+        if (!asociarArticuloPortada($idArticulo, $idPortada)) {
+            $res = FALSE;
+        }
+    }
+} else if (isset($_POST['eliminandoArticulos'])) {
+    $num = $_POST['numAr'];
+    $fecha = $_POST['fecha'];
+    $seleccionados = array();
+    for ($i = 0; $i < $num; $i++) {
+        if (isset($_POST[$i])) {
+            array_push($seleccionados, $_POST[$i]);
+        }
+    }
+    $idPortada = obtenerIDPortada($fecha);
+    $res = TRUE;
+    foreach ($seleccionados as $idArticulo) {
+        if (!quitarArticuloDePortada($idArticulo)) {
+            $res = FALSE;
+        }
+    }
+} else if (isset($_POST['añadiendoAnuncio'])) {
+    echo "Añadiendo anuncio";
+    //$num = $_POST['numAr'];
+    $idAnuncio = $_POST['anuncio'];
+    $fecha = $_POST['fecha'];
+    $idPortada = obtenerIDPortada($fecha);
+    echo $idPortada;
+    $res = TRUE;
 
-            if (!asociarAnuncioPortada($idAnuncio, $idPortada)) {
+    if (!asociarAnuncioPortada($idAnuncio, $idPortada)) {
+        $res = FALSE;
+    }
+} else if (isset($_POST['cambiandoAnuncio'])) {
+    echo "Modificando";
+    $idAnuncio = $_POST['anuncio'];
+    $fecha = $_POST['fecha'];
+    $idPortada = obtenerIDPortada($fecha);
+    quitarAnuncioDePortada($idPortada);
+    $res = TRUE;
+
+    if (!asociarAnuncioPortada($idAnuncio, $idPortada)) {
+        $res = FALSE;
+    }
+}
+if (isset($_POST['crea'])) {
+    $num = $_POST['numAr'];
+    $fecha = $_POST['fecha'];
+    $seleccionados = array();
+    for ($i = 0; $i < $num; $i++) {
+        if (isset($_POST[$i])) {
+            array_push($seleccionados, $_POST[$i]);
+        }
+    }
+    $portada = array(
+        'fecha' => $fecha
+    );
+    if (createPortada($portada)) {
+        $idPortada = obtenerIDPortada($fecha);
+        asociarPortada($idCuenta, $idPortada);
+        $res = TRUE;
+        foreach ($seleccionados as $idArticulo) {
+            if (!asociarArticuloPortada($idArticulo, $idPortada)) {
                 $res = FALSE;
             }
-        } else if (isset($_POST['cambiandoAnuncio'])) {
-            echo "Modificando";
-            $idAnuncio = $_POST['anuncio'];
-            $fecha = $_POST['fecha'];
-            $idPortada = obtenerIDPortada($fecha);
-            quitarAnuncioDePortada($idPortada);
-            $res = TRUE;
-
-            if (!asociarAnuncioPortada($idAnuncio, $idPortada)) {
-                $res = FALSE;
-            }
         }
-        if (isset($_POST['crea'])) {
-            $num = $_POST['numAr'];
-            $fecha = $_POST['fecha'];
-            $seleccionados = array();
-            for ($i = 0; $i < $num; $i++) {
-                if (isset($_POST[$i])) {
-                    array_push($seleccionados, $_POST[$i]);
-                }
-            }
-            $portada = array(
-                'fecha' => $fecha
-            );
-            if (createPortada($portada)) {
-                $idPortada = obtenerIDPortada($fecha);
-                asociarPortada($idCuenta, $idPortada);
-                $res = TRUE;
-                foreach ($seleccionados as $idArticulo) {
-                    if (!asociarArticuloPortada($idArticulo, $idPortada)) {
-                        $res = FALSE;
-                    }
-                }
-            } else {
-                echo "Error al crear la portada";
-            }
-        }
-        if (isset($_POST['creaPortada'])) {
-            ?>
+    } else {
+        echo "Error al crear la portada";
+    }
+}
+if (isset($_POST['creaPortada'])) {
+    ?>
             <form action="#" method="POST">
                 Date: <input type="date" name="fecha" value="<?php echo date("Y-m-d"); ?>"><br/> 
 
@@ -382,31 +379,31 @@ include ("../CRUD/CRUDAnuncio.php");
                         <th></th>
                         <th>Articles to insert</th>
                     </tr>
-                    <?php
-                    $j = 0;
-                    foreach ($articulos as $articulo) {
-                        ?>
+    <?php
+    $j = 0;
+    foreach ($articulos as $articulo) {
+        ?>
                         <tr>
                             <td><input type="checkbox" name="<?php echo $j++; ?>" value="<?php echo $articulo['idArticulo']; ?>"></td>
                             <td><?php echo $articulo['titulo']; ?></td>
                         </tr>
-                        <?php
-                    }
-                    ?>
+        <?php
+    }
+    ?>
                 </table>
                 <input type="hidden" name="numAr" value="<?php echo $j; ?>">
                 <input type="submit" name="crea" value="Create Front Page" class="botonesGestionPortada">
             </form>
-            <?php
-        } else if (isset($_POST['modifPortada']) || isset($_POST['eliminandoArticulos']) || isset($_POST['añadiendoArticulos']) || isset($_POST['añadiendoAnuncio']) || isset($_POST['cambiandoAnuncio'])) {
-            if ($portadas) {
-                ?>
+    <?php
+} else if (isset($_POST['modifPortada']) || isset($_POST['eliminandoArticulos']) || isset($_POST['añadiendoArticulos']) || isset($_POST['añadiendoAnuncio']) || isset($_POST['cambiandoAnuncio'])) {
+    if ($portadas) {
+        ?>
 
                 <form action="#" method="POST">
                     <ul>
-                        <?php
-                        foreach ($portadas as $portada) {
-                            ?>
+        <?php
+        foreach ($portadas as $portada) {
+            ?>
                             <li><?php echo $portada['fecha']; ?><input type="radio" name="portada" value="<?php echo $portada['idPortada']; ?>" required></li>
                             <?php
                         }
@@ -417,43 +414,43 @@ include ("../CRUD/CRUDAnuncio.php");
                     <input type="submit" name="añadeAnuncio" value="Add advertisement" class="botonesGestionPortada">
                     <input type="submit" name="cambiarAnuncio" value="Change advertisement" class="botonesGestionPortada">
                 </form>
-                <?php
-            } else {
-                echo "No Front Pages created";
-            }
-        } else if (isset($_POST['eliminaPortada'])) {
-            if ($portadas) {
-                ?>
+        <?php
+    } else {
+        echo "No Front Pages created";
+    }
+} else if (isset($_POST['eliminaPortada'])) {
+    if ($portadas) {
+        ?>
                 <form action="#" method="POST">
                     <table border = "2">
                         <tr>
                             <th></th>
                             <th>Portada</th>
                         </tr>
-                        <?php
-                        $i = 0;
+        <?php
+        $i = 0;
 
-                        foreach ($portadas as $portada) {
-                            ?>
+        foreach ($portadas as $portada) {
+            ?>
                             <tr>
                                 <td><input type="checkbox" name="<?php echo $i++; ?>" value="<?php echo $portada['idPortada']; ?>"></td>
                                 <td><?php echo $portada['fecha']; ?></td>
                             </tr>
-                            <?php
-                        }
-                        ?>
+            <?php
+        }
+        ?>
                     </table>
                     <input type="hidden" name="numAr" value="<?php echo $i; ?>">
                     <input type="submit" name="borra" value="Delete front page" class="botonesGestionPortada">
                 </form>
-                <?php
-            } else {
-                echo "No Front Pages created";
-            }
-        } else if (isset($_POST['listarPortada'])) {
-            $portadas = readAllPortada();
-            if ($portadas) {
-                ?>
+        <?php
+    } else {
+        echo "No Front Pages created";
+    }
+} else if (isset($_POST['listarPortada'])) {
+    $portadas = readAllPortada();
+    if ($portadas) {
+        ?>
 
                 <table border = "2">
                     <tr>
@@ -463,17 +460,17 @@ include ("../CRUD/CRUDAnuncio.php");
                         <th>Author Name</th>
                         <th>Articles</th>
                     </tr>
-                    <?php
-                    foreach ($portadas as $portada) {
-                        ?>
+        <?php
+        foreach ($portadas as $portada) {
+            ?>
                         <tr>
 
                             <td><?php echo $portada['fecha']; ?></td>
                             <td><?php
-                                $autor = readPortada($portada['idPortada']);
-                                $autor2 = readCuenta($autor['idCuenta']);
-                                echo $autor2['usuario'];
-                                ?></td>
+            $autor = readPortada($portada['idPortada']);
+            $autor2 = readCuenta($autor['idCuenta']);
+            echo $autor2['usuario'];
+            ?></td>
                             <td><?php
                                 echo $autor2['nombre'];
                                 ?></td>
@@ -483,26 +480,26 @@ include ("../CRUD/CRUDAnuncio.php");
                                 if ($articulos) {
                                     ?>
                                     <ul>
-                                        <?php
-                                        foreach ($articulos as $articulo) {
-                                            ?> <li> <?php echo $articulo['titulo']; ?> </li> <?php
+                                    <?php
+                                    foreach ($articulos as $articulo) {
+                                        ?> <li> <?php echo $articulo['titulo']; ?> </li> <?php
                                         }
                                         ?>
                                     </ul>
                                 </td>
                             </tr>
-                            <?php
-                        }
-                    }
-                    ?>
-                </table>
-
                 <?php
-            } else {
-                echo "No Front Pages created";
             }
         }
         ?>
+                </table>
+
+                    <?php
+                } else {
+                    echo "No Front Pages created";
+                }
+            }
+            ?>
         <footer id="footer">
             <div class="inner">
                 <h2>Get In Touch</h2>

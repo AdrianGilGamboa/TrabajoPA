@@ -121,26 +121,31 @@ function mediaPuntuacion($sumaTotal, $numComentarios) {
                     ?>
                     <table cellpadding="10" border="1">
                         <tr>Articles: </tr>
-                        <?php foreach ($articulos as $articulo) { ?> 
+                        <?php
+                        if ($articulos) {
+                            foreach ($articulos as $articulo) {
+                                ?> 
 
-                            <tr>
-                                <td align='center'><?php echo $articulo['idArticulo']; ?></td>
-                                <td align='center'><?php echo $articulo['fecha']; ?></td>
-                                <td align='center'><?php echo $articulo['titulo']; ?></td>
-                                <td align='center'><?php echo $articulo['descripcion']; ?></td>
-                                <td align='center'><?php echo $articulo['imagen']; ?></td>
-                                <td align='center'><?php echo $articulo['audio']; ?></td>
-                            </tr>
+                                <tr>
+                                    <td align='center'><?php echo $articulo['idArticulo']; ?></td>
+                                    <td align='center'><?php echo $articulo['fecha']; ?></td>
+                                    <td align='center'><?php echo $articulo['titulo']; ?></td>
+                                    <td align='center'><?php echo $articulo['descripcion']; ?></td>
+                                    <td align='center'><?php echo $articulo['imagen']; ?></td>
+                                    <td align='center'><?php echo $articulo['audio']; ?></td>
+                                </tr>
 
-                        <?php }
+                                <?php
+                            }
+                        }
                         ?>
                     </table>
                     <div class="boton"><a href="gestionArticulo.php">Article management</a></div>
                 <?php } else if ($_SESSION['tipo'] === 'administrador') { ?>
 
-                    <div class="boton"><a href="gestionSeccion.php">Create section</a></div>
+                    <div class="boton"><a href="gestionSeccion.php">Section management</a></div>
 
-                    <div class="boton"><a href="gestionPortada.php">Create front page</a></div>
+                    <div class="boton"><a href="gestionPortada.php">Front page management</a></div>
 
                     <div class="boton"><a href="gestionAnuncios.php">Advertisement management</a></div>
 

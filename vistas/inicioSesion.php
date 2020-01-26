@@ -13,6 +13,7 @@ include_once ('../CRUD/CRUDCuenta.php');
         <meta http-equiv="X-UA-Compatible" content=="IE=edge"/>
         <meta name="google" value="notranslate"/>
         <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+        <script src="../js/scripts.js" type="text/javascript"></script>
     </head>
     <body>
 
@@ -47,8 +48,9 @@ include_once ('../CRUD/CRUDCuenta.php');
             $nombre = '';
         }
         ?>
+
         <h2 class="centrar">Inicio Sesion</h2>
-        <form class= "inner" action="#" method="POST">
+        <form class= "inner" action="#" method="POST" onsubmit="return validaInicioSesion()">
             <div class="row uniform">
                 <div class="\-6u\28small\29">
                     Usuario: <input type="text" name="usuario" value="<?php echo $nombre; ?>" placeholder="Name" /> <br>
@@ -65,6 +67,7 @@ include_once ('../CRUD/CRUDCuenta.php');
                     <li><input class="small" type="submit" name="btnRegistro" value="Registro" /></li>
                     <li><input class="small" type="reset" value="Reset" class="alt" /></li>
                 </ul>
+
             </div>
 
         </form>

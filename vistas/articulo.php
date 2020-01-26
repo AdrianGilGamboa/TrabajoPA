@@ -3,7 +3,7 @@ include_once ('../CRUD/CRUDArticulo.php');
 include_once ('../CRUD/CRUDCuenta.php');
 include_once ('../CRUD/CRUDComentario.php');
 
-function readComentariosArticulo($idArticulo) {
+function readComentariosArticulo($idArticulo, $idUsuario) {
     $con = conexionBD();
     $res = False;
     $query = "SELECT * FROM comentarios WHERE idArticulo = $idArticulo and idRespuesta is NULL";
@@ -12,9 +12,20 @@ function readComentariosArticulo($idArticulo) {
     <ul>
         <?php
         while ($comentario = mysqli_fetch_array($result)) {
-            ?><li><?php echo $comentario['texto']; ?></li><?php
+            ?><li><?php echo $comentario['texto']; ?></li>
+            <form action="comentario.php" method="POST">
+                <input type="hidden" name="articulo" value="<?php echo $idArticulo; ?>">
+                <input type="hidden" name="cuenta" value="<?php echo $idUsuario; ?>">
+                <input type="hidden" name="comentario" value="<?php echo $comentario['idComentario']; ?>">
+                <input class="small" type="submit" name="responder" value="Reply comment">
+            </form>
+            <form action="#" method="POST">
+                <input type="hidden" name="idComentario" value="<?php echo $comentario['idComentario']; ?>">
+                <input class="small" type="submit" name="like" value="Like">
+                <input class="small" type="submit" name="dislike" value="Dislike">
+            </form><?php
             ?><?php
-            hiloComentario($comentario);
+            hiloComentario($comentario, $idUsuario, $idArticulo);
         }
         ?>
     </ul>
@@ -23,7 +34,7 @@ function readComentariosArticulo($idArticulo) {
     return $res;
 }
 
-function hiloComentario($respuesta) {
+function hiloComentario($respuesta, $idUsuario, $idArticulo) {
     $con = conexionBD();
     $idComentario = $respuesta['idComentario'];
     ?>
@@ -32,8 +43,19 @@ function hiloComentario($respuesta) {
         $query = "SELECT * FROM comentarios WHERE idRespuesta = $idComentario";
         $result = $con->query($query);
         while ($respuesta = mysqli_fetch_array($result)) {
-            ?><li><?php echo $respuesta['texto']; ?></li><?php
-            hiloComentario($respuesta);
+            ?><li><?php echo $respuesta['texto']; ?></li>
+            <form action="comentario.php" method="POST">
+                <input type="hidden" name="articulo" value="<?php echo $idArticulo; ?>">
+                <input type="hidden" name="cuenta" value="<?php echo $idUsuario; ?>">
+                <input type="hidden" name="comentario" value="<?php echo $respuesta['idComentario']; ?>">
+                <input class="small" type="submit" name="responder" value="Reply comment">
+            </form>
+            <form action="#" method="POST">
+                <input type="hidden" name="idComentario" value="<?php echo $respuesta['idComentario']; ?>">
+                <input class="small" type="submit" name="like" value="Like">
+                <input class="small" type="submit" name="dislike" value="Dislike">
+            </form><?php
+            hiloComentario($respuesta, $idUsuario, $idArticulo);
         }
         ?>
     </ul><?php
@@ -56,7 +78,9 @@ function hiloComentario($respuesta) {
 
     </head>
     <style>
-
+.comentariosArticuloEnArticulo ul{
+    text-align: left;
+}
     </style>
     <body>
         <?php
@@ -68,6 +92,13 @@ function hiloComentario($respuesta) {
             $idUsuario = $_SESSION['cuentaID'];
         } else {
             $hayCuenta = FALSE;
+        }
+        if (isset($_POST['like'])) {
+            $idComentario = $_POST['idComentario'];
+            meGusta($idComentario);
+        } else if (isset($_POST['dislike'])) {
+            $idComentario = $_POST['idComentario'];
+            noMeGusta($idComentario);
         }
         ?>
         <header id="header">
@@ -150,19 +181,34 @@ function hiloComentario($respuesta) {
                 </div>
 
                 <div>
-                <p><?php echo $articulo['texto']; ?></p>
+                    <p><?php echo $articulo['texto']; ?></p>
                 </div>
                 <div class="fechaArticulo">
                     <?php echo $articulo['fecha']; ?>
                 </div>
                 <div>
-
                     <h5> <?php echo $autor['nombre']; ?></h5>
-
                 </div>
-                <div class="comentariosArticulo">
+                <div class="seccionArticulo">
+                    <?php
+                    $secciones = leerSeccionDadoArticulo($articulo['idArticulo']);
+
+                    if ($secciones) {
+                        foreach ($secciones as $seccion) {
+                            ?>
+                            <a href="seccion.php?idSeccion=<?php echo $seccion['idSeccion']; ?>"><?php echo $seccion['categoria']; ?></a><?php
+                        }
+                    }
+                    ?>
+                </div>
+                <form action="comentario.php" method="POST">
+                    <input type="hidden" name="articulo" value="<?php echo $articulo['idArticulo']; ?>">
+                    <input type="hidden" name="cuenta" value="<?php echo $idUsuario; ?>">
+                    <input class="small" type="submit" name="comentar" value="Comment article">
+                </form>
+                <div class="comentariosArticuloEnArticulo">
                     <h4>Comments: </h4>
-                    <?php readComentariosArticulo($articulo['idArticulo']); ?>
+                    <?php readComentariosArticulo($articulo['idArticulo'], $idUsuario); ?>
                 </div>
             </article>
         </section>
