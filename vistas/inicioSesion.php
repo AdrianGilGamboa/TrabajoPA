@@ -13,9 +13,10 @@ include_once ('../CRUD/CRUDCuenta.php');
         <meta http-equiv="X-UA-Compatible" content=="IE=edge"/>
         <meta name="google" value="notranslate"/>
         <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+        <script src="../js/scripts.js" type="text/javascript"></script>
     </head>
     <body>
-       
+
         <?php
         session_start();
         if (isset($_SESSION['cuentaID'])) {
@@ -47,24 +48,38 @@ include_once ('../CRUD/CRUDCuenta.php');
             $nombre = '';
         }
         ?>
-        <h2 class="">Inicio Sesion</h2>
-        <form  class="" action="#" method="POST">
-            <div class="">
-            Usuario: <input type="text" name="usuario" value="<?php echo $nombre; ?>" /> <br>
-            Clave: <input type="password" name="clave" /> <br><br>
+
+       
+        <form class= "inner" action="#" method="POST" onsubmit="return validaInicioSesion()">
+             <h2 class="row uniform">Inicio Sesion</h2>
+            <div class="row uniform">
+                <div class="6u 12u/(xsmall)">
+                    Usuario: <input type="text" name="usuario" value="<?php echo $nombre; ?>" placeholder="Name" /> <br>
+                </div>
+                <div class="centrar">
+                    Clave: <input type="password" name="clave" placeholder="Password" /> <br><br>
+                </div>
+            </div>                   
+
+            <div class="row uniform">
+                <ul class="actions">
+                    <li><input class="small"  type="submit" name="btnLogin" value="Entrar"/></li>
+                    <li><input class="small" type="reset" name="btnCancelar" value="Cancelar"/></li>                    
+                    <li><input class="small" type="reset" value="Reset" class="alt" /></li>
+                </ul>
+
             </div>
-            <input class=""  type="submit" name="btnLogin" value="Entrar"/>
-            <input class="" type="reset" name="btnCancelar" value="Cancelar"/> <br><br>                                
+
         </form>
-        <form class="" action="#" method="POST">
-            <input type="submit" name="btnRegistro" value="Registro"/>                                
+        <form action="#" method="POST">
+            <input class="small" type="submit" name="btnRegistro" value="Registro" />
         </form>
         <footer id="footer">
             <div class="inner">
                 <h2>Get In Touch</h2>
                 <ul class="actions">
                     <li><i class="icon fa-phone"></i> <a href="#">(034)954 34 92 00</a></li>
-                    <li><span class="icon fa-envelope"></span> <a href="#">moarNesws@gmail.com</a></li>
+                    <li><span class="icon fa-envelope"></span> <a href="#">moarneswspa@gmail.com</a></li>
                     <li><span class="icon fa-map-marker"></span> Ctra. de Utrera, 1, 41013 Sevilla </li>
                 </ul>
             </div>

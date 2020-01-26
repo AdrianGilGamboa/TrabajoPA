@@ -13,11 +13,9 @@ include_once("../CRUD/CRUDSeccion.php");
         <title></title>
     </head>
     <body>
-        <?php
-        include_once 'nav.php';
-        ?>
-        
-          
+
+
+
         <?php
         session_start();
 
@@ -29,6 +27,9 @@ include_once("../CRUD/CRUDSeccion.php");
             $nombreUsuario = $_SESSION['nombreUsuario'];
             $idUsuario = $_SESSION['cuentaID'];
         }
+
+        include_once 'nav.php';
+
         $datosPersonales = readCuenta($idUsuario);
         $secciones = readAllSeccion();
         if (isset($_POST['btnActualizar'])) {
@@ -75,7 +76,7 @@ include_once("../CRUD/CRUDSeccion.php");
             }
         }
         ?>
-        <form action="#" method="POST">
+        <form action="#" method="POST" style="padding-right: 25%;padding-left: 25%;padding-top: 2px;margin-top: 20px;">
             Nombre: <input type="text" name="nombre" value="<?php echo $datosPersonales['nombre']; ?>"><br/>
             Usuario: <input type="text" name="usuario" value="<?php echo $datosPersonales['usuario']; ?>"><br/>
             Clave: <input type="password" name="clave" value="<?php echo $datosPersonales['clave']; ?>"><br/>
@@ -83,22 +84,27 @@ include_once("../CRUD/CRUDSeccion.php");
             Gustos: <br/>
             <?php
             $misGustos = explode(",", $datosPersonales['gustos']);
-            foreach ($secciones as $seccion) {
-                echo $seccion['categoria'];
-                ?>
-                <input type="checkbox" name="<?php echo $seccion['categoria']; ?>" value="<?php echo $seccion['categoria']; ?>" <?php
-                if (in_array($seccion['categoria'], $misGustos)) {
-                    echo "checked";
-                }
-                ?>><br/>
-                       <?php
-                   }
-                   ?>
+            ?>
+            <table > 
+                <?php
+                foreach ($secciones as $seccion) {
+                    ?> <tr><td>  <?php echo $seccion['categoria']; ?></td>
+
+                           <td> <input type="checkbox" name="<?php echo $seccion['categoria']; ?>" value="<?php echo $seccion['categoria']; ?>" <?php
+                            if (in_array($seccion['categoria'], $misGustos)) {
+                                echo "checked";
+                            }
+                            ?>></td></tr>
+                        <?php
+                    }
+                    ?>
+            </table>
+
             Discapacidad visual: <input type="checkbox" name="Dv" <?php
             if ($datosPersonales['Dv']) {
                 echo "checked";
             }
-                   ?>><br/>
+            ?>><br/>
             <input type="submit" name="btnActualizar" value="Actualizar"><br/>
 
         </form>
@@ -107,13 +113,13 @@ include_once("../CRUD/CRUDSeccion.php");
                 <h2>Get In Touch</h2>
                 <ul class="actions">
                     <li><i class="icon fa-phone"></i> <a href="#">(034)954 34 92 00</a></li>
-                    <li><span class="icon fa-envelope"></span> <a href="#">moarNesws@gmail.com</a></li>
+                    <li><span class="icon fa-envelope"></span> <a href="#">moarnewspa@gmail.com</a></li>
                     <li><span class="icon fa-map-marker"></span> Ctra. de Utrera, 1, 41013 Sevilla </li>
                 </ul>
             </div>
             <div class="copyright">
                 &copy; Newspaper. MoarNews <a href="https://www.upo.es/portal/impe/web/portada/index.html">MoarNews</a>. Images <a href="../imagenes/logo.jpeg" alt="logo">MoarNews</a>.
-                
+
             </div>
         </footer>
     </body>

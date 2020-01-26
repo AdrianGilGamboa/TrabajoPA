@@ -26,12 +26,8 @@ include_once ("../CRUD/CRUDAnunciante.php");
                 header('Location:cuenta.php');
             }
         }
-        ?>
-        <?php
+        
         include_once 'nav.php';
-        ?>
-         <?php
-        include_once 'header.php';
         ?>
           
         <form action="#" method="POST">
@@ -233,7 +229,7 @@ include_once ("../CRUD/CRUDAnunciante.php");
                 <h2>Get In Touch</h2>
                 <ul class="actions">
                     <li><i class="icon fa-phone"></i> <a href="#">(034)954 34 92 00</a></li>
-                    <li><span class="icon fa-envelope"></span> <a href="#">moarNesws@gmail.com</a></li>
+                    <li><span class="icon fa-envelope"></span> <a href="#">moarnewspa@gmail.com</a></li>
                     <li><span class="icon fa-map-marker"></span> Ctra. de Utrera, 1, 41013 Sevilla </li>
                 </ul>
             </div>

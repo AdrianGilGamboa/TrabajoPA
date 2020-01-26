@@ -26,15 +26,13 @@ function tiene($misArticulos, $articulo) {
         <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
         <title></title>
     </head>
-    <body>
-        <form action="#" method="POST">
-            <input type="submit" name="creaSect" value="Create Section">
-            <input type="submit" name="modifSect" value="Modify Section">
-            <input type="submit" name="eliminaSect" value="Delete Section">
+    <body class="inner">
+        <form  class="actions" action="#" method="POST">
+            <input class="button special fit small"  type="submit" name="creaSect" value="Create Section">
+            <input class="button special fit small"type="submit" name="modifSect" value="Modify Section">
+            <input class="button special fit small" type="submit" name="eliminaSect" value="Delete Section">
         </form>
-        <?php
-        include_once 'nav.php';
-        ?>
+        
         
         <?php
         session_start();
@@ -49,6 +47,9 @@ function tiene($misArticulos, $articulo) {
                 header('Location: cuenta.php');
             }
         }
+        
+        include_once 'nav.php';
+        
         $secciones = readAllSeccion();
         $articulos = readAllArticulo();
         if (isset($_POST['confirmar'])) {
@@ -104,10 +105,10 @@ function tiene($misArticulos, $articulo) {
             $articulosEnSeccion = leerArticulosDadaSeccion($idSeccion);
             ?>
             <form action="#" method="POST">
-                Category: <input type="text" name="categoria" value="<?php echo $seccion['categoria']; ?>"><br/> 
+                Category: <input class="" type="text" name="categoria" value="<?php echo $seccion['categoria']; ?>"><br/> 
 
-                <table border = "2">
-                    <caption>Delete Articles</caption>
+                <table border = "2" >
+  
                     <tr>
                         <th></th>
                         <th>Articles</th>

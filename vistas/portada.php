@@ -3,6 +3,7 @@ include_once ("../CRUD/CRUDArticulo.php");
 include_once ("../CRUD/CRUDCuenta.php");
 include_once ("../CRUD/CRUDSeccion.php");
 include_once ("../CRUD/CRUDPortada.php");
+include_once ("../CRUD/CRUDComentario.php");
 ?>
 <!DOCTYPE html>
 
@@ -30,6 +31,13 @@ include_once ("../CRUD/CRUDPortada.php");
             $idUsuario = $_SESSION['cuentaID'];
         } else {
             $hayCuenta = FALSE;
+        }
+        if (isset($_POST['like'])) {
+            $idComentario = $_POST['idComentario'];
+            meGusta($idComentario);
+        } else if (isset($_POST['dislike'])) {
+            $idComentario = $_POST['idComentario'];
+            noMeGusta($idComentario);
         }
         ?>
         <header id="header">
@@ -80,77 +88,124 @@ include_once ("../CRUD/CRUDPortada.php");
         <section>
 
             <?php
-            foreach ($articulos as $articulo) {
-                $autor = readCuenta($articulo['idCuenta']);
-                ?>
-                <a href="articulo.php?idArticulo=<?php echo $articulo['idArticulo']; ?>"><article>
+            if ($articulos) {
+                foreach ($articulos as $articulo) {
+                    $autor = readCuenta($articulo['idCuenta']);
+                    ?>
+                    <a href="articulo.php?idArticulo=<?php echo $articulo['idArticulo']; ?>"><article class="inner">
 
-                        <h2><?php echo $articulo['titulo']; ?></h2>
+                            <h2><?php echo $articulo['titulo']; ?></h2>
 
-                        <div class="image">
-                            <a href="<?php
-                            if ($articulo['imagen'] != NULL) {
-                                echo '../imagenes/' . $articulo['imagen'];
-                            }
-                            ?>"><img src="../imagenes/<?php echo $articulo['imagen']; ?>"alt='<?php echo $articulo['imagen']; ?>' width='300'><?php
-                                   if ($articulo['imagen'] != NULL) {
-                                       echo $articulo['imagen'];
-                                   }
-                                   ?></a>
-                        </div>
-                        <div class="audioArticulo">
-                            <?php if ($articulo['audio'] != NULL) { ?>
-                                <audio controls>
-                                    <source src="<?php echo '../audios/' . $articulo['audio']; ?>" type="audio/mpeg">
-                                </audio>
-                            <?php } ?>
-                        </div>
+                            <div class="image">
+                                <a href="<?php
+                                if ($articulo['imagen'] != NULL) {
+                                    echo '../imagenes/' . $articulo['imagen'];
+                                }
+                                ?>"><img src="../imagenes/<?php echo $articulo['imagen']; ?>"alt='<?php echo $articulo['imagen']; ?>' width='300'><?php
+                                       if ($articulo['imagen'] != NULL) {
+                                           echo $articulo['imagen'];
+                                       }
+                                       ?></a>
+                            </div>
+                            <div class="audioArticulo">
+                                <?php if ($articulo['audio'] != NULL) { ?>
+                                    <audio controls>
+                                        <source src="<?php echo '../audios/' . $articulo['audio']; ?>" type="audio/mpeg">
+                                    </audio>
+                                <?php } ?>
+                            </div>
 
-                        <div >
-                            <h3><?php echo $articulo['descripcion']; ?></h3> 
-                        </div>
-                        <div >
-                            <h4> <?php echo $articulo['texto']; ?></h4>
-                        </div>
-                        <div class="fechaArticulo">
-                            <?php echo $articulo['fecha']; ?>
-                        </div>
-                        <div>
-                            <h5><?php echo $autor['nombre']; ?></h5>
-                        </div>
-                        <div class="comentariosArticulo">
-                            <?php
-                            $comentarios = readComentariosArticuloPortada($articulo['idArticulo']);
-                            if ($comentarios) {
-                                foreach ($comentarios as $comentario) {
-                                    ?>
-                                    <p><?php echo $comentario['texto']; ?></p>
-                                    <strong><?php echo $comentario['puntuacion']; ?></strong>
-                                    <?php
-                                    if ($hayCuenta) {
+                            <div >
+                                <h3><?php echo $articulo['descripcion']; ?></h3> 
+                            </div>
+                            <div>
+                                <p> <?php echo $articulo['texto']; ?></p>
+                            </div>
+                            <div class="fechaArticulo">
+                                <?php echo $articulo['fecha']; ?>
+                            </div>
+                            <div>
+                                <h5><?php echo $autor['nombre']; ?></h5>
+                            </div>
+                            <div class="seccionArticulo">
+                                <?php
+                                $secciones = leerSeccionDadoArticulo($articulo['idArticulo']);
+
+                                if ($secciones) {
+                                    foreach ($secciones as $seccion) {
                                         ?>
-                                        <button>Comment</button>
-                                        <?php
+                                        <a href="seccion.php?idSeccion=<?php echo $seccion['idSeccion']; ?>"><?php echo $seccion['categoria']; ?></a><?php
                                     }
-                                    ?>
-                                    <?php
                                 }
-                            }
-                            ?>
-                        </div>
-                        <div class="seccionArticulo">
-                            <?php
-                            $secciones = leerSeccionDadoArticulo($articulo['idArticulo']);
-                            //print_r($secciones);
-                            if ($secciones) {
-                                foreach ($secciones as $seccion) {
-                                    echo $seccion['categoria'];
+                                ?>
+                            </div>
+                            <form action="comentario.php" method="POST">
+                                <input type="hidden" name="articulo" value="<?php echo $articulo['idArticulo']; ?>">
+                                <input type="hidden" name="cuenta" value="<?php echo $idUsuario; ?>">
+                                <input class="small" type="submit" name="comentar" value="Comment article">
+                            </form>
+                            <div>
+                                <?php
+                                $comentarios = readComentariosArticuloPortada($articulo['idArticulo']);
+                                if ($comentarios) {
+                                    foreach ($comentarios as $comentario) {
+                                        ?>Autor: <?php
+                                        $autor = cuentaDadoComentario($comentario['idCuenta']);
+                                        ?>
+                                        <span style="color: <?php
+                                        if ($autor['formato'] === "gold") {
+                                            echo "gold";
+                                        } else if ($autor['formato'] === "silver") {
+                                            echo "silver";
+                                        } else if ($autor['formato'] === "bronze") {
+                                            echo "brown";
+                                        }
+                                        ?>"><?php
+                                                  echo $autor['nombre'];
+                                                  ?></span>
+
+                                        <p><?php echo $comentario['texto']; ?></p>
+                                        <?php
+                                        $puntuacion = $comentario['puntuacion'];
+                                        for ($index = 0; $index < $puntuacion; $index++) {
+                                            ?>
+                                            <span style="font-size: 33px;color: <?php
+                                            if ($autor['formato'] === "gold") {
+                                                echo "gold";
+                                            } else if ($autor['formato'] === "silver") {
+                                                echo "silver";
+                                            } else if ($autor['formato'] === "bronze") {
+                                                echo "brown";
+                                            }
+                                            ?>">☆</span>
+                                                  <?php
+                                              }
+                                              ?>
+                                        <br/>
+                                              <?php
+                                              if ($hayCuenta) {
+                                                  ?>
+                                            <form action="comentario.php" method="POST">
+                                                <input type="hidden" name="articulo" value="<?php echo $articulo['idArticulo']; ?>">
+                                                <input type="hidden" name="cuenta" value="<?php echo $idUsuario; ?>">
+                                                <input type="hidden" name="comentario" value="<?php echo $comentario['idComentario']; ?>">
+                                                <input class="small" type="submit" name="responder" value="Reply comment">
+                                            </form>
+                                            <form action="#" method="POST">
+                                                <input type="hidden" name="idComentario" value="<?php echo $comentario['idComentario']; ?>">
+                                                <input class="small" type="submit" name="like" value="Like">
+                                                <input class="small" type="submit" name="dislike" value="Dislike">
+                                            </form>
+                                            <?php
+                                        }
+
+                                    }
                                 }
-                            }
-                            ?>
-                        </div>
-                    </article> </a>
-                <?php
+                                ?>
+                            </div>
+                        </article> </a> <hr>
+                    <?php
+                }
             }
             ?>
         </section>
@@ -159,7 +214,7 @@ include_once ("../CRUD/CRUDPortada.php");
                 <h2>Get In Touch</h2>
                 <ul class="actions">
                     <li><i class="icon fa-phone"></i> <a href="#">(034)954 34 92 00</a></li>
-                    <li><span class="icon fa-envelope"></span> <a href="#">moarNesws@gmail.com</a></li>
+                    <li><span class="icon fa-envelope"></span> <a href="#">moarnewspa@gmail.com</a></li>
                     <li><span class="icon fa-map-marker"></span> Ctra. de Utrera, 1, 41013 Sevilla </li>
                 </ul>
             </div>

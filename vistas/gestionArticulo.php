@@ -12,15 +12,14 @@ include_once ("../CRUD/CRUDAnuncio.php");
         <meta name="google" value="notranslate"/>
         <link href="css.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+        <script src="../js/scripts.js" type="text/javascript"></script>
         <title></title>
     </head>
-    
+
     <body>
-        <?php
-        include_once 'nav.php';
-        ?>
-         
-          
+
+
+
         <form action="#" method="POST">
             <input type="submit" name="creaArt" value="Create article">
             <input type="submit" name="modifArt" value="Modifiy article">
@@ -40,6 +39,9 @@ include_once ("../CRUD/CRUDAnuncio.php");
                 header('Location: portada.php');
             }
         }
+
+        include_once 'nav.php';
+
         if (isset($_POST['actualiza'])) {
             $idArticulo = $_POST['idArticulo'];
             $articulo = readArticulo($idArticulo);
@@ -68,11 +70,10 @@ include_once ("../CRUD/CRUDAnuncio.php");
                     $actualizar = False;
                 } else {
                     $nombreImagen = $imagen['name'];
-                    unlink("../imagenes/".$articulo['imagen']);
+                    unlink("../imagenes/" . $articulo['imagen']);
                 }
             } else {
                 $nombreImagen = $articulo['imagen'];
-                
             }
             if (!empty($_FILES['audio']["name"])) {
                 $audio = $_FILES['audio'];
@@ -80,12 +81,11 @@ include_once ("../CRUD/CRUDAnuncio.php");
                     echo "wrong format of audio";
                     $actualizar = False;
                 } else {
-                    unlink("../audio/".$articulo['audio']);
+                    unlink("../audio/" . $articulo['audio']);
                     $nombreAudio = $audio['name'];
                 }
             } else {
                 $nombreAudio = $articulo['audio'];
-                
             }
             if ($actualizar) {
                 $articulo = array(
@@ -98,15 +98,15 @@ include_once ("../CRUD/CRUDAnuncio.php");
                     'audio' => $nombreAudio
                 );
                 if (updateArticulo($articulo)) {
-                    asociarArticuloAnuncio($idArticulo, $idAnuncio);   
+                    asociarArticuloAnuncio($idArticulo, $idAnuncio);
                     if (!empty($_FILES['audio']["name"])) {
                         move_uploaded_file($audio['tmp_name'], '../audios/' . $nombreAudio);
                     }
                     if (!empty($_FILES['imagen']["name"])) {
                         move_uploaded_file($imagen['tmp_name'], '../imagenes/' . $nombreImagen);
                     }
-                    
-                    
+
+
                     echo "Article created";
                 } else {
                     echo "Error creating";
@@ -152,7 +152,6 @@ include_once ("../CRUD/CRUDAnuncio.php");
                 if (!empty($anuncios)) {
                     foreach ($anuncios as $anuncio) {
                         echo $anuncio['descripcion'];
-                        echo $anuncio['imagen'];
                         ?>
                         <input type="radio" name="anuncio" value="<?php echo $anuncio['idAnuncio']; ?>" <?php
                         if ($idAr === $anuncio['idArticulo']) {
@@ -240,12 +239,14 @@ include_once ("../CRUD/CRUDAnuncio.php");
                         <th>Articulos</th>
                     </tr>
                     <?php
-                    foreach ($articulosPorAutor as $articulo) {
-                        ?>
-                        <tr>
-                            <td><?php echo $articulo['titulo']; ?></td>
-                        </tr>
-                        <?php
+                    if ($articulosPorAutor) {
+                        foreach ($articulosPorAutor as $articulo) {
+                            ?>
+                            <tr>
+                                <td><?php echo $articulo['titulo']; ?></td>
+                            </tr>
+                            <?php
+                        }
                     }
                     ?>
                 </table>
@@ -263,6 +264,7 @@ include_once ("../CRUD/CRUDAnuncio.php");
                         </tr>
                         <?php
                         $j = 0;
+                        if($articulosPorAutor){
                         foreach ($articulosPorAutor as $articulo) {
                             ?>
                             <tr>
@@ -270,6 +272,7 @@ include_once ("../CRUD/CRUDAnuncio.php");
                                 <td><?php echo $articulo['titulo']; ?></td>
                             </tr>
                             <?php
+                        }
                         }
                         ?>
                     </table>
@@ -288,6 +291,7 @@ include_once ("../CRUD/CRUDAnuncio.php");
                             <th>Articles</th>
                         </tr>
                         <?php
+                        if($articulosPorAutor){
                         foreach ($articulosPorAutor as $articulo) {
                             ?>
                             <tr>
@@ -296,6 +300,7 @@ include_once ("../CRUD/CRUDAnuncio.php");
                             </tr>
                             <?php
                         }
+            }
                         ?>
                     </table>
 
@@ -337,7 +342,6 @@ include_once ("../CRUD/CRUDAnuncio.php");
                                 foreach ($anuncios as $anuncio) {
                                     ?><td><?php
                                         echo $anuncio['descripcion'];
-                                        echo $anuncio['imagen'];
                                         ?>
                                         <input type="radio" name="anuncio" value="<?php echo $anuncio['idAnuncio']; ?>"></td> 
 
