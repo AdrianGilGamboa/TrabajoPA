@@ -6,17 +6,44 @@ include_once ("../CRUD/CRUDPortada.php");
 include_once ("../CRUD/CRUDComentario.php");
 ?>
 <!DOCTYPE html>
+<style>
+    hr{
+        height: 10px;
+        color:black;
+    }
+    section img{
+        width:100%;
+    }
 
+aside
+{
+    
+     position: sticky;
+     position: -webkit-sticky;
+     top: 200px;
+     font: 45px 'Abril Fatface', sans-serif;
+     color: #fff;
+     text-align: center;
+}
+#imagenAnuncio{
+    top:100px;
+    margin-top:20px;
+    width:90%;
+}
+</style>
 <html>
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content=="IE=edge"/>
         <meta name="google" value="notranslate"/>
         <link href="css.css" rel="stylesheet" type="text/css"/>
+        <script src="scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
+<script src="scripts/jquery-scrolltofixed-min.js" type="text/javascript"></script>
 
         <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
         <title>Cover of the day</title>
     </head>
+    
     <body>
         <!--[if lt IE 7]>
            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -83,9 +110,11 @@ include_once ("../CRUD/CRUDComentario.php");
         $idPortada = obtenerIDPortada(date("Y-m-d"));
         $anuncio = obtenerAnuncioDePortada($idPortada);
         ?>
-        <aside>
-            <img src="../anuncios/<?php echo $anuncio['imagen']; ?>"alt='<?php echo $anuncio['imagen']; ?>' >
-            <?php echo $anuncio['descripcion']; ?>
+
+        <aside style=" top:100px;">
+            <img id="imagenAnuncio" src="../anuncios/<?php echo $anuncio['imagen']; ?>"alt='<?php echo $anuncio['imagen'];?>' style="margin-left: 1.2%;">
+            <span style="font-size: 100%"><?php echo $anuncio['descripcion'];?></span>
+
         </aside>
 
 
@@ -99,7 +128,8 @@ include_once ("../CRUD/CRUDComentario.php");
                 foreach ($articulos as $articulo) {
                     $autor = readCuenta($articulo['idCuenta']);
                     ?>
-                    <a href="articulo.php?idArticulo=<?php echo $articulo['idArticulo']; ?>"><article class="inner">
+                    <a href="articulo.php?idArticulo=<?php echo $articulo['idArticulo']; ?>">
+                        <article class="inner">
 
                             <h1><?php echo $articulo['titulo']; ?></h1>
 
@@ -154,18 +184,21 @@ include_once ("../CRUD/CRUDComentario.php");
                                 }
                                 ?>
                             </div>
-                            <form class="inner" action="comentario.php" method="POST" >
+                        
+                            <form  action="comentario.php" method="POST" style="margin-left: 0px; margin-top:20px;margin-bottom:20px;">
                                 <input type="hidden" name="articulo" value="<?php echo $articulo['idArticulo']; ?>">
                                 <input type="hidden" name="cuenta" value="<?php echo $idUsuario; ?>">
                                 <input class="button special fit small" type="submit" name="comentar" value="Comment article">
                             </form>
-                            <div class="table-wrapper">
+                            </article>
+                        <article>
+                            <div class="table-wrapper" style="width:auto">
                                 <?php
                                 $comentarios = readComentariosArticuloPortada($articulo['idArticulo']);
                                 if ($comentarios) {
 
                                     foreach ($comentarios as $comentario) {
-                                        ?><table class="alt" style="margin-bottom: 20px;margin-top: 0px;" ><tr> <td> <?php
+                                        ?><table class="alt" style="margin-bottom: 0px;margin-top: 0px; width:60%"><tr> <td> <?php
                                         $autor = cuentaDadoComentario($comentario['idCuenta']);
                                         ?>
                                                     <span style="color: <?php
@@ -180,7 +213,7 @@ include_once ("../CRUD/CRUDComentario.php");
                                                               echo $autor['nombre'];
                                                               ?></span></td>
 
-                                                <td><p style="padding-top: 0px;padding-left: 30px;padding-right: 30px;"><?php echo $comentario['texto']; ?></p></td>
+                                                <td><p style="padding-left: 30px;padding-right: 30px; margin-bottom:0px"><?php echo $comentario['texto']; ?></p></td>
                                                 <td> <?php
                                                     $puntuacion = $comentario['puntuacion'];
                                                     for ($index = 0; $index < $puntuacion; $index++) {
@@ -198,27 +231,31 @@ include_once ("../CRUD/CRUDComentario.php");
                                                           }
                                                           ?>
                                                 </td>
-                                                <?php if ($hayCuenta) { ?>
-                                                    <td> <form action="#" method="POST" style="padding-left: 0px;margin-left: 0px;">
-                                                            <ul class="actions vertical small">
-                                                                <input type="hidden" name="idComentario" value="<?php echo $comentario['idComentario']; ?>">
-                                                                <li>
-                                                                    <i class="fa fa-thumbs-o-up fa-lg" aria-hidden="true"></i>
-                                                                    <input class="nav-text" type="submit" name="like" value="like" style="background-color: green">
+                                                <?php
+                                                 if ($hayCuenta) {?>
+                                                <td> <form action="#" method="POST" style="padding: 0px;margin: 0px;">
+                                                        <ul class="actions vertical small">
+                                                            <input type="hidden" name="idComentario" value="<?php echo $comentario['idComentario']; ?>">
+                                                            <li>
+                                                                <i class="fa fa-thumbs-o-up fa-lg" aria-hidden="true"></i>
+                                                                  <input class="nav-text" type="submit" name="like" value="like" style="background-color: green">
+                                                                
+                                                            </li>
+                                                            <li>
+                                                                <i class="fa fa-thumbs-o-down fa-lg" aria-hidden="true" ></i>
+                                                                <input class="nav-text" type="submit" name="dislike" value="dislike" style="background-color: red">
+                                                            </li>
+                                                        </ul>
+                                                 </form></td> <?php }?>
 
-                                                                </li>
-                                                                <li>
-                                                                    <i class="fa fa-thumbs-o-down fa-lg" aria-hidden="true" ></i>
-                                                                    <input class="nav-text" type="submit" name="dislike" value="dislike" style="background-color: red">
-                                                                </li>
-                                                            </ul>
-                                                        </form></td> <?php } ?>
                                             </tr></table>
                                         <?php
                                         if ($hayCuenta) {
                                             ?>
 
-                                            <form action="comentario.php" method="POST" style="margin-top: 0px;padding-top: 10px;padding-bottom: 0px;padding-right: 0px;padding-left: 0px;margin-left: 0px;margin-bottom: 0px;">
+
+                                            <form action="comentario.php" method="POST" style="margin-top: 0px;padding-top: 0px;padding-bottom: 0px;margin-left: 0px;margin-bottom: 20px;">
+
                                                 <input type="hidden" name="articulo" value="<?php echo $articulo['idArticulo']; ?>">
                                                 <input type="hidden" name="cuenta" value="<?php echo $idUsuario; ?>">
                                                 <input type="hidden" name="comentario" value="<?php echo $comentario['idComentario']; ?>">
@@ -227,6 +264,7 @@ include_once ("../CRUD/CRUDComentario.php");
 
                                             <?php
                                         }
+
                                     }
                                 }
                                 ?>

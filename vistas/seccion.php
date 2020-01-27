@@ -103,7 +103,11 @@ function mostrarArticulos($idSeccion) {
                 foreach ($articulos as $articulo) {
                     $autor = readCuenta($articulo['idCuenta']);
                     ?>
-                    <a href="articulo.php?idArticulo=<?php echo $articulo['idArticulo']; ?>"><article class="inner">
+                    
+
+
+                    <a href="articulo.php?idArticulo=<?php echo $articulo['idArticulo']; ?>">
+                        <article>
 
                             <h1><?php echo $articulo['titulo']; ?></h1>
 
@@ -235,20 +239,19 @@ function mostrarArticulos($idSeccion) {
             </div>
             </article> </a>
             <footer id="footer">
-                <div class="inner">
-                    <h2>Get In Touch</h2>
-                    <ul class="actions">
-                        <li><i class="icon fa-phone"></i> <a href="#">(034)954 34 92 00</a></li>
-                        <li><span class="icon fa-envelope"></span> <a href="#">moarNesws@gmail.com</a></li>
-                        <li><span class="icon fa-map-marker"></span> Ctra. de Utrera, 1, 41013 Sevilla </li>
-                    </ul>
-                </div>
-                <div class="copyright">
-                    &copy; Newspaper. MoarNews <a href="https://www.upo.es/portal/impe/web/portada/index.html">MoarNews</a>. Images <a href="../imagenes/logo.jpeg" alt="logo">MoarNews</a>.
+            <div class="inner">
+                <h2>Get In Touch</h2>
+                <ul class="actions">
+                    <li><i class="icon fa-phone"></i> <a href="#">(034)954 34 92 00</a></li>
+                    <li><span class="icon fa-envelope"></span> <a href="#">moarnewspa@gmail.com</a></li>
+                    <li><span class="icon fa-map-marker"></span> Ctra. de Utrera, 1, 41013 Sevilla </li>
+                </ul>
+            </div>
+            <div class="copyright">
+                &copy; Newspaper. MoarNews <a href="https://www.upo.es/portal/impe/web/portada/index.html">MoarNews</a>. Images <a href="../imagenes/logo.jpeg" alt="logo">MoarNews</a>.
 
-                </div>
-
-            </footer>
+            </div>
+        </footer>
     </body>
 
 </html>
