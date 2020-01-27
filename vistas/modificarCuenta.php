@@ -81,10 +81,10 @@ include_once("../CRUD/CRUDSeccion.php");
                 if (updateCuenta($cuenta)) {
                     header('Location:cuenta.php');
                 } else {
-                    echo "error al actualizar los datos";
+                    echo "<h3 class='centrar'> error al actualizar los datos</h3>";
                 }
             } else {
-                echo "error al actualizar los datos";
+                echo "<h3 class='centrar'>error al actualizar los datos</h3>";
             }
         }
         include_once 'nav.php';
