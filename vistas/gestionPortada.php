@@ -49,18 +49,18 @@ include ("../CRUD/CRUDAnuncio.php");
         </form>
         <?php
         session_start();
-//        if (!isset($_SESSION['cuentaID'])) {
-//            header('Location: inicioSesion.php');
-//        }
-//
-//        if (isset($_SESSION['cuentaID'])) {
-//            if ($_SESSION['tipo'] === "administrador") {
-//                $idCuenta = $_SESSION['cuentaID'];
-//                $nombre = $_SESSION['nombreUsuario'];
-//            } else {
-//                header('Location: cuenta.php');
-//            }
-//        }
+        if (!isset($_SESSION['cuentaID'])) {
+            header('Location: inicioSesion.php');
+        }
+
+        if (isset($_SESSION['cuentaID'])) {
+            if ($_SESSION['tipo'] === "administrador") {
+                $idCuenta = $_SESSION['cuentaID'];
+                $nombre = $_SESSION['nombreUsuario'];
+            } else {
+                header('Location: cuenta.php');
+            }
+        }
 
         include_once 'nav.php';
 
