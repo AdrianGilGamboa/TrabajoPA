@@ -18,7 +18,7 @@ function tiene($misArticulos, $articulo) {
 }
 ?>
 <html>
-   <head>
+    <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content=="IE=edge"/>
         <meta name="google" value="notranslate"/>
@@ -32,8 +32,8 @@ function tiene($misArticulos, $articulo) {
             <input class="button special fit small"type="submit" name="modifSect" value="Modify Section">
             <input class="button special fit small" type="submit" name="eliminaSect" value="Delete Section">
         </form>
-        
-        
+
+
         <?php
         session_start();
         if (!isset($_SESSION['cuentaID'])) {
@@ -47,14 +47,13 @@ function tiene($misArticulos, $articulo) {
                 header('Location: cuenta.php');
             }
         }
-        
+
         include_once 'nav.php';
-        
+
         $secciones = readAllSeccion();
         $articulos = readAllArticulo();
         if (isset($_POST['confirmar'])) {
             $idSecction = $_POST['idSec'];
-            $nomCat = $_POST['categoria'];
             if (isset($_POST['numAr'])) {
                 $numAr = $_POST['numAr'];
                 $borrar = array();
@@ -67,17 +66,12 @@ function tiene($misArticulos, $articulo) {
                     borraSeccionDeArticulo($id);
                 }
             }
-            $seccionAc = array(
-                'id' => $idSecction,
-                'categoria' => $nomCat
-            );
-            if (updateSeccion($seccionAc)) {
-                echo "Seccion actualizada";
-            }
+
+
+            echo "Seccion actualizada";
         }
         if (isset($_POST['confirmar2'])) {
             $idSecction = $_POST['idSec'];
-            $nomCat = $_POST['categoria'];
             if (isset($_POST['numAr2'])) {
                 $numAr2 = $_POST['numAr2'];
                 $actualizar = array();
@@ -91,13 +85,9 @@ function tiene($misArticulos, $articulo) {
                     asociarArticulo($id, $idSecction);
                 }
             }
-            $seccionAc = array(
-                'id' => $idSecction,
-                'categoria' => $nomCat
-            );
-            if (updateSeccion($seccionAc)) {
-                echo "Seccion actualizada";
-            }
+
+
+            echo "Seccion actualizada";
         }
         if (isset($_POST['actualiza'])) {
             $idSeccion = $_POST['seccion'];
@@ -105,10 +95,8 @@ function tiene($misArticulos, $articulo) {
             $articulosEnSeccion = leerArticulosDadaSeccion($idSeccion);
             ?>
             <form action="#" method="POST">
-                Category: <input class="" type="text" name="categoria" value="<?php echo $seccion['categoria']; ?>"><br/> 
-
                 <table border = "2" >
-  
+                    <caption>Articles to delete</caption>
                     <tr>
                         <th></th>
                         <th>Articles</th>
@@ -133,8 +121,7 @@ function tiene($misArticulos, $articulo) {
             </form>
             <form action="#" method="POST">
                 <table border = "2">
-                    Category: <input type="text" name="categoria" value="<?php echo $seccion['categoria']; ?>"><br/>
-                    <caption>Add Articles</caption>
+                    <caption>Articles to add</caption>
                     <tr>
                         <th></th>
                         <th>Articles</th>

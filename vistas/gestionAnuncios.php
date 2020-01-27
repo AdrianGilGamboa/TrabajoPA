@@ -10,6 +10,7 @@ include_once ("../CRUD/CRUDAnunciante.php");
         <meta name="google" value="notranslate"/>
         <link href="css.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+        <script src="../js/scripts.js" type="text/javascript"></script>
         <title></title>
     </head>
     <body>
@@ -120,7 +121,7 @@ include_once ("../CRUD/CRUDAnunciante.php");
             if (isset($_POST['creaAnuncio'])) {
                 $anunciantes = readAllAnunciante();
                 ?>
-                <form action="#" method="POST" enctype="multipart/form-data">
+        <form action="#" method="POST" onsubmit="return validaAnuncio()" enctype="multipart/form-data">
                     <table>
                         <tr>
 
@@ -178,7 +179,7 @@ include_once ("../CRUD/CRUDAnunciante.php");
                 <?php
             } else if (isset($_POST['creaAnunciante'])) {
                 ?>
-                <form action="#" method="POST" >
+        <form action="#" method="POST" onsubmit="return validaAnunciante()" >
                     <table>
                         <tr>
                             <td>Name of the advertiser: </td>
