@@ -51,6 +51,7 @@ include ("../CRUD/CRUDAnuncio.php");
         session_start();
         if (!isset($_SESSION['cuentaID'])) {
             header('Location: inicioSesion.php');
+
         }
 
         if (isset($_SESSION['cuentaID'])) {
@@ -61,6 +62,8 @@ include ("../CRUD/CRUDAnuncio.php");
                 header('Location: cuenta.php');
             }
         }
+
+        include_once 'nav.php';
 
         include_once 'nav.php';
 
