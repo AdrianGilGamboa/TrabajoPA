@@ -103,18 +103,20 @@ function mostrarArticulos($idSeccion) {
                 foreach ($articulos as $articulo) {
                     $autor = readCuenta($articulo['idCuenta']);
                     ?>
+                    
+
 
                     <a href="articulo.php?idArticulo=<?php echo $articulo['idArticulo']; ?>">
                         <article>
 
-                            <h2><?php echo $articulo['titulo']; ?></h2>
+                            <h1><?php echo $articulo['titulo']; ?></h1>
 
                             <div class="image">
                                 <a href="<?php
                                 if ($articulo['imagen'] != NULL) {
                                     echo '../imagenes/' . $articulo['imagen'];
                                 }
-                                ?>"><img src="../imagenes/<?php echo $articulo['imagen']; ?>"alt='<?php echo $articulo['imagen']; ?>' width='300'><?php
+                                ?>"><img src="../imagenes/<?php echo $articulo['imagen']; ?>"alt='<?php echo $articulo['imagen']; ?>' ><?php
                                        if ($articulo['imagen'] != NULL) {
                                            echo $articulo['imagen'];
                                        }
@@ -140,75 +142,102 @@ function mostrarArticulos($idSeccion) {
                             <div>
                                 <h5><?php echo $autor['nombre']; ?></h5>
                             </div>
+                            <div class="seccionArticulo">
+                                <?php
+                                $secciones = leerSeccionDadoArticulo($articulo['idArticulo']);
 
-                            <form action="comentario.php" method="POST">
+                                if ($secciones) {
+                                    foreach ($secciones as $seccion) {
+                                        ?>
+                                        <a href="seccion.php?idSeccion=<?php echo $seccion['idSeccion']; ?>"><?php echo $seccion['categoria']; ?></a><?php
+                                    }
+                                }
+                                ?>
+                            </div>
+                            <form class="inner" action="comentario.php" method="POST" >
                                 <input type="hidden" name="articulo" value="<?php echo $articulo['idArticulo']; ?>">
                                 <input type="hidden" name="cuenta" value="<?php echo $idUsuario; ?>">
-                                <input class="small" type="submit" name="comentar" value="Comment article">
+                                <input class="button special fit small" type="submit" name="comentar" value="Comment article">
                             </form>
-                            <div class="comentariosArticulo">
+                            <div class="table-wrapper">
                                 <?php
                                 $comentarios = readComentariosArticuloPortada($articulo['idArticulo']);
                                 if ($comentarios) {
+
                                     foreach ($comentarios as $comentario) {
-                                        ?>Autor: <?php
+                                        ?><table class="alt" style="margin-bottom: 20px;margin-top: 0px;" ><tr> <td> <?php
                                         $autor = cuentaDadoComentario($comentario['idCuenta']);
                                         ?>
-                                        <span style="color: <?php
-                                        if ($autor['formato'] === "gold") {
-                                            echo "gold";
-                                        } else if ($autor['formato'] === "silver") {
-                                            echo "silver";
-                                        } else if ($autor['formato'] === "bronze") {
-                                            echo "brown";
-                                        }
-                                        ?>"><?php
-                                                  echo $autor['nombre'];
-                                                  ?></span>
+                                                    <span style="color: <?php
+                                                    if ($autor['formato'] === "gold") {
+                                                        echo "gold";
+                                                    } else if ($autor['formato'] === "silver") {
+                                                        echo "silver";
+                                                    } else if ($autor['formato'] === "bronze") {
+                                                        echo "brown";
+                                                    }
+                                                    ?>"><?php
+                                                              echo $autor['nombre'];
+                                                              ?></span></td>
 
-                                        <p><?php echo $comentario['texto']; ?></p>
+                                                <td><p style="padding-top: 0px;padding-left: 30px;padding-right: 30px;"><?php echo $comentario['texto']; ?></p></td>
+                                                <td> <?php
+                                                    $puntuacion = $comentario['puntuacion'];
+                                                    for ($index = 0; $index < $puntuacion; $index++) {
+                                                        ?>
+                                                        <span style="font-size:33px; color: <?php
+                                                        if ($autor['formato'] === "gold") {
+                                                            echo "gold";
+                                                        } else if ($autor['formato'] === "silver") {
+                                                            echo "silver";
+                                                        } else if ($autor['formato'] === "bronze") {
+                                                            echo "brown";
+                                                        }
+                                                        ?>">☆</span>
+                                                              <?php
+                                                          }
+                                                          ?>
+                                                </td>
+                                                <?php if ($hayCuenta) { ?>
+                                                    <td> <form action="#" method="POST" style="padding-left: 0px;margin-left: 0px;">
+                                                            <ul class="actions vertical small">
+                                                                <input type="hidden" name="idComentario" value="<?php echo $comentario['idComentario']; ?>">
+                                                                <li>
+                                                                    <i class="fa fa-thumbs-o-up fa-lg" aria-hidden="true"></i>
+                                                                    <input class="nav-text" type="submit" name="like" value="like" style="background-color: green">
+
+                                                                </li>
+                                                                <li>
+                                                                    <i class="fa fa-thumbs-o-down fa-lg" aria-hidden="true" ></i>
+                                                                    <input class="nav-text" type="submit" name="dislike" value="dislike" style="background-color: red">
+                                                                </li>
+                                                            </ul>
+                                                        </form></td> <?php } ?>
+                                            </tr></table>
                                         <?php
-                                        $puntuacion = $comentario['puntuacion'];
-                                        for ($index = 0; $index < $puntuacion; $index++) {
+                                        if ($hayCuenta) {
                                             ?>
-                                            <span style="font-size: 33px;color: <?php
-                                            if ($autor['formato'] === "gold") {
-                                                echo "gold";
-                                            } else if ($autor['formato'] === "silver") {
-                                                echo "silver";
-                                            } else if ($autor['formato'] === "bronze") {
-                                                echo "brown";
-                                            }
-                                            ?>">☆</span>
-                                                  <?php
-                                              }
-                                              ?>
-                                              <?php
-                                              if ($hayCuenta) {
-                                                  ?>
-                                            <form action="comentario.php" method="POST">
+
+                                            <form action="comentario.php" method="POST" style="margin-top: 0px;padding-top: 10px;padding-bottom: 0px;padding-right: 0px;padding-left: 0px;margin-left: 0px;margin-bottom: 0px;">
                                                 <input type="hidden" name="articulo" value="<?php echo $articulo['idArticulo']; ?>">
                                                 <input type="hidden" name="cuenta" value="<?php echo $idUsuario; ?>">
                                                 <input type="hidden" name="comentario" value="<?php echo $comentario['idComentario']; ?>">
                                                 <input class="small" type="submit" name="responder" value="Reply comment">
                                             </form>
-                                            <form action="#" method="POST">
-                                                <input type="hidden" name="idComentario" value="<?php echo $comentario['idComentario']; ?>">
-                                                <input class="small" type="submit" name="like" value="Like">
-                                                <input class="small" type="submit" name="dislike" value="Dislike">
-                                            </form>
+
                                             <?php
                                         }
-                                        ?>
-                                        <br/>
-                                        <?php
                                     }
                                 }
-                            }
-                        }
-                        ?>
-                    </div>
-                </article> </a>
+                                ?>
+                            </div>
+                        </article> </a> <hr>
+                    <?php
+                }
+            }
+            ?>
+            </div>
+            </article> </a>
             <footer id="footer">
             <div class="inner">
                 <h2>Get In Touch</h2>

@@ -150,3 +150,23 @@ function formato($formato,$idCuenta){
     desconectar($con);
     return $res;
 }
+
+function updateCuentaSinClave($cuenta) {
+    $con = conexionBD();
+    $res = FALSE;
+    $id = $cuenta['idCuenta'];
+    $nombre = $cuenta['nombre'];
+    $usuario = $cuenta['usuario'];
+    $email = $cuenta['email'];
+    $formato = $cuenta['formato'];
+    $tipo = $cuenta['tipo'];
+    $Dv = $cuenta['Dv'];
+    $gustos = $cuenta['gustos'];
+    $query = "UPDATE cuentas SET nombre = '$nombre', usuario = '$usuario', email = '$email', formato = '$formato', tipo = '$tipo', Dv = $Dv, gustos='$gustos' WHERE idCuenta = $id";
+    $result = $con->query($query);
+    if ($result) {
+        $res = True;
+    }
+    desconectar($con);
+    return $res;
+}

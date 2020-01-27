@@ -40,7 +40,6 @@ function mediaPuntuacion($sumaTotal, $numComentarios) {
             <tr>
                 <th>Name</th>
                 <th>User</th>
-                <th>Password</th>
                 <th>Email</th>
                 <th>Format</th>
                 <th>Type</th>
@@ -51,7 +50,6 @@ function mediaPuntuacion($sumaTotal, $numComentarios) {
             <tr>
                 <td align='center'><?php echo $datosPersonales['nombre']; ?></td>
                 <td align='center'><?php echo $datosPersonales['usuario']; ?></td>
-                <td align='center'><?php echo $datosPersonales['clave']; ?></td>
                 <td align='center'><?php echo $datosPersonales['email']; ?></td>
                 <td align='center'><?php echo $datosPersonales['formato']; ?></td>
                 <td align='center'><?php echo $datosPersonales['tipo']; ?></td>

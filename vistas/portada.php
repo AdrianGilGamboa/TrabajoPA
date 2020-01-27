@@ -56,6 +56,7 @@ aside
             $hayCuenta = TRUE;
             $nombreUsuario = $_SESSION['nombreUsuario'];
             $idUsuario = $_SESSION['cuentaID'];
+            $datosPersonales = readCuenta($idUsuario);
         } else {
             $hayCuenta = FALSE;
         }
@@ -107,15 +108,15 @@ aside
         <?php
         include_once 'nav.php';
         $idPortada = obtenerIDPortada(date("Y-m-d"));
-        $anuncio = obtenerAnuncioDePortada($idPortada) ;
-        
-        
+        $anuncio = obtenerAnuncioDePortada($idPortada);
         ?>
+
         <aside style=" top:100px;">
             <img id="imagenAnuncio" src="../anuncios/<?php echo $anuncio['imagen']; ?>"alt='<?php echo $anuncio['imagen'];?>' style="margin-left: 1.2%;">
             <span style="font-size: 100%"><?php echo $anuncio['descripcion'];?></span>
+
         </aside>
-          
+
 
         <?php
         $articulos = readAllArticuloPorFecha();
@@ -143,13 +144,21 @@ aside
                                        }
                                        ?></a>
                             </div>
-                            <div class="audioArticulo">
-                                <?php if ($articulo['audio'] != NULL) { ?>
-                                    <audio controls>
-                                        <source src="<?php echo '../audios/' . $articulo['audio']; ?>" type="audio/mpeg">
-                                    </audio>
-                                <?php } ?>
-                            </div>
+                            <?php
+                            if ($hayCuenta) {
+                                if ($datosPersonales['Dv']) {
+                                    ?>
+                                    <div class="audioArticulo">
+                                        <?php if ($articulo['audio'] != NULL) { ?>
+                                            <audio controls>
+                                                <source src="<?php echo '../audios/' . $articulo['audio']; ?>" type="audio/mpeg">
+                                            </audio>
+                                        <?php } ?>
+                                    </div>
+                                    <?php
+                                }
+                            }
+                            ?>
 
                             <div >
                                 <h3><?php echo $articulo['descripcion']; ?></h3> 
@@ -206,21 +215,21 @@ aside
 
                                                 <td><p style="padding-left: 30px;padding-right: 30px; margin-bottom:0px"><?php echo $comentario['texto']; ?></p></td>
                                                 <td> <?php
-                                                       $puntuacion = $comentario['puntuacion'];
-                                                       for ($index = 0; $index < $puntuacion; $index++) {
-                                                           ?>
-                                                           <span style="font-size:33px; color: <?php
-                                                           if ($autor['formato'] === "gold") {
-                                                               echo "gold";
-                                                           } else if ($autor['formato'] === "silver") {
-                                                               echo "silver";
-                                                           } else if ($autor['formato'] === "bronze") {
-                                                               echo "brown";
-                                                           }
-                                                           ?>">☆</span>
-                                                               <?php
-                                                           }
-                                                           ?>
+                                                    $puntuacion = $comentario['puntuacion'];
+                                                    for ($index = 0; $index < $puntuacion; $index++) {
+                                                        ?>
+                                                        <span style="font-size:33px; color: <?php
+                                                        if ($autor['formato'] === "gold") {
+                                                            echo "gold";
+                                                        } else if ($autor['formato'] === "silver") {
+                                                            echo "silver";
+                                                        } else if ($autor['formato'] === "bronze") {
+                                                            echo "brown";
+                                                        }
+                                                        ?>">☆</span>
+                                                              <?php
+                                                          }
+                                                          ?>
                                                 </td>
                                                 <?php
                                                  if ($hayCuenta) {?>
@@ -238,14 +247,17 @@ aside
                                                             </li>
                                                         </ul>
                                                  </form></td> <?php }?>
+
                                             </tr></table>
                                         <?php
                                         if ($hayCuenta) {
                                             ?>
 
+
                                             <form action="comentario.php" method="POST" style="margin-top: 0px;padding-top: 0px;padding-bottom: 0px;margin-left: 0px;margin-bottom: 20px;">
+
                                                 <input type="hidden" name="articulo" value="<?php echo $articulo['idArticulo']; ?>">
-                                               <input type="hidden" name="cuenta" value="<?php echo $idUsuario; ?>">
+                                                <input type="hidden" name="cuenta" value="<?php echo $idUsuario; ?>">
                                                 <input type="hidden" name="comentario" value="<?php echo $comentario['idComentario']; ?>">
                                                 <input class="small" type="submit" name="responder" value="Reply comment">
                                             </form>
