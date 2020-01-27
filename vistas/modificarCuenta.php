@@ -29,72 +29,120 @@ include_once("../CRUD/CRUDSeccion.php");
             $idUsuario = $_SESSION['cuentaID'];
         }
 
-        
+
 
         $datosPersonales = readCuenta($idUsuario);
         $secciones = readAllSeccion();
         if (isset($_POST['btnActualizar'])) {
-            $gustos = array();
-            $filtros = array(
-                'nombre' => FILTER_SANITIZE_MAGIC_QUOTES,
-                'usuario' => FILTER_SANITIZE_MAGIC_QUOTES,
-                'claveantigua' => FILTER_SANITIZE_MAGIC_QUOTES,
-                'clavenueva' => FILTER_SANITIZE_MAGIC_QUOTES,
-                'clavenuevarepetida' => FILTER_SANITIZE_MAGIC_QUOTES,
-                'email' => FILTER_SANITIZE_EMAIL
-            );
-            foreach ($secciones as $seccion) {
-                $aux = $seccion['categoria'];
-                if (isset($_POST[$aux])) {
-                    array_push($gustos, $seccion['categoria']);
+            if ($_POST['clavenueva'] !== "" && $_POST['clavenuevarepetida'] !== "") {
+                $gustos = array();
+                $filtros = array(
+                    'nombre' => FILTER_SANITIZE_MAGIC_QUOTES,
+                    'usuario' => FILTER_SANITIZE_MAGIC_QUOTES,
+                    'claveantigua' => FILTER_SANITIZE_MAGIC_QUOTES,
+                    'clavenueva' => FILTER_SANITIZE_MAGIC_QUOTES,
+                    'clavenuevarepetida' => FILTER_SANITIZE_MAGIC_QUOTES,
+                    'email' => FILTER_SANITIZE_EMAIL
+                );
+                foreach ($secciones as $seccion) {
+                    $aux = $seccion['categoria'];
+                    if (isset($_POST[$aux])) {
+                        array_push($gustos, $seccion['categoria']);
+                    }
                 }
-            }
-            $Dv = 0;
-            if (isset($_POST['Dv'])) {
-                $Dv = TRUE;
-            }
-            $entradas = filter_input_array(INPUT_POST, $filtros);
-            $posible = true;
-            if (!preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*[@]([a-zA-Z0-9])+[.]([a-zA-Z0-9\._-])+$/", $entradas['email'])) {
-                $posible = false;
-            }
-            if ($entradas['clavenueva'] === $entradas['clavenuevarepetida']) {
+                $Dv = 0;
+                if (isset($_POST['Dv'])) {
+                    $Dv = TRUE;
+                }
+                $entradas = filter_input_array(INPUT_POST, $filtros);
+                $posible = true;
+                if (!preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*[@]([a-zA-Z0-9])+[.]([a-zA-Z0-9\._-])+$/", $entradas['email'])) {
+                    $posible = false;
+                }
+                if ($entradas['clavenueva'] === $entradas['clavenuevarepetida']) {
+                    if (!password_verify($entradas['claveantigua'], $datosPersonales['clave'])) {
+                        $posible = FALSE;
+                    }
+                } else {
+                    $posible = FALSE;
+                }
+                if ($posible) {
+                    $cuenta = array(
+                        'idCuenta' => $idUsuario,
+                        'nombre' => $entradas['nombre'],
+                        'usuario' => $entradas['usuario'],
+                        'clave' => $entradas['clavenueva'],
+                        'email' => $entradas['email'],
+                        'formato' => $datosPersonales['formato'],
+                        'tipo' => $datosPersonales['tipo'],
+                        'Dv' => $Dv,
+                        'gustos' => implode(',', $gustos)
+                    );
+
+                    if (updateCuenta($cuenta)) {
+                        header('Location:cuenta.php');
+                    } else {
+                        echo "<h3 class='centrar'>error al actualizar los datos en update con clave</h3>";
+                    }
+                } else {
+                    echo "<h3 class='centrar'>error al actualizar los datos en posible con clave</h3>";
+                }
+            } else {
+                $gustos = array();
+                $filtros = array(
+                    'nombre' => FILTER_SANITIZE_MAGIC_QUOTES,
+                    'claveantigua' => FILTER_SANITIZE_MAGIC_QUOTES,
+                    'usuario' => FILTER_SANITIZE_MAGIC_QUOTES,
+                    'email' => FILTER_SANITIZE_EMAIL
+                );
+                foreach ($secciones as $seccion) {
+                    $aux = $seccion['categoria'];
+                    if (isset($_POST[$aux])) {
+                        array_push($gustos, $seccion['categoria']);
+                    }
+                }
+                $Dv = 0;
+                if (isset($_POST['Dv'])) {
+                    $Dv = TRUE;
+                }
+                $entradas = filter_input_array(INPUT_POST, $filtros);
+                $posible = true;
+                if (!preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*[@]([a-zA-Z0-9])+[.]([a-zA-Z0-9\._-])+$/", $entradas['email'])) {
+                    $posible = false;
+                }
                 if (!password_verify($entradas['claveantigua'], $datosPersonales['clave'])) {
                     $posible = FALSE;
                 }
-            } else {
-                $posible = FALSE;
-            }
-            if ($posible) {
-                $cuenta = array(
-                    'idCuenta' => $idUsuario,
-                    'nombre' => $entradas['nombre'],
-                    'usuario' => $entradas['usuario'],
-                    'clave' => $entradas['clavenueva'],
-                    'email' => $entradas['email'],
-                    'formato' => $datosPersonales['formato'],
-                    'tipo' => $datosPersonales['tipo'],
-                    'Dv' => $Dv,
-                    'gustos' => implode(',', $gustos)
-                );
+                if ($posible) {
+                    $cuenta = array(
+                        'idCuenta' => $idUsuario,
+                        'nombre' => $entradas['nombre'],
+                        'usuario' => $entradas['usuario'],
+                        'email' => $entradas['email'],
+                        'formato' => $datosPersonales['formato'],
+                        'tipo' => $datosPersonales['tipo'],
+                        'Dv' => $Dv,
+                        'gustos' => implode(',', $gustos)
+                    );
 
-                if (updateCuenta($cuenta)) {
-                    header('Location:cuenta.php');
+                    if (updateCuentaSinClave($cuenta)) {
+                        header('Location:cuenta.php');
+                    } else {
+                        echo "<h3 class='centrar'>error al actualizar los datos en update sinclave</h3>";
+                    }
                 } else {
-                    echo "error al actualizar los datos";
+                    echo "<h3 class='centrar'>error al actualizar los datos en posible sin clave</h3>";
                 }
-            } else {
-                echo "error al actualizar los datos";
             }
         }
         include_once 'nav.php';
         ?>
-        <form action="#" method="POST" style="padding-right: 25%;padding-left: 25%;padding-top: 2px;margin-top: 20px;">
+        <form action="#" method="POST" onsubmit="return validaModificaCuenta()"style="padding-right: 25%;padding-left: 25%;padding-top: 2px;margin-top: 20px;">
             Name: <input type="text" name="nombre" value="<?php echo $datosPersonales['nombre']; ?>"><br/>
             User: <input type="text" name="usuario" value="<?php echo $datosPersonales['usuario']; ?>"><br/>
-            Old password: <input type="password" name="claveantigua" value=""><br/>
-            New password: <input type="password" name="clavenueva" value="" onchange="validaClavesIguales()"><br/>
-            Repeat new password: <input type="password" name="clavenuevarepetida" value="" onchange="validaClavesIguales()"><br/>
+            Old password: <input type="password" name="claveantigua" ><br/>
+            New password: <input type="password" name="clavenueva" onchange="validaClavesIguales()"><br/>
+            Repeat new password: <input type="password" name="clavenuevarepetida" onchange="validaClavesIguales()"><br/>
             Email: <input type="text" name="email" value ="<?php echo $datosPersonales['email']; ?>"><br/>
             Preferences: <br/>
             <?php

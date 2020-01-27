@@ -30,6 +30,9 @@ include_once ("../CRUD/CRUDSeccion.php");
         } else {
             header('Location: cuenta.php');
         }
+        ?>
+        <h1>Hi <?php echo $nombreUsuario;?> this is your list of preferences</h1>
+        <?php
         $arrayGustos = explode(',', $gustos);
         $idSecciones = array();
         foreach ($arrayGustos as $categoria) {

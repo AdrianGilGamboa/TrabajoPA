@@ -29,6 +29,7 @@ include_once ("../CRUD/CRUDComentario.php");
             $hayCuenta = TRUE;
             $nombreUsuario = $_SESSION['nombreUsuario'];
             $idUsuario = $_SESSION['cuentaID'];
+            $datosPersonales = readCuenta($idUsuario);
         } else {
             $hayCuenta = FALSE;
         }
@@ -80,15 +81,13 @@ include_once ("../CRUD/CRUDComentario.php");
         <?php
         include_once 'nav.php';
         $idPortada = obtenerIDPortada(date("Y-m-d"));
-        $anuncio = obtenerAnuncioDePortada($idPortada) ;
-        
-        
+        $anuncio = obtenerAnuncioDePortada($idPortada);
         ?>
         <aside>
             <img src="../anuncios/<?php echo $anuncio['imagen']; ?>"alt='<?php echo $anuncio['imagen']; ?>' >
-            <?php echo $anuncio['descripcion'];?>
+            <?php echo $anuncio['descripcion']; ?>
         </aside>
-          
+
 
         <?php
         $articulos = readAllArticuloPorFecha();
@@ -115,13 +114,21 @@ include_once ("../CRUD/CRUDComentario.php");
                                        }
                                        ?></a>
                             </div>
-                            <div class="audioArticulo">
-                                <?php if ($articulo['audio'] != NULL) { ?>
-                                    <audio controls>
-                                        <source src="<?php echo '../audios/' . $articulo['audio']; ?>" type="audio/mpeg">
-                                    </audio>
-                                <?php } ?>
-                            </div>
+                            <?php
+                            if ($hayCuenta) {
+                                if ($datosPersonales['Dv']) {
+                                    ?>
+                                    <div class="audioArticulo">
+                                        <?php if ($articulo['audio'] != NULL) { ?>
+                                            <audio controls>
+                                                <source src="<?php echo '../audios/' . $articulo['audio']; ?>" type="audio/mpeg">
+                                            </audio>
+                                        <?php } ?>
+                                    </div>
+                                    <?php
+                                }
+                            }
+                            ?>
 
                             <div >
                                 <h3><?php echo $articulo['descripcion']; ?></h3> 
@@ -175,89 +182,51 @@ include_once ("../CRUD/CRUDComentario.php");
 
                                                 <td><p style="padding-top: 0px;padding-left: 30px;padding-right: 30px;"><?php echo $comentario['texto']; ?></p></td>
                                                 <td> <?php
-                                                       $puntuacion = $comentario['puntuacion'];
-                                                       for ($index = 0; $index < $puntuacion; $index++) {
-                                                           ?>
-                                                           <span style="font-size:33px; color: <?php
-                                                           if ($autor['formato'] === "gold") {
-                                                               echo "gold";
-                                                           } else if ($autor['formato'] === "silver") {
-                                                               echo "silver";
-                                                           } else if ($autor['formato'] === "bronze") {
-                                                               echo "brown";
-                                                           }
-                                                           ?>">☆</span>
-                                                               <?php
-                                                           }
-                                                           ?>
+                                                    $puntuacion = $comentario['puntuacion'];
+                                                    for ($index = 0; $index < $puntuacion; $index++) {
+                                                        ?>
+                                                        <span style="font-size:33px; color: <?php
+                                                        if ($autor['formato'] === "gold") {
+                                                            echo "gold";
+                                                        } else if ($autor['formato'] === "silver") {
+                                                            echo "silver";
+                                                        } else if ($autor['formato'] === "bronze") {
+                                                            echo "brown";
+                                                        }
+                                                        ?>">☆</span>
+                                                              <?php
+                                                          }
+                                                          ?>
                                                 </td>
-                                                <?php
-                                                 if ($hayCuenta) {?>
-                                                <td> <form action="#" method="POST" style="padding-left: 0px;margin-left: 0px;">
-                                                        <ul class="actions vertical small">
-                                                            <input type="hidden" name="idComentario" value="<?php echo $comentario['idComentario']; ?>">
-                                                            <li>
-                                                                <i class="fa fa-thumbs-o-up fa-lg" aria-hidden="true"></i>
-                                                                  <input class="nav-text" type="submit" name="like" value="like" style="background-color: green">
-                                                                
-                                                            </li>
-                                                            <li>
-                                                                <i class="fa fa-thumbs-o-down fa-lg" aria-hidden="true" ></i>
-                                                                <input class="nav-text" type="submit" name="dislike" value="dislike" style="background-color: red">
-                                                            </li>
-                                                        </ul>
-                                                 </form></td> <?php }?>
+                                                <?php if ($hayCuenta) { ?>
+                                                    <td> <form action="#" method="POST" style="padding-left: 0px;margin-left: 0px;">
+                                                            <ul class="actions vertical small">
+                                                                <input type="hidden" name="idComentario" value="<?php echo $comentario['idComentario']; ?>">
+                                                                <li>
+                                                                    <i class="fa fa-thumbs-o-up fa-lg" aria-hidden="true"></i>
+                                                                    <input class="nav-text" type="submit" name="like" value="like" style="background-color: green">
+
+                                                                </li>
+                                                                <li>
+                                                                    <i class="fa fa-thumbs-o-down fa-lg" aria-hidden="true" ></i>
+                                                                    <input class="nav-text" type="submit" name="dislike" value="dislike" style="background-color: red">
+                                                                </li>
+                                                            </ul>
+                                                        </form></td> <?php } ?>
                                             </tr></table>
                                         <?php
                                         if ($hayCuenta) {
                                             ?>
 
-
                                             <form action="comentario.php" method="POST" style="margin-top: 0px;padding-top: 10px;padding-bottom: 0px;padding-right: 0px;padding-left: 0px;margin-left: 0px;margin-bottom: 0px;">
                                                 <input type="hidden" name="articulo" value="<?php echo $articulo['idArticulo']; ?>">
-                                               <input type="hidden" name="cuenta" value="<?php echo $idUsuario; ?>">
+                                                <input type="hidden" name="cuenta" value="<?php echo $idUsuario; ?>">
                                                 <input type="hidden" name="comentario" value="<?php echo $comentario['idComentario']; ?>">
                                                 <input class="small" type="submit" name="responder" value="Reply comment">
                                             </form>
 
                                             <?php
                                         }
-
-                                        ?>
-                                        <div class="table-wrapper">
-                                            <table class="alt">
-                                                <tr>
-                                                    <td>  Autor: <?php
-                                                        $autor = cuentaDadoComentario($comentario['idCuenta']);
-                                                        echo $autor['nombre'];
-                                                        ?></td>
-<!--                                                    <td width="10px"></td>-->
-
-                                                    <td><p><?php echo $comentario['texto']; ?></p><td>
-                                                    <td> Rating: <?php echo $comentario['puntuacion']; ?></td>
-                                                    
-                                                <?php
-                                                if ($hayCuenta) {
-                                                    ?>
-                                                    <form action="comentario.php" method="POST">
-                                                        <input type="hidden" name="articulo" value="<?php echo $articulo['idArticulo']; ?>">
-                                                        <input type="hidden" name="cuenta" value="<?php echo $idUsuario; ?>">
-                                                        <input type="hidden" name="comentario" value="<?php echo $comentario['idComentario']; ?>">
-                                                        <input class="small" type="submit" name="responder" value="Reply comment">
-                                                    </form>
-                                                    <form action="#" method="POST">
-                                                        <input type="hidden" name="idComentario" value="<?php echo $comentario['idComentario']; ?>">
-                                                        <input class="small" type="submit" name="like" value="Like">
-                                                        <input class="small" type="submit" name="dislike" value="Dislike">
-                                                    </form>
-                                                    <?php
-                                                }
-                                                ?>
-                                                <br/>
-                                            </table>
-                                        </div>
-                                        <?php
-
                                     }
                                 }
                                 ?>
