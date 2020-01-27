@@ -10,6 +10,7 @@ include_once("../CRUD/CRUDSeccion.php");
         <meta name="google" value="notranslate"/>
         <link href="css.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+        <script src="../js/scripts.js" type="text/javascript"></script>
         <title></title>
     </head>
     <body>
@@ -28,7 +29,7 @@ include_once("../CRUD/CRUDSeccion.php");
             $idUsuario = $_SESSION['cuentaID'];
         }
 
-        include_once 'nav.php';
+        
 
         $datosPersonales = readCuenta($idUsuario);
         $secciones = readAllSeccion();
@@ -37,7 +38,9 @@ include_once("../CRUD/CRUDSeccion.php");
             $filtros = array(
                 'nombre' => FILTER_SANITIZE_MAGIC_QUOTES,
                 'usuario' => FILTER_SANITIZE_MAGIC_QUOTES,
-                'clave' => FILTER_SANITIZE_MAGIC_QUOTES,
+                'claveantigua' => FILTER_SANITIZE_MAGIC_QUOTES,
+                'clavenueva' => FILTER_SANITIZE_MAGIC_QUOTES,
+                'clavenuevarepetida' => FILTER_SANITIZE_MAGIC_QUOTES,
                 'email' => FILTER_SANITIZE_EMAIL
             );
             foreach ($secciones as $seccion) {
@@ -55,12 +58,19 @@ include_once("../CRUD/CRUDSeccion.php");
             if (!preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*[@]([a-zA-Z0-9])+[.]([a-zA-Z0-9\._-])+$/", $entradas['email'])) {
                 $posible = false;
             }
+            if ($entradas['clavenueva'] === $entradas['clavenuevarepetida']) {
+                if (!password_verify($entradas['claveantigua'], $datosPersonales['clave'])) {
+                    $posible = FALSE;
+                }
+            } else {
+                $posible = FALSE;
+            }
             if ($posible) {
                 $cuenta = array(
                     'idCuenta' => $idUsuario,
                     'nombre' => $entradas['nombre'],
                     'usuario' => $entradas['usuario'],
-                    'clave' => $entradas['clave'],
+                    'clave' => $entradas['clavenueva'],
                     'email' => $entradas['email'],
                     'formato' => $datosPersonales['formato'],
                     'tipo' => $datosPersonales['tipo'],
@@ -73,15 +83,20 @@ include_once("../CRUD/CRUDSeccion.php");
                 } else {
                     echo "error al actualizar los datos";
                 }
+            } else {
+                echo "error al actualizar los datos";
             }
         }
+        include_once 'nav.php';
         ?>
         <form action="#" method="POST" style="padding-right: 25%;padding-left: 25%;padding-top: 2px;margin-top: 20px;">
-            Nombre: <input type="text" name="nombre" value="<?php echo $datosPersonales['nombre']; ?>"><br/>
-            Usuario: <input type="text" name="usuario" value="<?php echo $datosPersonales['usuario']; ?>"><br/>
-            Clave: <input type="password" name="clave" value="<?php echo $datosPersonales['clave']; ?>"><br/>
+            Name: <input type="text" name="nombre" value="<?php echo $datosPersonales['nombre']; ?>"><br/>
+            User: <input type="text" name="usuario" value="<?php echo $datosPersonales['usuario']; ?>"><br/>
+            Old password: <input type="password" name="claveantigua" value=""><br/>
+            New password: <input type="password" name="clavenueva" value="" onchange="validaClavesIguales()"><br/>
+            Repeat new password: <input type="password" name="clavenuevarepetida" value="" onchange="validaClavesIguales()"><br/>
             Email: <input type="text" name="email" value ="<?php echo $datosPersonales['email']; ?>"><br/>
-            Gustos: <br/>
+            Preferences: <br/>
             <?php
             $misGustos = explode(",", $datosPersonales['gustos']);
             ?>
@@ -90,7 +105,7 @@ include_once("../CRUD/CRUDSeccion.php");
                 foreach ($secciones as $seccion) {
                     ?> <tr><td>  <?php echo $seccion['categoria']; ?></td>
 
-                           <td> <input type="checkbox" name="<?php echo $seccion['categoria']; ?>" value="<?php echo $seccion['categoria']; ?>" <?php
+                        <td> <input type="checkbox" name="<?php echo $seccion['categoria']; ?>" value="<?php echo $seccion['categoria']; ?>" <?php
                             if (in_array($seccion['categoria'], $misGustos)) {
                                 echo "checked";
                             }
@@ -100,7 +115,7 @@ include_once("../CRUD/CRUDSeccion.php");
                     ?>
             </table>
 
-            Discapacidad visual: <input type="checkbox" name="Dv" <?php
+            Visual disability: <input type="checkbox" name="Dv" <?php
             if ($datosPersonales['Dv']) {
                 echo "checked";
             }

@@ -56,7 +56,7 @@ function mediaPuntuacion($sumaTotal, $numComentarios) {
                 <td align='center'><?php echo $datosPersonales['formato']; ?></td>
                 <td align='center'><?php echo $datosPersonales['tipo']; ?></td>
                 <td align='center'><?php echo $datosPersonales['Dv']; ?></td>
-                <?php $gustos = explode(";", $datosPersonales['gustos']); ?>
+                <?php $gustos = explode(",", $datosPersonales['gustos']);?>
                 <td align='center'>
                     <ul type="square">
                         <?php
@@ -121,6 +121,16 @@ function mediaPuntuacion($sumaTotal, $numComentarios) {
                             <input type="hidden" name="tipo" value="<?php echo $datosPersonales['formato'];?>">
                             <input type="hidden" name="nombre" value="<?php echo $datosPersonales['nombre'];?>">
                             <input type="submit" name="jugar3raya" value="Play three in a row!">
+                        </form>
+                        <?php
+                    }else if($datosPersonales['formato'] === "bronze"){
+                        ?>
+                        <h3>Newspaper archive</h3>
+                        <form action="hemeroteca.php" method="POST">
+                            <input type="hidden" name="tipo" value="<?php echo $datosPersonales['formato'];?>">
+                            <input type="hidden" name="nombre" value="<?php echo $datosPersonales['nombre'];?>">
+                            <input type="hidden" name="gustos" value="<?php echo $datosPersonales['gustos'];?>">
+                            <input type="submit" name="hemeroteca" value="Access to the newspaper archive">
                         </form>
                         <?php
                     }
