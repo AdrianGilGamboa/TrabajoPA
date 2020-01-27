@@ -175,11 +175,11 @@ function validaArticulo() {
     }
     return res;
 }
-function validaAnuncio(){
+function validaAnuncio() {
     var res = true;
     var descripcion = document.getElementsByName("descripcion")[0];
     var duracion = document.getElementsByName("duracion")[0];
-    
+
     if (descripcion.value === "") {
         res = false;
         descripcion.style.borderColor = "red";
@@ -196,7 +196,8 @@ function validaAnuncio(){
         if (descripcion.nextSibling.nodeName === "SPAN") {
             descripcion.nextElementSibling.remove();
         }
-    }if (duracion.value === "") {
+    }
+    if (duracion.value === "") {
         res = false;
         duracion.style.borderColor = "red";
         if (duracion.nextSibling.nodeName !== "SPAN") {
@@ -216,15 +217,15 @@ function validaAnuncio(){
     return res;
 }
 
-function validaAnunciante(){
+function validaAnunciante() {
     var res = true;
     var nombre = document.getElementsByName("nombre")[0];
     var tarifa = document.getElementsByName("tarifa")[0];
-    
+
     if (nombre.value === "") {
         res = false;
         nombre.style.borderColor = "red";
-        if (descripcion.nextSibling.nodeName !== "SPAN") {
+        if (nombre.nextSibling.nodeName !== "SPAN") {
             var span = document.createElement("span");
             var txt = document.createTextNode("The field must be filled");
             span.style.color = "red";
@@ -237,7 +238,8 @@ function validaAnunciante(){
         if (nombre.nextSibling.nodeName === "SPAN") {
             nombre.nextElementSibling.remove();
         }
-    }if (tarifa.value === "") {
+    }
+    if (tarifa.value === "") {
         res = false;
         tarifa.style.borderColor = "red";
         if (tarifa.nextSibling.nodeName !== "SPAN") {
@@ -257,20 +259,43 @@ function validaAnunciante(){
     return res;
 }
 
-function validaClavesIguales(){
+function validaClavesIguales() {
     var claveNueva = document.getElementsByName("clavenueva")[0];
     var claveNuevaRepetida = document.getElementsByName("clavenuevarepetida")[0];
-    
-    if(claveNueva.value !== claveNuevaRepetida.value){
+
+    if (claveNueva.value !== claveNuevaRepetida.value) {
         claveNueva.style.borderColor = "red";
         claveNueva.style.borderWidth = "thick";
         claveNuevaRepetida.style.borderColor = "red";
         claveNuevaRepetida.style.borderWidth = "thick";
-    }else{
+    } else {
         claveNueva.style.borderColor = "green";
         claveNuevaRepetida.style.borderColor = "green";
         claveNueva.style.borderWidth = "medium";
-        claveNuevaRepetida.style.borderWidth = "medium";       
-        
+        claveNuevaRepetida.style.borderWidth = "medium";
+
     }
+}
+function validaModificaCuenta() {
+    var res = true;
+    var clave = document.getElementsByName("claveantigua")[0];
+
+    if (clave.value === "") {
+        res = false;
+        clave.style.borderColor = "red";
+        if (clave.nextSibling.nodeName !== "SPAN") {
+            var span = document.createElement("span");
+            var txt = document.createTextNode("The field must be filled");
+            span.style.color = "red";
+            span.appendChild(txt);
+            clave.parentNode.insertBefore(span, clave.nextSibling);
+        }
+
+    } else {
+        clave.style.borderColor = "lightgrey";
+        if (clave.nextSibling.nodeName === "SPAN") {
+            clave.nextElementSibling.remove();
+        }
+    }
+    return res;
 }

@@ -51,7 +51,7 @@
 	<button onclick="javascript:location.reload()">Reload</button>
 
 	<h2>Results:</h2>
-	Empates: <span id="empates">0</span> <br>
+	Draws: <span id="empates">0</span> <br>
 	Wins Player 1: <span id="ganadosJ1">0</span> <br>
 	Wins PLayer 2: <span id="ganadosJ2">0</span> <br>
 </body>

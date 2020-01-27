@@ -126,11 +126,11 @@ include_once ("../CRUD/CRUDAnunciante.php");
                         <tr>
 
                             <td>Description of the advertisement: </td>
-                            <td><input type="text" name="descripcion"></td>
+                            <td><input type="text" name="descripcion"><br></td>
                         </tr>
                         <tr>
                             <td>Duration: </td>
-                            <td><input type="number" name="duracion"></td>
+                            <td><input type="number" name="duracion"><br></td>
                         </tr>
                         <tr>
                             <td></td>
@@ -183,11 +183,11 @@ include_once ("../CRUD/CRUDAnunciante.php");
                     <table>
                         <tr>
                             <td>Name of the advertiser: </td>
-                            <td><input type="text" name="nombre"></td>
+                            <td><input type="text" name="nombre"><br></td>
                         </tr>
                         <tr>
                             <td>Rate: </td>
-                            <td><input type="text" name="tarifa"></td>
+                            <td><input type="text" name="tarifa"><br></td>
                         </tr>
                     </table>
                     <input type="submit" name="creaAn" value="Create advertser">

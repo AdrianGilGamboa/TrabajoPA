@@ -19,7 +19,6 @@ include_once ("../CRUD/CRUDAnuncio.php");
     <body>
 
 
-
         <form action="#" method="POST">
             <input type="submit" name="creaArt" value="Create article">
             <input type="submit" name="modifArt" value="Modifiy article">
@@ -177,12 +176,12 @@ include_once ("../CRUD/CRUDAnuncio.php");
             $insertar = TRUE;
             $titulo = filter_var(trim($_POST['titulo']), FILTER_SANITIZE_MAGIC_QUOTES);
             if ($titulo === "") {
-                $insertar = False; 
+                $insertar = False;
                 echo "TITULO erroneo";
             }
             $descripcion = filter_var(trim($_POST['descripcion']), FILTER_SANITIZE_MAGIC_QUOTES);
             if ($descripcion === "") {
-                $insertar = False; 
+                $insertar = False;
                 echo "DESCRIPCION erronea";
             }
             $texto = filter_var(trim($_POST['texto']), FILTER_SANITIZE_MAGIC_QUOTES);
@@ -264,15 +263,15 @@ include_once ("../CRUD/CRUDAnuncio.php");
                         </tr>
                         <?php
                         $j = 0;
-                        if($articulosPorAutor){
-                        foreach ($articulosPorAutor as $articulo) {
-                            ?>
-                            <tr>
-                                <td><input type="checkbox" name="<?php echo $j++; ?>" value="<?php echo $articulo['idArticulo']; ?>"></td>
-                                <td><?php echo $articulo['titulo']; ?></td>
-                            </tr>
-                            <?php
-                        }
+                        if ($articulosPorAutor) {
+                            foreach ($articulosPorAutor as $articulo) {
+                                ?>
+                                <tr>
+                                    <td><input type="checkbox" name="<?php echo $j++; ?>" value="<?php echo $articulo['idArticulo']; ?>"></td>
+                                    <td><?php echo $articulo['titulo']; ?></td>
+                                </tr>
+                                <?php
+                            }
                         }
                         ?>
                     </table>
@@ -291,16 +290,16 @@ include_once ("../CRUD/CRUDAnuncio.php");
                             <th>Articles</th>
                         </tr>
                         <?php
-                        if($articulosPorAutor){
-                        foreach ($articulosPorAutor as $articulo) {
-                            ?>
-                            <tr>
-                                <td><input type="radio" name="articulo" value="<?php echo $articulo['idArticulo']; ?>"></td>
-                                <td><?php echo $articulo['titulo']; ?></td>
-                            </tr>
-                            <?php
+                        if ($articulosPorAutor) {
+                            foreach ($articulosPorAutor as $articulo) {
+                                ?>
+                                <tr>
+                                    <td><input type="radio" name="articulo" value="<?php echo $articulo['idArticulo']; ?>"></td>
+                                    <td><?php echo $articulo['titulo']; ?></td>
+                                </tr>
+                                <?php
+                            }
                         }
-            }
                         ?>
                     </table>
 
@@ -309,19 +308,19 @@ include_once ("../CRUD/CRUDAnuncio.php");
                 <?php
             } else if (isset($_POST['creaArt'])) {
                 ?>
-            <form action="#" method="POST" onsubmit="return validaArticulo()" enctype="multipart/form-data">
+                <form action="#" method="POST" onsubmit="return validaArticulo()" enctype="multipart/form-data">
                     <table>
                         <tr>
                             <td>Title of the article: </td>
-                            <td><input type="text" name="titulo"></td>
+                            <td><input type="text" name="titulo"><br></td>
                         </tr>
                         <tr>
                             <td>Description of the article: </td>
-                            <td><input type="text" name="descripcion"></td>
+                            <td><input type="text" name="descripcion"><br></td>
                         </tr>
                         <tr>
                             <td>Text of the article: </td>
-                            <td><textarea name="texto" rows="10" cols="30" placeholder="Text:"></textarea></td>
+                            <td><textarea name="texto" rows="10" cols="30" placeholder="Text:"></textarea><br></td>
                         </tr>
                         <tr>
                             <td>Date of the article: </td>
@@ -348,7 +347,7 @@ include_once ("../CRUD/CRUDAnuncio.php");
                                     <?php
                                 }
                             } else {
-                                echo "There are no ads available to modify this article";
+                                echo "There are no ads available to add to this article";
                             }
                             ?>
                         </tr> 
