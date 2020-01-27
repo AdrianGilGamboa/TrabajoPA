@@ -211,15 +211,17 @@ include_once ("../CRUD/CRUDComentario.php");
                                         <?php
                                         if ($hayCuenta) {
                                             ?>
+
                                             <form action="comentario.php" method="POST" style="margin-top: 0px;padding-top: 10px;padding-bottom: 0px;padding-right: 0px;padding-left: 0px;margin-left: 0px;margin-bottom: 0px;">
                                                 <input type="hidden" name="articulo" value="<?php echo $articulo['idArticulo']; ?>">
-                                                <input type="hidden" name="cuenta" value="<?php echo $idUsuario; ?>">
+                                               <input type="hidden" name="cuenta" value="<?php echo $idUsuario; ?>">
                                                 <input type="hidden" name="comentario" value="<?php echo $comentario['idComentario']; ?>">
                                                 <input class="small" type="submit" name="responder" value="Reply comment">
                                             </form>
 
                                             <?php
                                         }
+
                                     }
                                 }
                                 ?>

@@ -115,9 +115,9 @@ include_once ("../CRUD/CRUDAnuncio.php");
         }
         if (isset($_POST['borra'])) {
             $num = $_POST['numAr'];
-            if ($idAr === NULL) {
-                header('Location: gestionArticulo.php');
-            }
+//            if ($idAr === NULL) {
+//                header('Location: gestionArticulo.php');
+//            }
             $borrar = array();
             for ($i = 0; $i < $num; $i++) {
                 if (isset($_POST[$i])) {
@@ -127,7 +127,7 @@ include_once ("../CRUD/CRUDAnuncio.php");
             foreach ($borrar as $idArticulo) {
                 $articulo = readArticulo($idArticulo);
                 unlink("../imagenes/" . $articulo['imagen']);
-                unlink("../anuncios/" . $articulo['audio']);
+                unlink("../audios/" . $articulo['audio']);
                 deleteArticulo($idArticulo);
             }
         } else if (isset($_POST['modifica'])) {
@@ -176,18 +176,18 @@ include_once ("../CRUD/CRUDAnuncio.php");
         } else if (isset($_POST['crea'])) {
             $insertar = TRUE;
             $titulo = filter_var(trim($_POST['titulo']), FILTER_SANITIZE_MAGIC_QUOTES);
-            if ($titulo === "" or ! preg_match('/^[[:alpha:]]+$/', $titulo)) {
-                $insertar = False; //hacer con JS
+            if ($titulo === "") {
+                $insertar = False; 
                 echo "TITULO erroneo";
             }
             $descripcion = filter_var(trim($_POST['descripcion']), FILTER_SANITIZE_MAGIC_QUOTES);
             if ($descripcion === "") {
-                $insertar = False; //hacer con JS
+                $insertar = False; 
                 echo "DESCRIPCION erronea";
             }
             $texto = filter_var(trim($_POST['texto']), FILTER_SANITIZE_MAGIC_QUOTES);
             if ($texto === "") {
-                $insertar = False; //hacer con JS
+                $insertar = False;
                 echo "TEXTO erroneo";
             }
             $fecha = $_POST['fecha'];
@@ -309,7 +309,7 @@ include_once ("../CRUD/CRUDAnuncio.php");
                 <?php
             } else if (isset($_POST['creaArt'])) {
                 ?>
-                <form action="#" method="POST" enctype="multipart/form-data">
+            <form action="#" method="POST" onsubmit="return validaArticulo()" enctype="multipart/form-data">
                     <table>
                         <tr>
                             <td>Title of the article: </td>
@@ -321,7 +321,7 @@ include_once ("../CRUD/CRUDAnuncio.php");
                         </tr>
                         <tr>
                             <td>Text of the article: </td>
-                            <td><input type="text" name="texto"></td>
+                            <td><textarea name="texto" rows="10" cols="30" placeholder="Text:"></textarea></td>
                         </tr>
                         <tr>
                             <td>Date of the article: </td>
