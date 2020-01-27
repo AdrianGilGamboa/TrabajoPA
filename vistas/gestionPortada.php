@@ -11,17 +11,17 @@ include ("../CRUD/CRUDAnuncio.php");
     form{
         text-align: center;
         margin-bottom:50px;
-        
+
     }
     #navegador{
         margin-bottom:0px;
     }
-    
+
     .wrong{
         text-align: center;
         color:red;
     }
-    
+
 
 </style>
 
@@ -51,28 +51,17 @@ include ("../CRUD/CRUDAnuncio.php");
         session_start();
         if (!isset($_SESSION['cuentaID'])) {
             header('Location: inicioSesion.php');
-       }
 
-       if (isset($_SESSION['cuentaID'])) {
+        }
+
+        if (isset($_SESSION['cuentaID'])) {
             if ($_SESSION['tipo'] === "administrador") {
                 $idCuenta = $_SESSION['cuentaID'];
-              $nombre = $_SESSION['nombreUsuario'];
+                $nombre = $_SESSION['nombreUsuario'];
             } else {
                 header('Location: cuenta.php');
             }
         }
-//        if (!isset($_SESSION['cuentaID'])) {
-//            header('Location: inicioSesion.php');
-//        }
-//
-//        if (isset($_SESSION['cuentaID'])) {
-//            if ($_SESSION['tipo'] === "administrador") {
-//                $idCuenta = $_SESSION['cuentaID'];
-//                $nombre = $_SESSION['nombreUsuario'];
-//            } else {
-//                header('Location: cuenta.php');
-//            }
-//        }
 
         include_once 'nav.php';
 
@@ -134,33 +123,33 @@ include ("../CRUD/CRUDAnuncio.php");
                                 <th></th>
                                 <th>Advertisements to change</th>
                             </tr>
-            <?php
-            foreach ($anuncioSinPortada as $anuncio) {
-                ?>
+                            <?php
+                            foreach ($anuncioSinPortada as $anuncio) {
+                                ?>
                                 <tr>
                                     <td><input type="radio" name="anuncio" value="<?php echo $anuncio['idAnuncio']; ?>" required></td>
                                     <td><?php echo $anuncio['descripcion']; ?></td>
                                 </tr>
-                <?php
-            }
-            ?>
+                                <?php
+                            }
+                            ?>
                         </table>
                         <input type="submit" name="cambiandoAnuncio" value="Change advertisement" class="botonesGestionPortada">
                     </form>
-            <?php
-        } else {
-            echo '<div class="wrong">No advertisement without associated fron pages</div>';
+                    <?php
+                } else {
+                    echo '<div class="wrong">No advertisement without associated fron pages</div>';
+                }
+            }
         }
-    }
-}
-if (isset($_POST['cambiarAnuncio'])) {
-    $idPortada = $_POST['portada'];
-    $portada = readPortada($idPortada);
-    if (tieneAnuncio($portada['idPortada'])) {
-        $anuncioSinPortada = leerAnunciosSinPortada();
-        $anuncioActual = obtenerAnuncioDePortada($portada['idPortada']);
-        if ($anuncioSinPortada) {
-            ?>
+        if (isset($_POST['cambiarAnuncio'])) {
+            $idPortada = $_POST['portada'];
+            $portada = readPortada($idPortada);
+            if (tieneAnuncio($portada['idPortada'])) {
+                $anuncioSinPortada = leerAnunciosSinPortada();
+                $anuncioActual = obtenerAnuncioDePortada($portada['idPortada']);
+                if ($anuncioSinPortada) {
+                    ?>
                     <form action="#" method="POST">
                         Date: <input type="date" name="fecha" value="<?php echo $portada['fecha']; ?>"><br/> 
                         Actual Advertisement: <?php echo $anuncioActual['descripcion']; ?>
@@ -169,31 +158,31 @@ if (isset($_POST['cambiarAnuncio'])) {
                                 <th></th>
                                 <th>Advertisements to change</th>
                             </tr>
-            <?php
-            foreach ($anuncioSinPortada as $anuncio) {
-                ?>
+                            <?php
+                            foreach ($anuncioSinPortada as $anuncio) {
+                                ?>
                                 <tr>
                                     <td><input type="radio" name="anuncio" value="<?php echo $anuncio['idAnuncio']; ?>" required></td>
                                     <td><?php echo $anuncio['descripcion']; ?></td>
                                 </tr>
-                <?php
-            }
-            ?>
+                                <?php
+                            }
+                            ?>
                         </table>
                         <input type="submit" name="cambiandoAnuncio" value="Change advertisement" class="botonesGestionPortada">
                     </form>
-            <?php
-        } else {
-            echo '<div class="wrong">No advertisement without associated fron pages</div>';
-        }
-    } else {
-        echo '<div class="wrong">You must first add an advertisement to modify it by another
+                    <?php
+                } else {
+                    echo '<div class="wrong">No advertisement without associated fron pages</div>';
+                }
+            } else {
+                echo '<div class="wrong">You must first add an advertisement to modify it by another
 </div>';
-        $idPortada = $_POST['portada'];
-        $portada = readPortada($idPortada);
-        $anuncioSinPortada = leerAnunciosSinPortada();
-        if ($anuncioSinPortada) {
-            ?>
+                $idPortada = $_POST['portada'];
+                $portada = readPortada($idPortada);
+                $anuncioSinPortada = leerAnunciosSinPortada();
+                if ($anuncioSinPortada) {
+                    ?>
                     <form action="#" method="POST">
                         Date: <input type="date" name="fecha" value="<?php echo $portada['fecha']; ?>"><br/> 
 
@@ -202,34 +191,34 @@ if (isset($_POST['cambiarAnuncio'])) {
                                 <th></th>
                                 <th>Advertisements to add</th>
                             </tr>
-            <?php
-            foreach ($anuncioSinPortada as $anuncio) {
-                ?>
+                            <?php
+                            foreach ($anuncioSinPortada as $anuncio) {
+                                ?>
                                 <tr>
                                     <td><input type="radio" name="anuncio" value="<?php echo $anuncio['idAnuncio']; ?>" required></td>
                                     <td><?php echo $anuncio['descripcion']; ?></td>
                                 </tr>
-                <?php
-            }
-            ?>
+                                <?php
+                            }
+                            ?>
                         </table>
                         <input type="submit" name="añadiendoAnuncio" value="Add advertisement" class="botonesGestionPortada">
                     </form>
-            <?php
-        } else {
-            echo '<div class="wrong">No advertisement without associated fron pages</div>';
+                    <?php
+                } else {
+                    echo '<div class="wrong">No advertisement without associated fron pages</div>';
+                }
+            }
         }
-    }
-}
 
-if (isset($_POST['borraArticulo'])) {
-    $idPortada = $_POST['portada'];
-    $portada = readPortada($idPortada);
+        if (isset($_POST['borraArticulo'])) {
+            $idPortada = $_POST['portada'];
+            $portada = readPortada($idPortada);
 
 
-    $articulosEnPortada = leerArticulosDadaPortada($idPortada);
-    if ($articulosEnPortada) {
-        ?>
+            $articulosEnPortada = leerArticulosDadaPortada($idPortada);
+            if ($articulosEnPortada) {
+                ?>
                 <form action="#" method="POST">
                     Date: <input type="text" name="fecha" value="<?php echo $portada['fecha']; ?>"><br/> 
 
@@ -238,35 +227,35 @@ if (isset($_POST['borraArticulo'])) {
                             <th></th>
                             <th>Article to remove</th>
                         </tr>
-        <?php
-        $j = 0;
-        foreach ($articulosEnPortada as $articulo) {
-            ?>
+                        <?php
+                        $j = 0;
+                        foreach ($articulosEnPortada as $articulo) {
+                            ?>
                             <tr>
                                 <td><input type="checkbox" name="<?php echo $j++; ?>" value="<?php echo $articulo['idArticulo']; ?>"></td>
                                 <td><?php echo $articulo['titulo']; ?></td>
                             </tr>
-            <?php
-        }
-        ?>
+                            <?php
+                        }
+                        ?>
                     </table>
                     <input type="hidden" name="numAr" value="<?php echo $j; ?>">
                     <input type="submit" name="eliminandoArticulos" value="Delete articles" class="botonesGestionPortada">
                 </form>
-        <?php
-    } else {
-        echo '<div class="wrong">All items are associated with a front page
+                <?php
+            } else {
+                echo '<div class="wrong">All items are associated with a front page
 </div>';
-    }
-}
-if (isset($_POST['añadeArticulo'])) {
-    $idPortada = $_POST['portada'];
-    $portada = readPortada($idPortada);
+            }
+        }
+        if (isset($_POST['añadeArticulo'])) {
+            $idPortada = $_POST['portada'];
+            $portada = readPortada($idPortada);
 
 
-    $articulosSinPortada = leerArticulosSinPortada();
-    if ($articulosSinPortada) {
-        ?>
+            $articulosSinPortada = leerArticulosSinPortada();
+            if ($articulosSinPortada) {
+                ?>
                 <form action="#" method="POST">
                     Date: <input type="date" name="fecha" value="<?php echo $portada['fecha']; ?>"><br/> 
 
@@ -275,126 +264,126 @@ if (isset($_POST['añadeArticulo'])) {
                             <th></th>
                             <th>Articles to add</th>
                         </tr>
-        <?php
-        $j = 0;
-        foreach ($articulosSinPortada as $articulo) {
-            ?>
+                        <?php
+                        $j = 0;
+                        foreach ($articulosSinPortada as $articulo) {
+                            ?>
                             <tr>
                                 <td><input type="checkbox" name="<?php echo $j++; ?>" value="<?php echo $articulo['idArticulo']; ?>"></td>
                                 <td><?php echo $articulo['titulo']; ?></td>
                             </tr>
-            <?php
-        }
-        ?>
+                            <?php
+                        }
+                        ?>
                     </table>
                     <input type="hidden" name="numAr" value="<?php echo $j; ?>">
                     <input type="submit" name="añadiendoArticulos" value="Add articles" class="botonesGestionPortada">
                 </form>
-        <?php
-    } else {
-        echo '<div class="wrong">
+                <?php
+            } else {
+                echo '<div class="wrong">
 There are no articles without front pages</div>';
-    }
-}
-if (isset($_POST['borra'])) {
-    $num = $_POST['numAr'];
-    $borrar = array();
-    for ($i = 0; $i < $num; $i++) {
-        if (isset($_POST[$i])) {
-            array_push($borrar, $_POST[$i]);
+            }
         }
-    }
-    foreach ($borrar as $idPortada) {
-        //$idPortada = obtenerIDPortada($fecha);
-        if (quitarArticulosDePortada($idPortada)) {
-            deletePortada($idPortada);
-        } else {
-            echo '<div class="wrong">
+        if (isset($_POST['borra'])) {
+            $num = $_POST['numAr'];
+            $borrar = array();
+            for ($i = 0; $i < $num; $i++) {
+                if (isset($_POST[$i])) {
+                    array_push($borrar, $_POST[$i]);
+                }
+            }
+            foreach ($borrar as $idPortada) {
+                //$idPortada = obtenerIDPortada($fecha);
+                if (quitarArticulosDePortada($idPortada)) {
+                    deletePortada($idPortada);
+                } else {
+                    echo '<div class="wrong">
 ERROR, the front page advertisement could not be removed</div>';
-        }
-    }
-} else if (isset($_POST['añadiendoArticulos'])) {
-    $num = $_POST['numAr'];
-    $fecha = $_POST['fecha'];
-    $seleccionados = array();
-    for ($i = 0; $i < $num; $i++) {
-        if (isset($_POST[$i])) {
-            array_push($seleccionados, $_POST[$i]);
-        }
-    }
-    $idPortada = obtenerIDPortada($fecha);
-    $res = TRUE;
-    foreach ($seleccionados as $idArticulo) {
-        if (!asociarArticuloPortada($idArticulo, $idPortada)) {
-            $res = FALSE;
-        }
-    }
-} else if (isset($_POST['eliminandoArticulos'])) {
-    $num = $_POST['numAr'];
-    $fecha = $_POST['fecha'];
-    $seleccionados = array();
-    for ($i = 0; $i < $num; $i++) {
-        if (isset($_POST[$i])) {
-            array_push($seleccionados, $_POST[$i]);
-        }
-    }
-    $idPortada = obtenerIDPortada($fecha);
-    $res = TRUE;
-    foreach ($seleccionados as $idArticulo) {
-        if (!quitarArticuloDePortada($idArticulo)) {
-            $res = FALSE;
-        }
-    }
-} else if (isset($_POST['añadiendoAnuncio'])) {
-    //$num = $_POST['numAr'];
-    $idAnuncio = $_POST['anuncio'];
-    $fecha = $_POST['fecha'];
-    $idPortada = obtenerIDPortada($fecha);
-    echo $idPortada;
-    $res = TRUE;
+                }
+            }
+        } else if (isset($_POST['añadiendoArticulos'])) {
+            $num = $_POST['numAr'];
+            $fecha = $_POST['fecha'];
+            $seleccionados = array();
+            for ($i = 0; $i < $num; $i++) {
+                if (isset($_POST[$i])) {
+                    array_push($seleccionados, $_POST[$i]);
+                }
+            }
+            $idPortada = obtenerIDPortada($fecha);
+            $res = TRUE;
+            foreach ($seleccionados as $idArticulo) {
+                if (!asociarArticuloPortada($idArticulo, $idPortada)) {
+                    $res = FALSE;
+                }
+            }
+        } else if (isset($_POST['eliminandoArticulos'])) {
+            $num = $_POST['numAr'];
+            $fecha = $_POST['fecha'];
+            $seleccionados = array();
+            for ($i = 0; $i < $num; $i++) {
+                if (isset($_POST[$i])) {
+                    array_push($seleccionados, $_POST[$i]);
+                }
+            }
+            $idPortada = obtenerIDPortada($fecha);
+            $res = TRUE;
+            foreach ($seleccionados as $idArticulo) {
+                if (!quitarArticuloDePortada($idArticulo)) {
+                    $res = FALSE;
+                }
+            }
+        } else if (isset($_POST['añadiendoAnuncio'])) {
+            //$num = $_POST['numAr'];
+            $idAnuncio = $_POST['anuncio'];
+            $fecha = $_POST['fecha'];
+            $idPortada = obtenerIDPortada($fecha);
+            echo $idPortada;
+            $res = TRUE;
 
-    if (!asociarAnuncioPortada($idAnuncio, $idPortada)) {
-        $res = FALSE;
-    }
-} else if (isset($_POST['cambiandoAnuncio'])) {
-    $idAnuncio = $_POST['anuncio'];
-    $fecha = $_POST['fecha'];
-    $idPortada = obtenerIDPortada($fecha);
-    quitarAnuncioDePortada($idPortada);
-    $res = TRUE;
+            if (!asociarAnuncioPortada($idAnuncio, $idPortada)) {
+                $res = FALSE;
+            }
+        } else if (isset($_POST['cambiandoAnuncio'])) {
+            $idAnuncio = $_POST['anuncio'];
+            $fecha = $_POST['fecha'];
+            $idPortada = obtenerIDPortada($fecha);
+            quitarAnuncioDePortada($idPortada);
+            $res = TRUE;
 
-    if (!asociarAnuncioPortada($idAnuncio, $idPortada)) {
-        $res = FALSE;
-    }
-}
-if (isset($_POST['crea'])) {
-    $num = $_POST['numAr'];
-    $fecha = $_POST['fecha'];
-    $seleccionados = array();
-    for ($i = 0; $i < $num; $i++) {
-        if (isset($_POST[$i])) {
-            array_push($seleccionados, $_POST[$i]);
-        }
-    }
-    $portada = array(
-        'fecha' => $fecha
-    );
-    if (createPortada($portada)) {
-        $idPortada = obtenerIDPortada($fecha);
-        asociarPortada($idCuenta, $idPortada);
-        $res = TRUE;
-        foreach ($seleccionados as $idArticulo) {
-            if (!asociarArticuloPortada($idArticulo, $idPortada)) {
+            if (!asociarAnuncioPortada($idAnuncio, $idPortada)) {
                 $res = FALSE;
             }
         }
-    } else {
-        echo '<div class="wrong">ERROR to create cover
+        if (isset($_POST['crea'])) {
+            $num = $_POST['numAr'];
+            $fecha = $_POST['fecha'];
+            $seleccionados = array();
+            for ($i = 0; $i < $num; $i++) {
+                if (isset($_POST[$i])) {
+                    array_push($seleccionados, $_POST[$i]);
+                }
+            }
+            $portada = array(
+                'fecha' => $fecha
+            );
+            if (createPortada($portada)) {
+                $idPortada = obtenerIDPortada($fecha);
+                asociarPortada($idCuenta, $idPortada);
+                $res = TRUE;
+                foreach ($seleccionados as $idArticulo) {
+                    if (!asociarArticuloPortada($idArticulo, $idPortada)) {
+                        $res = FALSE;
+                    }
+                }
+            } else {
+                echo '<div class="wrong">ERROR to create cover
 </div>';
-    }
-}
-if (isset($_POST['creaPortada'])) {
-    ?>
+            }
+        }
+        if (isset($_POST['creaPortada'])) {
+            ?>
             <form action="#" method="POST">
                 Date: <input type="date" name="fecha" value="<?php echo date("Y-m-d"); ?>"><br/> 
 
@@ -403,31 +392,31 @@ if (isset($_POST['creaPortada'])) {
                         <th></th>
                         <th>Articles to insert</th>
                     </tr>
-    <?php
-    $j = 0;
-    foreach ($articulos as $articulo) {
-        ?>
+                    <?php
+                    $j = 0;
+                    foreach ($articulos as $articulo) {
+                        ?>
                         <tr>
                             <td><input type="checkbox" name="<?php echo $j++; ?>" value="<?php echo $articulo['idArticulo']; ?>"></td>
                             <td><?php echo $articulo['titulo']; ?></td>
                         </tr>
-        <?php
-    }
-    ?>
+                        <?php
+                    }
+                    ?>
                 </table>
                 <input type="hidden" name="numAr" value="<?php echo $j; ?>">
                 <input type="submit" name="crea" value="Create Front Page" class="botonesGestionPortada">
             </form>
-    <?php
-} else if (isset($_POST['modifPortada']) || isset($_POST['eliminandoArticulos']) || isset($_POST['añadiendoArticulos']) || isset($_POST['añadiendoAnuncio']) || isset($_POST['cambiandoAnuncio'])) {
-    if ($portadas) {
-        ?>
+            <?php
+        } else if (isset($_POST['modifPortada']) || isset($_POST['eliminandoArticulos']) || isset($_POST['añadiendoArticulos']) || isset($_POST['añadiendoAnuncio']) || isset($_POST['cambiandoAnuncio'])) {
+            if ($portadas) {
+                ?>
 
                 <form action="#" method="POST">
                     <ul>
-        <?php
-        foreach ($portadas as $portada) {
-            ?>
+                        <?php
+                        foreach ($portadas as $portada) {
+                            ?>
                             <li><?php echo $portada['fecha']; ?><input type="radio" name="portada" value="<?php echo $portada['idPortada']; ?>" required></li>
                             <?php
                         }
@@ -438,43 +427,43 @@ if (isset($_POST['creaPortada'])) {
                     <input type="submit" name="añadeAnuncio" value="Add advertisement" class="botonesGestionPortada">
                     <input type="submit" name="cambiarAnuncio" value="Change advertisement" class="botonesGestionPortada">
                 </form>
-        <?php
-    } else {
-        echo '<div class="wrong">No Front Pages created</div>';
-    }
-} else if (isset($_POST['eliminaPortada'])) {
-    if ($portadas) {
-        ?>
+                <?php
+            } else {
+                echo '<div class="wrong">No Front Pages created</div>';
+            }
+        } else if (isset($_POST['eliminaPortada'])) {
+            if ($portadas) {
+                ?>
                 <form action="#" method="POST">
                     <table border = "2">
                         <tr>
                             <th></th>
                             <th>Portada</th>
                         </tr>
-        <?php
-        $i = 0;
+                        <?php
+                        $i = 0;
 
-        foreach ($portadas as $portada) {
-            ?>
+                        foreach ($portadas as $portada) {
+                            ?>
                             <tr>
                                 <td><input type="checkbox" name="<?php echo $i++; ?>" value="<?php echo $portada['idPortada']; ?>"></td>
                                 <td><?php echo $portada['fecha']; ?></td>
                             </tr>
-            <?php
-        }
-        ?>
+                            <?php
+                        }
+                        ?>
                     </table>
                     <input type="hidden" name="numAr" value="<?php echo $i; ?>">
                     <input type="submit" name="borra" value="Delete front page" class="botonesGestionPortada">
                 </form>
-        <?php
-    } else {
-        echo '<div class="wrong">No Front Pages created</div>';
-    }
-} else if (isset($_POST['listarPortada'])) {
-    $portadas = readAllPortada();
-    if ($portadas) {
-        ?>
+                <?php
+            } else {
+                echo '<div class="wrong">No Front Pages created</div>';
+            }
+        } else if (isset($_POST['listarPortada'])) {
+            $portadas = readAllPortada();
+            if ($portadas) {
+                ?>
 
                 <table border = "2">
                     <tr>
@@ -484,19 +473,19 @@ if (isset($_POST['creaPortada'])) {
                         <th>Author Name</th>
                         <th>Articles</th>
                         <th>Advertisement</th>
-                        
+
                     </tr>
-        <?php
-        foreach ($portadas as $portada) {
-            ?>
+                    <?php
+                    foreach ($portadas as $portada) {
+                        ?>
                         <tr>
 
                             <td><?php echo $portada['fecha']; ?></td>
                             <td><?php
-            $autor = readPortada($portada['idPortada']);
-            $autor2 = readCuenta($autor['idCuenta']);
-            echo $autor2['usuario'];
-            ?></td>
+                                $autor = readPortada($portada['idPortada']);
+                                $autor2 = readCuenta($autor['idCuenta']);
+                                echo $autor2['usuario'];
+                                ?></td>
                             <td><?php
                                 echo $autor2['nombre'];
                                 ?></td>
@@ -506,35 +495,34 @@ if (isset($_POST['creaPortada'])) {
                                 if ($articulos) {
                                     ?>
                                     <ul>
-                                    <?php
-                                    foreach ($articulos as $articulo) {
-                                        ?> <li> <?php echo $articulo['titulo']; ?> </li> <?php
+                                        <?php
+                                        foreach ($articulos as $articulo) {
+                                            ?> <li> <?php echo $articulo['titulo']; ?> </li> <?php
                                         }
                                         ?>
                                     </ul>
-                               <?php } ?>
-                                </td>
-                                <td>
-                                    <?php
-                                    if($portada['idAnuncio']){
+                                <?php } ?>
+                            </td>
+                            <td>
+                                <?php
+                                if ($portada['idAnuncio']) {
                                     $anuncio = readAnuncio($portada['idAnuncio']);
-                                echo $anuncio['descripcion'];
-                                    }
-                                    ?>
-                                </td>
-                            </tr>
-                <?php
-            
-        }
-        ?>
+                                    echo $anuncio['descripcion'];
+                                }
+                                ?>
+                            </td>
+                        </tr>
+                        <?php
+                    }
+                    ?>
                 </table>
 
-                    <?php
-                } else {
-                    echo "No Front Pages created";
-                }
+                <?php
+            } else {
+                echo "No Front Pages created";
             }
-            ?>
+        }
+        ?>
         <footer id="footer">
             <div class="inner">
                 <h2>Get In Touch</h2>

@@ -63,6 +63,8 @@ function deleteArticulo($idArticulo) {
     $res = FALSE;
     $query = "DELETE FROM articulossecciones WHERE idArticulo = $idArticulo";
     $result = $con->query($query);
+    $query = "UPDATE anuncios SET idArticulo= NULL WHERE idArticulo = $idArticulo";
+    $result = $con->query($query);
     $query = "DELETE FROM articulos WHERE idArticulo = $idArticulo";
     $result = $con->query($query);
     if ($result) {
@@ -150,7 +152,7 @@ function leerArticulosDadaSeccion($idSeccion) {
             }
         }
     }
-
+    
     desconectar($con);
     return $res;
 }
@@ -279,6 +281,19 @@ function leerArticulosSinPortada() {
         for ($i = 0; $i < $result->num_rows; $i++) {
             array_push($res, $result->fetch_assoc());
         }
+    }
+    desconectar($con);
+    return $res;
+}
+
+function leerIdDadaCategoria($categoria){
+    $con = conexionBD();
+    $res = False;
+    $query = "SELECT * FROM secciones WHERE categoria = '$categoria'";
+    $result = $con->query($query);
+    if ($result->num_rows !== 0) {
+        $aux = $result->fetch_assoc();
+        $res = $aux['idSeccion'];
     }
     desconectar($con);
     return $res;

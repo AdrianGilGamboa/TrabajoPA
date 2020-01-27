@@ -116,3 +116,161 @@ function validaInicioSesion() {
     }
     return res;
 }
+function validaArticulo() {
+    var res = true;
+    var titulo = document.getElementsByName("titulo")[0];
+    var descripcion = document.getElementsByName("descripcion")[0];
+    var texto = document.getElementsByName("texto")[0];
+    var expresionRegularTitulo = /^[a-zA-Z0-9]{0,15}$/;
+    if (titulo.value === "" || !expresionRegularTitulo.test(titulo.value)) {
+        res = false;
+        titulo.style.borderColor = "red";
+        if (titulo.nextSibling.nodeName !== "SPAN") {
+            var span = document.createElement("span");
+            var txt = document.createTextNode("The field must be filled");
+            span.style.color = "red";
+            span.appendChild(txt);
+            titulo.parentNode.insertBefore(span, titulo.nextSibling);
+        }
+
+    } else {
+        titulo.style.borderColor = "lightgrey";
+        if (titulo.nextSibling.nodeName === "SPAN") {
+            titulo.nextElementSibling.remove();
+        }
+    }
+    if (descripcion.value === "") {
+        res = false;
+        descripcion.style.borderColor = "red";
+        if (descripcion.nextSibling.nodeName !== "SPAN") {
+            var span = document.createElement("span");
+            var txt = document.createTextNode("The field must be filled");
+            span.style.color = "red";
+            span.appendChild(txt);
+            descripcion.parentNode.insertBefore(span, descripcion.nextSibling);
+        }
+
+    } else {
+        descripcion.style.borderColor = "lightgrey";
+        if (descripcion.nextSibling.nodeName === "SPAN") {
+            descripcion.nextElementSibling.remove();
+        }
+    }
+    if (texto.value === "") {
+        res = false;
+        texto.style.borderColor = "red";
+        if (texto.nextSibling.nodeName !== "SPAN") {
+            var span = document.createElement("span");
+            var txt = document.createTextNode("The field must be filled");
+            span.style.color = "red";
+            span.appendChild(txt);
+            texto.parentNode.insertBefore(span, texto.nextSibling);
+        }
+
+    } else {
+        texto.style.borderColor = "lightgrey";
+        if (texto.nextSibling.nodeName === "SPAN") {
+            texto.nextElementSibling.remove();
+        }
+    }
+    return res;
+}
+function validaAnuncio(){
+    var res = true;
+    var descripcion = document.getElementsByName("descripcion")[0];
+    var duracion = document.getElementsByName("duracion")[0];
+    
+    if (descripcion.value === "") {
+        res = false;
+        descripcion.style.borderColor = "red";
+        if (descripcion.nextSibling.nodeName !== "SPAN") {
+            var span = document.createElement("span");
+            var txt = document.createTextNode("The field must be filled");
+            span.style.color = "red";
+            span.appendChild(txt);
+            descripcion.parentNode.insertBefore(span, descripcion.nextSibling);
+        }
+
+    } else {
+        descripcion.style.borderColor = "lightgrey";
+        if (descripcion.nextSibling.nodeName === "SPAN") {
+            descripcion.nextElementSibling.remove();
+        }
+    }if (duracion.value === "") {
+        res = false;
+        duracion.style.borderColor = "red";
+        if (duracion.nextSibling.nodeName !== "SPAN") {
+            var span = document.createElement("span");
+            var txt = document.createTextNode("The field must be filled");
+            span.style.color = "red";
+            span.appendChild(txt);
+            duracion.parentNode.insertBefore(span, duracion.nextSibling);
+        }
+
+    } else {
+        duracion.style.borderColor = "lightgrey";
+        if (duracion.nextSibling.nodeName === "SPAN") {
+            duracion.nextElementSibling.remove();
+        }
+    }
+    return res;
+}
+
+function validaAnunciante(){
+    var res = true;
+    var nombre = document.getElementsByName("nombre")[0];
+    var tarifa = document.getElementsByName("tarifa")[0];
+    
+    if (nombre.value === "") {
+        res = false;
+        nombre.style.borderColor = "red";
+        if (descripcion.nextSibling.nodeName !== "SPAN") {
+            var span = document.createElement("span");
+            var txt = document.createTextNode("The field must be filled");
+            span.style.color = "red";
+            span.appendChild(txt);
+            nombre.parentNode.insertBefore(span, nombre.nextSibling);
+        }
+
+    } else {
+        nombre.style.borderColor = "lightgrey";
+        if (nombre.nextSibling.nodeName === "SPAN") {
+            nombre.nextElementSibling.remove();
+        }
+    }if (tarifa.value === "") {
+        res = false;
+        tarifa.style.borderColor = "red";
+        if (tarifa.nextSibling.nodeName !== "SPAN") {
+            var span = document.createElement("span");
+            var txt = document.createTextNode("The field must be filled");
+            span.style.color = "red";
+            span.appendChild(txt);
+            tarifa.parentNode.insertBefore(span, tarifa.nextSibling);
+        }
+
+    } else {
+        tarifa.style.borderColor = "lightgrey";
+        if (tarifa.nextSibling.nodeName === "SPAN") {
+            tarifa.nextElementSibling.remove();
+        }
+    }
+    return res;
+}
+
+function validaClavesIguales(){
+    var claveNueva = document.getElementsByName("clavenueva")[0];
+    var claveNuevaRepetida = document.getElementsByName("clavenuevarepetida")[0];
+    
+    if(claveNueva.value !== claveNuevaRepetida.value){
+        claveNueva.style.borderColor = "red";
+        claveNueva.style.borderWidth = "thick";
+        claveNuevaRepetida.style.borderColor = "red";
+        claveNuevaRepetida.style.borderWidth = "thick";
+    }else{
+        claveNueva.style.borderColor = "green";
+        claveNuevaRepetida.style.borderColor = "green";
+        claveNueva.style.borderWidth = "medium";
+        claveNuevaRepetida.style.borderWidth = "medium";       
+        
+    }
+}

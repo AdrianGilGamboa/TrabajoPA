@@ -3193,3 +3193,9 @@ dl dd {
     }
 
 }
+aside{
+    float:right;
+    background-color: grey;
+/*    position: absolute;*/
+   
+}
