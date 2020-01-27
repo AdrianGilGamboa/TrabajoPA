@@ -133,6 +133,7 @@ include_once("../CRUD/CRUDSeccion.php");
                 } else {
                     echo "<h3 class='centrar'>error al actualizar los datos en posible sin clave</h3>";
                 }
+
             }
         }
         include_once 'nav.php';
