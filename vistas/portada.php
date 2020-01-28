@@ -17,7 +17,6 @@ include_once ("../CRUD/CRUDComentario.php");
 
     aside
     {
-
         position: sticky;
         position: -webkit-sticky;
         top: 200px;
@@ -121,7 +120,7 @@ include_once ("../CRUD/CRUDComentario.php");
         <?php
         $articulos = readAllArticuloPorFecha();
         ?>
-        <section>
+        <section class="inner">
 
             <?php
             if ($articulos) {
@@ -129,7 +128,7 @@ include_once ("../CRUD/CRUDComentario.php");
                     $autor = readCuenta($articulo['idCuenta']);
                     ?>
                     <a href="articulo.php?idArticulo=<?php echo $articulo['idArticulo']; ?>">
-                        <article class="inner">
+                        <article>
 
                             <h1><?php echo $articulo['titulo']; ?></h1>
 
@@ -139,9 +138,7 @@ include_once ("../CRUD/CRUDComentario.php");
                                     echo '../imagenes/' . $articulo['imagen'];
                                 }
                                 ?>"><img src="../imagenes/<?php echo $articulo['imagen']; ?>"alt='<?php echo $articulo['imagen']; ?>' ><?php
-                                       if ($articulo['imagen'] != NULL) {
-                                           echo $articulo['imagen'];
-                                       }
+                                       
                                        ?></a>
                             </div>
                             <?php
@@ -184,6 +181,7 @@ include_once ("../CRUD/CRUDComentario.php");
                             </div>
 
                             <hr>
+                        </article>
                     <?php
                 }
             }

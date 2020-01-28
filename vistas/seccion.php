@@ -156,9 +156,7 @@ function mostrarArticulos($idSeccion) {
                                     echo '../imagenes/' . $articulo['imagen'];
                                 }
                                 ?>"><img src="../imagenes/<?php echo $articulo['imagen']; ?>"alt='<?php echo $articulo['imagen']; ?>' ><?php
-                                       if ($articulo['imagen'] != NULL) {
-                                           echo $articulo['imagen'];
-                                       }
+                                       
                                        ?></a>
                             </div>
                             <?php

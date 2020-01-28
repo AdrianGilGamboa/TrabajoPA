@@ -1489,7 +1489,7 @@ em, i {
 }
 
 p {
-    margin: 0 0 2em 0;
+    margin: 5% 0 2em 0;
     text-align: justify;
     font-family: "Roboto", sans-serif;
     color: #9a9a9a;
@@ -2087,10 +2087,12 @@ header h6 + p {
     border: 0;
     display: inline-block;
     position: relative;
+    width: 30%;
 }
 
 .image img {
     display: block;
+    width:100%;
 }
 
 .image.left, .image.right {
