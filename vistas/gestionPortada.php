@@ -13,9 +13,6 @@ include ("../CRUD/CRUDAnuncio.php");
         margin-bottom:50px;
 
     }
-    #navegador{
-        margin-bottom:0px;
-    }
 
     .wrong{
         text-align: center;
@@ -49,21 +46,19 @@ include ("../CRUD/CRUDAnuncio.php");
         </form>
         <?php
         session_start();
-        if (!isset($_SESSION['cuentaID'])) {
-            header('Location: inicioSesion.php');
-
-        }
-
-        if (isset($_SESSION['cuentaID'])) {
-            if ($_SESSION['tipo'] === "administrador") {
-                $idCuenta = $_SESSION['cuentaID'];
-                $nombre = $_SESSION['nombreUsuario'];
-            } else {
-                header('Location: cuenta.php');
-            }
-        }
-
-        include_once 'nav.php';
+//        if (!isset($_SESSION['cuentaID'])) {
+//            header('Location: inicioSesion.php');
+//
+//        }
+//
+//        if (isset($_SESSION['cuentaID'])) {
+//            if ($_SESSION['tipo'] === "administrador") {
+//                $idCuenta = $_SESSION['cuentaID'];
+//                $nombre = $_SESSION['nombreUsuario'];
+//            } else {
+//                header('Location: cuenta.php');
+//            }
+//        }
 
         include_once 'nav.php';
 
@@ -411,17 +406,22 @@ ERROR, the front page advertisement could not be removed</div>';
         } else if (isset($_POST['modifPortada']) || isset($_POST['eliminandoArticulos']) || isset($_POST['añadiendoArticulos']) || isset($_POST['añadiendoAnuncio']) || isset($_POST['cambiandoAnuncio'])) {
             if ($portadas) {
                 ?>
-
+                
                 <form action="#" method="POST">
-                    <ul>
+                    <table border="2">
+                        <tr>
+                        <th>Fecha</th>
+                        <th></th>
+                        </tr>
                         <?php
                         foreach ($portadas as $portada) {
-                            ?>
-                            <li><?php echo $portada['fecha']; ?><input type="radio" name="portada" value="<?php echo $portada['idPortada']; ?>" required></li>
-                            <?php
+                            ?><tr>
+                            <td><?php echo $portada['fecha']; ?></td><td><input type="radio" name="portada" value="<?php echo $portada['idPortada']; ?>" required></td>
+                            </tr><?php
                         }
                         ?>
-                    </ul>
+                    </table>
+                    
                     <input type="submit" name="borraArticulo" value="Delete articles" class="botonesGestionPortada">
                     <input type="submit" name="añadeArticulo" value="Add articles" class="botonesGestionPortada">
                     <input type="submit" name="añadeAnuncio" value="Add advertisement" class="botonesGestionPortada">
@@ -464,8 +464,8 @@ ERROR, the front page advertisement could not be removed</div>';
             $portadas = readAllPortada();
             if ($portadas) {
                 ?>
-
-                <table border = "2">
+        
+                <table border = "2" style="width:60%;">
                     <tr>
 
                         <th>Date</th>
@@ -516,6 +516,7 @@ ERROR, the front page advertisement could not be removed</div>';
                     }
                     ?>
                 </table>
+        
 
                 <?php
             } else {
@@ -528,7 +529,7 @@ ERROR, the front page advertisement could not be removed</div>';
                 <h2>Get In Touch</h2>
                 <ul class="actions">
                     <li><i class="icon fa-phone"></i> <a href="#">(034)954 34 92 00</a></li>
-                    <li><span class="icon fa-envelope"></span> <a href="#">moarNesws@gmail.com</a></li>
+                    <li><span class="icon fa-envelope"></span> <a href="#">moarnewspa@gmail.com</a></li>
                     <li><span class="icon fa-map-marker"></span> Ctra. de Utrera, 1, 41013 Sevilla </li>
                 </ul>
             </div>
