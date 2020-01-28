@@ -154,7 +154,7 @@ function meGusta($idComentario) {
     $result = $con->query($query);
     $aux = $result->fetch_assoc();
     $puntuacion = $aux['puntuacion'];
-    if ($puntuacion < 5 && $puntuacion >= 0) {
+    if ($puntuacion >= 0) {
         $puntuacion = $puntuacion+1;
         $query = "UPDATE comentarios SET puntuacion = $puntuacion WHERE idComentario = $idComentario";
         $result = $con->query($query);
@@ -172,10 +172,10 @@ function noMeGusta($idComentario) {
     $query = "SELECT * FROM comentarios WHERE idComentario = $idComentario";
     $result = $con->query($query);
     $aux = $result->fetch_assoc();
-    $puntuacion = $aux['puntuacion'];
-    if ($puntuacion <= 5 && $puntuacion > 0) {
-        $puntuacion = $puntuacion-1;
-        $query = "UPDATE comentarios SET puntuacion = $puntuacion WHERE idComentario = $idComentario";
+    $puntuacion = $aux['puntuacionNegativa'];
+    if ( $puntuacion >= 0) {
+        $puntuacion = $puntuacion+1;
+        $query = "UPDATE comentarios SET puntuacionNegativa = $puntuacion WHERE idComentario = $idComentario";
         $result = $con->query($query);
         if ($result) {
             $res = True;

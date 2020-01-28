@@ -200,7 +200,7 @@ function mostrarArticulos($idSeccion) {
                                 }
                                 ?>
                             </div>
-                             <form  action="comentario.php" method="POST" style="margin-left: 0px; margin-top:20px;margin-bottom:20px;">
+                            <form  action="comentario.php" method="POST" style="margin-left: 0px; margin-top:20px;margin-bottom:20px;">
                                 <input type="hidden" name="articulo" value="<?php echo $articulo['idArticulo']; ?>">
                                 <input type="hidden" name="cuenta" value="<?php echo $idUsuario; ?>">
                                 <input class="button special fit small" type="submit" name="comentar" value="Comment article">
@@ -231,20 +231,29 @@ function mostrarArticulos($idSeccion) {
                                                 <td><p style="padding-left: 30px;padding-right: 30px; margin-bottom:0px"><?php echo $comentario['texto']; ?></p></td>
                                                 <td> <?php
                                                     $puntuacion = $comentario['puntuacion'];
-                                                    for ($index = 0; $index < $puntuacion; $index++) {
-                                                        ?>
-                                                        <span style="font-size:33px; color: <?php
-                                                        if ($autor['formato'] === "gold") {
-                                                            echo "gold";
-                                                        } else if ($autor['formato'] === "silver") {
-                                                            echo "silver";
-                                                        } else if ($autor['formato'] === "bronze") {
-                                                            echo "brown";
-                                                        }
-                                                        ?>">☆</span>
-                                                              <?php
-                                                          }
+                                                    ?>
+                                                    <span style=" color: <?php
+                                                    if ($autor['formato'] === "gold") {
+                                                        echo "gold";
+                                                    } else if ($autor['formato'] === "silver") {
+                                                        echo "silver";
+                                                    } else if ($autor['formato'] === "bronze") {
+                                                        echo "brown";
+                                                    }
+                                                    ?>">Likes: <?php echo $puntuacion; ?></span><br>
+                                                          <?php
+                                                          $puntuacionNegativa = $comentario['puntuacionNegativa'];
                                                           ?>
+                                                    <span style=" color: <?php
+                                                    if ($autor['formato'] === "gold") {
+                                                        echo "gold";
+                                                    } else if ($autor['formato'] === "silver") {
+                                                        echo "silver";
+                                                    } else if ($autor['formato'] === "bronze") {
+                                                        echo "brown";
+                                                    }
+                                                    ?>">Dislikes: <?php echo $puntuacionNegativa; ?></span>
+
                                                 </td>
                                                 <?php if ($hayCuenta) { ?>
                                                     <td> <form action="#" method="POST" style="padding: 0px;margin: 0px;">
@@ -287,22 +296,22 @@ function mostrarArticulos($idSeccion) {
                 }
             }
             ?>
-            
-            </section> </a>
-            <footer id="footer">
-                <div class="inner">
-                    <h2>Get In Touch</h2>
-                    <ul class="actions">
-                        <li><i class="icon fa-phone"></i> <a href="#">(034)954 34 92 00</a></li>
-                        <li><span class="icon fa-envelope"></span> <a href="#">moarnewspa@gmail.com</a></li>
-                        <li><span class="icon fa-map-marker"></span> Ctra. de Utrera, 1, 41013 Sevilla </li>
-                    </ul>
-                </div>
-                <div class="copyright">
-                    &copy; Newspaper. MoarNews <a href="https://www.upo.es/portal/impe/web/portada/index.html">MoarNews</a>. Images <a href="../imagenes/logo.jpeg" alt="logo">MoarNews</a>.
 
-                </div>
-            </footer>
-    </body>
+        </section> </a>
+    <footer id="footer">
+        <div class="inner">
+            <h2>Get In Touch</h2>
+            <ul class="actions">
+                <li><i class="icon fa-phone"></i> <a href="#">(034)954 34 92 00</a></li>
+                <li><span class="icon fa-envelope"></span> <a href="#">moarnewspa@gmail.com</a></li>
+                <li><span class="icon fa-map-marker"></span> Ctra. de Utrera, 1, 41013 Sevilla </li>
+            </ul>
+        </div>
+        <div class="copyright">
+            &copy; Newspaper. MoarNews <a href="https://www.upo.es/portal/impe/web/portada/index.html">MoarNews</a>. Images <a href="../imagenes/logo.jpeg" alt="logo">MoarNews</a>.
+
+        </div>
+    </footer>
+</body>
 
 </html>
