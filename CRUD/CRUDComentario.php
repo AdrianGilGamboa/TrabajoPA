@@ -8,7 +8,8 @@ function createComentario($comentario) {
     $res = FALSE;
     $texto = $comentario['texto'];
     $puntuacion = $comentario['puntuacion'];
-    $query = "INSERT INTO comentarios (texto, puntuacion) VALUES ('$texto',$puntuacion)";
+    $puntuacionNegativa = $comentario['puntuacionNegativa'];
+    $query = "INSERT INTO comentarios (texto, puntuacion, puntuacionNegativa) VALUES ('$texto',$puntuacion,$puntuacionNegativa)";
     $result = $con->query($query);
     if ($result) {
         $query = "SELECT * FROM comentarios WHERE texto = '$texto'";

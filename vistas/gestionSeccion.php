@@ -3,6 +3,7 @@
 include_once ("../CRUD/CRUDSeccion.php");
 include_once ("../CRUD/CRUDCuenta.php");
 include_once ("../CRUD/CRUDArticulo.php");
+include_once ("../CRUD/CRUDCuenta.php");
 
 function tiene($misArticulos, $articulo) {
     $resul = FALSE;
@@ -16,14 +17,6 @@ function tiene($misArticulos, $articulo) {
     }
     return $resul;
 }
-//        $para = 'pedrorc983@gmail.com';
-//        $titulo = 'El título';
-//        $mensaje = 'Hola';
-//        $cabeceras = 'From: moarnews@gmail.com' . "\r\n" .
-//                'Reply-To: moarnews@gmail.com' . "\r\n" .
-//                'X-Mailer: PHP/' . phpversion();
-//
-//        mail($para, $titulo, $mensaje, $cabeceras);
 ?>
 <html>
     <head>
@@ -86,6 +79,7 @@ function tiene($misArticulos, $articulo) {
         }
         if (isset($_POST['confirmar2'])) {
             $idSecction = $_POST['idSec'];
+            $seccion = readSeccionId($idSecction);
             if (isset($_POST['numAr2'])) {
                 $numAr2 = $_POST['numAr2'];
                 $actualizar = array();
@@ -94,8 +88,24 @@ function tiene($misArticulos, $articulo) {
                         array_push($actualizar, $_POST[$i]);
                     }
                 }
+                $cuentasOro = obtenerUsuariosOro();
                 foreach ($actualizar as $id) {
-                    //AQUI IRIA EL MAIL
+                    foreach ($cuentasOro as $cuenta) {
+                        $gustos = explode(",", $cuenta['gustos']);
+                        foreach ($gustos as $gusto) {
+                            if ($gusto === $seccion['categoria']) {
+                                $para = $cuenta['email'];
+                                $titulo = 'There is a new article in a section you have preference on';
+                                $mensaje = "New article added, go see it at: <a href='http://localhost/Archivos/TrabajoPA/vistas/seccion.php?idSeccion=$idSecction'></a>'";
+                                $cabeceras = 'From: moarnews@gmail.com' . "\r\n" .
+                                        'Reply-To: moarnews@gmail.com' . "\r\n" .
+                                        'X-Mailer: PHP/' . phpversion();
+
+                                mail($para, $titulo, $mensaje, $cabeceras);
+                            }
+                        }
+                    }
+
                     asociarArticulo($id, $idSecction);
                 }
             }
