@@ -34,30 +34,36 @@ function tiene($misArticulos, $articulo) {
         <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
         <title></title>
     </head>
-    <body class="inner">
-        <form  class="actions" action="#" method="POST">
-            <input class="button special fit small"  type="submit" name="creaSect" value="Create Section">
-            <input class="button special fit small"type="submit" name="modifSect" value="Modify Section">
-            <input class="button special fit small" type="submit" name="eliminaSect" value="Delete Section">
-        </form>
+
+    
+    <body>
+        
 
 
         <?php
         session_start();
-        if (!isset($_SESSION['cuentaID'])) {
-            header('Location: inicioSesion.php');
-        }
-        if (isset($_SESSION['cuentaID'])) {
-            if ($_SESSION['tipo'] === "administrador") {
-                $idCuenta = $_SESSION['cuentaID'];
-                $nombre = $_SESSION['nombreUsuario'];
-            } else {
-                header('Location: cuenta.php');
-            }
-        }
+//        if (!isset($_SESSION['cuentaID'])) {
+//            header('Location: inicioSesion.php');
+//        }
+//        if (isset($_SESSION['cuentaID'])) {
+//            if ($_SESSION['tipo'] === "administrador") {
+//                $idCuenta = $_SESSION['cuentaID'];
+//                $nombre = $_SESSION['nombreUsuario'];
+//            } else {
+//                header('Location: cuenta.php');
+//            }
+//        }
 
         include_once 'nav.php';
-
+        ?>
+        
+        <article class="inner">
+        <form  class="actions" action="#" method="POST" style="width:50%; margin-left: auto;margin-top: 0px;">
+            <input class="button special fit small"  type="submit" name="creaSect" value="Create Section">
+            <input class="button special fit small"type="submit" name="modifSect" value="Modify Section">
+            <input class="button special fit small" type="submit" name="eliminaSect" value="Delete Section">
+        </form>
+            <?php
         $secciones = readAllSeccion();
         $articulos = readAllArticulo();
         if (isset($_POST['confirmar'])) {
@@ -225,13 +231,22 @@ function tiene($misArticulos, $articulo) {
                 } else if (isset($_POST['modifSect'])) {
                     ?>
                     <form action="#" method="POST">
+                        <table border="2" >
+                            <tr>
+                                <th>Section</th>
+                                <th></th>
+                            </tr>
                         <?php
                         foreach ($secciones as $seccion) {
+                            
                             ?>
-                            <?php echo $seccion['categoria']; ?><input type="radio" name="seccion" value="<?php echo $seccion['idSeccion']; ?>"><br/>
-                            <?php
+                            <tr>
+                            <td><?php echo $seccion['categoria']; ?></td>
+                            <td><input type="radio" name="seccion" value="<?php echo $seccion['idSeccion']; ?>"></td>
+                            </tr><?php
                         }
                         ?>
+                        </table>
                         <input type="submit" name="actualiza" value="Modify Section">
                     </form>
                     <?php
@@ -263,6 +278,7 @@ function tiene($misArticulos, $articulo) {
             }
         }
         ?>
+        </article>
         <footer id="footer">
             <div class="inner">
                 <h2>Get In Touch</h2>

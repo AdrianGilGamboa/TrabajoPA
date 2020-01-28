@@ -131,7 +131,7 @@ function mostrarArticulos($idSeccion) {
             }
             ?>
         </aside>
-        <section class="categoriaSeccion">
+        <section class="inner">
 
             <h3>Section <?php echo $seccion['categoria']; ?></h3>
 
@@ -146,7 +146,7 @@ function mostrarArticulos($idSeccion) {
 
 
                     <a href="articulo.php?idArticulo=<?php echo $articulo['idArticulo']; ?>">
-                        <article class ="inner">
+                        <article>
 
                             <h1><?php echo $articulo['titulo']; ?></h1>
 
@@ -200,18 +200,20 @@ function mostrarArticulos($idSeccion) {
                                 }
                                 ?>
                             </div>
-                            <form class="inner" action="comentario.php" method="POST" >
+                             <form  action="comentario.php" method="POST" style="margin-left: 0px; margin-top:20px;margin-bottom:20px;">
                                 <input type="hidden" name="articulo" value="<?php echo $articulo['idArticulo']; ?>">
                                 <input type="hidden" name="cuenta" value="<?php echo $idUsuario; ?>">
                                 <input class="button special fit small" type="submit" name="comentar" value="Comment article">
                             </form>
-                            <div class="table-wrapper">
+                        </article>
+                        <article>
+                            <div class="table-wrapper" style="width:auto">
                                 <?php
                                 $comentarios = readComentariosArticuloPortada($articulo['idArticulo']);
                                 if ($comentarios) {
 
                                     foreach ($comentarios as $comentario) {
-                                        ?><table class="alt" style="margin-bottom: 20px;margin-top: 0px;" ><tr> <td> <?php
+                                        ?><table class="alt" style="margin-bottom: 0px;margin-top: 0px; width:100%"><tr> <td> <?php
                                         $autor = cuentaDadoComentario($comentario['idCuenta']);
                                         ?>
                                                     <span style="color: <?php
@@ -226,7 +228,7 @@ function mostrarArticulos($idSeccion) {
                                                               echo $autor['nombre'];
                                                               ?></span></td>
 
-                                                <td><p style="padding-top: 0px;padding-left: 30px;padding-right: 30px;"><?php echo $comentario['texto']; ?></p></td>
+                                                <td><p style="padding-left: 30px;padding-right: 30px; margin-bottom:0px"><?php echo $comentario['texto']; ?></p></td>
                                                 <td> <?php
                                                     $puntuacion = $comentario['puntuacion'];
                                                     for ($index = 0; $index < $puntuacion; $index++) {
@@ -245,7 +247,7 @@ function mostrarArticulos($idSeccion) {
                                                           ?>
                                                 </td>
                                                 <?php if ($hayCuenta) { ?>
-                                                    <td> <form action="#" method="POST" style="padding-left: 0px;margin-left: 0px;">
+                                                    <td> <form action="#" method="POST" style="padding: 0px;margin: 0px;">
                                                             <ul class="actions vertical small">
                                                                 <input type="hidden" name="idComentario" value="<?php echo $comentario['idComentario']; ?>">
                                                                 <li>
@@ -259,12 +261,15 @@ function mostrarArticulos($idSeccion) {
                                                                 </li>
                                                             </ul>
                                                         </form></td> <?php } ?>
+
                                             </tr></table>
                                         <?php
                                         if ($hayCuenta) {
                                             ?>
 
-                                            <form action="comentario.php" method="POST" style="margin-top: 0px;padding-top: 10px;padding-bottom: 0px;padding-right: 0px;padding-left: 0px;margin-left: 0px;margin-bottom: 0px;">
+
+                                            <form action="comentario.php" method="POST" style="margin-top: 0px;padding-top: 0px;padding-bottom: 0px;margin-left: 0px;margin-bottom: 20px;">
+
                                                 <input type="hidden" name="articulo" value="<?php echo $articulo['idArticulo']; ?>">
                                                 <input type="hidden" name="cuenta" value="<?php echo $idUsuario; ?>">
                                                 <input type="hidden" name="comentario" value="<?php echo $comentario['idComentario']; ?>">
@@ -282,8 +287,8 @@ function mostrarArticulos($idSeccion) {
                 }
             }
             ?>
-            </div>
-            </article> </a>
+            
+            </section> </a>
             <footer id="footer">
                 <div class="inner">
                     <h2>Get In Touch</h2>
