@@ -134,15 +134,13 @@ include_once ('../CRUD/CRUDAnuncio.php');
                     <h3><?php echo $articulo['descripcion']; ?></h3>
 
                 </div>
-                <div class="image">
+                <div class="image" style="width:70%;">
                     <a href="<?php
                     if ($articulo['imagen'] != NULL) {
                         echo '../imagenes/' . $articulo['imagen'];
                     }
                     ?>"><img src="../imagenes/<?php echo $articulo['imagen']; ?>"alt='<?php echo $articulo['imagen']; ?>' width='300'><?php
-                           if ($articulo['imagen'] != NULL) {
-                               echo $articulo['imagen'];
-                           }
+                           
                            ?></a>
 
                 </div>
