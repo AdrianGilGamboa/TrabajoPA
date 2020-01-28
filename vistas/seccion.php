@@ -50,6 +50,11 @@ function mostrarArticulos($idSeccion) {
                 margin-top:20px;
                 width:90%;
             }
+            
+            table{
+                border-collapse: collapse;
+            }
+            
         </style>
     </head>
 
@@ -209,25 +214,26 @@ function mostrarArticulos($idSeccion) {
                                 <?php
                                 $comentarios = readComentariosArticuloPortada($articulo['idArticulo']);
                                 if ($comentarios) {
-
+ 
                                     foreach ($comentarios as $comentario) {
-                                        ?><table class="alt" style="margin-bottom: 0px;margin-top: 0px; width:100%"><tr> <td> <?php
-                                        $autor = cuentaDadoComentario($comentario['idCuenta']);
-                                        ?>
-                                                    <span style="color: <?php
-                                                    if ($autor['formato'] === "gold") {
-                                                        echo "gold";
-                                                    } else if ($autor['formato'] === "silver") {
-                                                        echo "silver";
-                                                    } else if ($autor['formato'] === "bronze") {
-                                                        echo "brown";
-                                                    }
-                                                    ?>"><?php
-                                                              echo $autor['nombre'];
-                                                              ?></span></td>
+                                        ?><table style="margin-bottom: 0px;margin-top: 0px; width:100%"><tr>
 
-                                                <td><p style="padding-left: 30px;padding-right: 30px; margin-bottom:0px"><?php echo $comentario['texto']; ?></p></td>
-                                                <td> <?php
+                        <td> <?php
+                            $autor = cuentaDadoComentario($comentario['idCuenta']);
+                            ?>
+                            <span style="color: <?php
+                            if ($autor['formato'] === "gold") {
+                                echo "gold";
+                            } else if ($autor['formato'] === "silver") {
+                                echo "silver";
+                            } else if ($autor['formato'] === "bronze") {
+                                echo "brown";
+                            }
+                            ?>">
+                                
+                               <?php echo $comentario['texto']; ?><br> </span>
+                                <p style="text-align: right; margin:0px"><?php echo $autor['nombre'];?></p></td>
+                        <td> <?php 
                                                     $puntuacion = $comentario['puntuacion'];
                                                     ?>
                                                     <span style=" color: <?php
