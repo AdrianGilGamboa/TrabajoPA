@@ -120,6 +120,11 @@ function mediaPuntuacion($sumaTotal, $numComentarios) {
                             <input type="hidden" name="nombre" value="<?php echo $datosPersonales['nombre'];?>">
                             <input type="submit" name="jugar3raya" value="Play three in a row!">
                         </form>
+                        <form action="juego2.php" method="POST">
+                            <input type="hidden" name="tipo" value="<?php echo $datosPersonales['formato'];?>">
+                            <input type="hidden" name="nombre" value="<?php echo $datosPersonales['nombre'];?>">
+                            <input type="submit" name="jugarahorcado" value="Play hangman!">
+                        </form>
                         <?php
                     }
                     if($datosPersonales['formato'] === "bronze" || $datosPersonales['formato'] === "silver" || $datosPersonales['formato'] === "gold"){

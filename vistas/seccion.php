@@ -33,6 +33,9 @@ function mostrarArticulos($idSeccion) {
         <link href="css.css" rel="stylesheet" type="text/css"/>
         <meta http-equiv="X-UA-Compatible" content=="IE=edge"/>
         <meta name="google" value="notranslate"/>
+        <script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
+        <script src="../js/jquery.zoom.min.js" type="text/javascript"></script>
+        <script src="../js/scripts.js" type="text/javascript"></script>
         <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
         <style>
             aside
@@ -50,11 +53,11 @@ function mostrarArticulos($idSeccion) {
                 margin-top:20px;
                 width:90%;
             }
-            
+
             table{
                 border-collapse: collapse;
             }
-            
+
         </style>
     </head>
 
@@ -156,13 +159,7 @@ function mostrarArticulos($idSeccion) {
                             <h1><?php echo $articulo['titulo']; ?></h1>
 
                             <div class="image">
-                                <a href="<?php
-                                if ($articulo['imagen'] != NULL) {
-                                    echo '../imagenes/' . $articulo['imagen'];
-                                }
-                                ?>"><img src="../imagenes/<?php echo $articulo['imagen']; ?>"alt='<?php echo $articulo['imagen']; ?>' ><?php
-                                       
-                                       ?></a>
+                                <img class="imagenes" src="../imagenes/<?php echo $articulo['imagen']; ?>"alt='<?php echo $articulo['imagen']; ?>' >
                             </div>
                             <?php
                             if ($hayCuenta) {
@@ -214,26 +211,26 @@ function mostrarArticulos($idSeccion) {
                                 <?php
                                 $comentarios = readComentariosArticuloPortada($articulo['idArticulo']);
                                 if ($comentarios) {
- 
+
                                     foreach ($comentarios as $comentario) {
                                         ?><table style="margin-bottom: 0px;margin-top: 0px; width:100%"><tr>
 
-                        <td> <?php
-                            $autor = cuentaDadoComentario($comentario['idCuenta']);
-                            ?>
-                            <span style="color: <?php
-                            if ($autor['formato'] === "gold") {
-                                echo "gold";
-                            } else if ($autor['formato'] === "silver") {
-                                echo "silver";
-                            } else if ($autor['formato'] === "bronze") {
-                                echo "brown";
-                            }
-                            ?>">
-                                
-                               <?php echo $comentario['texto']; ?><br> </span>
-                                <p style="text-align: right; margin:0px"><?php echo $autor['nombre'];?></p></td>
-                        <td> <?php 
+                                                <td> <?php
+                                                    $autor = cuentaDadoComentario($comentario['idCuenta']);
+                                                    ?>
+                                                    <span style="color: <?php
+                                                    if ($autor['formato'] === "gold") {
+                                                        echo "gold";
+                                                    } else if ($autor['formato'] === "silver") {
+                                                        echo "silver";
+                                                    } else if ($autor['formato'] === "bronze") {
+                                                        echo "brown";
+                                                    }
+                                                    ?>">
+
+                                                        <?php echo $comentario['texto']; ?><br> </span>
+                                                    <p style="text-align: right; margin:0px"><?php echo $autor['nombre']; ?></p></td>
+                                                <td> <?php
                                                     $puntuacion = $comentario['puntuacion'];
                                                     ?>
                                                     <span style=" color: <?php
