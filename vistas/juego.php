@@ -27,7 +27,7 @@
         header('Location: cuenta.php');
     }
     ?>
-	<h1>Hi <?php echo $nombreUsuario;?> this is Three in a row!</h1>
+	<h1>Hello <?php echo $nombreUsuario;?>, this is Three in a row!</h1>
 	Turn of player: <span id="jugadorActivo">1</span>
 	<br><br>
 	<table align="center">

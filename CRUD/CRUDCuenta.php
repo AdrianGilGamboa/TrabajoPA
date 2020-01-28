@@ -170,3 +170,20 @@ function updateCuentaSinClave($cuenta) {
     desconectar($con);
     return $res;
 }
+function registrarAutor($nombre, $usuario, $clave, $email, $Dv, $gustos) {
+    $res = False;
+    $con = conexionBD();
+    echo "<br/>" . $nombre . " " . $usuario . " " . $clave . " " . $email . " " . $Dv . " " . $gustos;
+    $claveEncriptada = password_hash($clave, PASSWORD_DEFAULT);
+    if ($Dv) {
+        $Dv = "TRUE";
+    } else {
+        $Dv = "FALSE";
+    }
+    $result = $con->query("INSERT INTO cuentas (nombre, usuario, clave, email, formato, tipo, Dv, gustos) VALUES ('$nombre', '$usuario','$claveEncriptada','$email','normal','autor', $Dv, '$gustos')");
+    if ($result) {
+        $res = True;
+    }
+    desconectar($con);
+    return $res;
+}

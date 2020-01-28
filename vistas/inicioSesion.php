@@ -51,7 +51,7 @@ include_once ('../CRUD/CRUDCuenta.php');
 
        
         <form class= "inner" action="#" method="POST" onsubmit="return validaInicioSesion()">
-             <h2 class="row uniform">Inicio Sesion</h2>
+             <h2 class="row uniform">LOG IN</h2>
             <div class="row uniform">
                 <div class="6u 12u/(xsmall)">
                     Usuario: <input type="text" name="usuario" value="<?php echo $nombre; ?>" placeholder="Name" /> <br>

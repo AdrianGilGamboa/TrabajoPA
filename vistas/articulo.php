@@ -2,10 +2,7 @@
 include_once ('../CRUD/CRUDArticulo.php');
 include_once ('../CRUD/CRUDCuenta.php');
 include_once ('../CRUD/CRUDComentario.php');
-
-
-
-
+include_once ('../CRUD/CRUDAnuncio.php');
 ?>
 <!DOCTYPE html>
 
@@ -25,20 +22,35 @@ include_once ('../CRUD/CRUDComentario.php');
     </head>
     <style>
 
-.comentariosArticuloEnArticulo ul{
-    text-align: left;
-}
+        .comentariosArticuloEnArticulo ul{
+            text-align: left;
+        }
 
-.comentario{
-    margin-bottom:0;
-    margin-top:0;
-    float:left;
-}
+        .comentario{
+            margin-bottom:0;
+            margin-top:0;
+            float:left;
+        }
 
-.listaComentario li{
-    float:left;
-    clear:both;
-}
+        .listaComentario li{
+            float:left;
+            clear:both;
+        }
+        aside
+        {
+
+            position: sticky;
+            position: -webkit-sticky;
+            top: 200px;
+            font: 45px 'Abril Fatface', sans-serif;
+            color: #fff;
+            text-align: center;
+        }
+        #imagenAnuncio{
+            top:100px;
+            margin-top:20px;
+            width:90%;
+        }
     </style>
     <body>
         <?php
@@ -48,9 +60,10 @@ include_once ('../CRUD/CRUDComentario.php');
             $hayCuenta = TRUE;
             $nombreUsuario = $_SESSION['nombreUsuario'];
             $idUsuario = $_SESSION['cuentaID'];
+            $datosPersonales = readCuenta($idUsuario);
         } else {
             $hayCuenta = FALSE;
-            $idUsuario="";
+            $idUsuario = "";
         }
         if (isset($_POST['like'])) {
             $idComentario = $_POST['idComentario'];
@@ -101,9 +114,11 @@ include_once ('../CRUD/CRUDComentario.php');
         <?php
         include_once 'nav.php';
         ?>
+        <?php $anuncio = leerAnuncioDadoArticulo($articulo['idArticulo']); ?>
+        <aside style=" top:100px;">
+            <img id="imagenAnuncio" src="../anuncios/<?php echo $anuncio['imagen']; ?>"alt='<?php echo $anuncio['imagen']; ?>' style="margin-left: 1.2%;">
+            <span style="font-size: 100%"><?php echo $anuncio['descripcion']; ?></span>
 
-        <aside>
-             
         </aside>
         <?php
         $autor = readCuenta($articulo['idCuenta']);
@@ -131,14 +146,21 @@ include_once ('../CRUD/CRUDComentario.php');
                            ?></a>
 
                 </div>
-                <div class="audioArticulo">
-                    <?php if ($articulo['audio'] != NULL) { ?>
-                        <audio controls>
-                            <source src="<?php echo '../audios/' . $articulo['audio']; ?>" type="audio/mpeg">
-                        </audio>
-                    <?php } ?>
-                </div>
-
+                <?php
+                if ($hayCuenta) {
+                    if ($datosPersonales['Dv']) {
+                        ?>
+                        <div class="audioArticulo">
+                            <?php if ($articulo['audio'] != NULL) { ?>
+                                <audio controls>
+                                    <source src="<?php echo '../audios/' . $articulo['audio']; ?>" type="audio/mpeg">
+                                </audio>
+                            <?php } ?>
+                        </div>
+                        <?php
+                    }
+                }
+                ?>
                 <div>
                     <p><?php echo $articulo['texto']; ?></p>
                 </div>

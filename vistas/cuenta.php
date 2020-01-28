@@ -128,6 +128,7 @@ function mediaPuntuacion($sumaTotal, $numComentarios) {
                             <input type="hidden" name="tipo" value="<?php echo $datosPersonales['formato'];?>">
                             <input type="hidden" name="nombre" value="<?php echo $datosPersonales['nombre'];?>">
                             <input type="hidden" name="gustos" value="<?php echo $datosPersonales['gustos'];?>">
+                            <input type="hidden" name="Dv" value="<?php echo $datosPersonales['Dv'];?>">
                             <input type="submit" name="hemeroteca" value="Access to the newspaper archive">
                         </form>
                         <?php
@@ -166,6 +167,11 @@ function mediaPuntuacion($sumaTotal, $numComentarios) {
                     <div class="button alt small"><a href="gestionPortada.php">Front page management</a></div>
 
                     <div class="button alt small"><a href="gestionAnuncios.php">Advertisement management</a></div>
+                    
+                    <form action="registroAutor.php" method="POST">
+                        <input type="hidden" name="tipo" value="<?php echo $datosPersonales['tipo'];?>">
+                        <input type="submit" name="registrarAutor" value="Register author">
+                    </form>
 
 
                 <?php }

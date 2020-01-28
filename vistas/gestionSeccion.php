@@ -16,6 +16,14 @@ function tiene($misArticulos, $articulo) {
     }
     return $resul;
 }
+//        $para = 'pedrorc983@gmail.com';
+//        $titulo = 'El título';
+//        $mensaje = 'Hola';
+//        $cabeceras = 'From: moarnews@gmail.com' . "\r\n" .
+//                'Reply-To: moarnews@gmail.com' . "\r\n" .
+//                'X-Mailer: PHP/' . phpversion();
+//
+//        mail($para, $titulo, $mensaje, $cabeceras);
 ?>
 <html>
     <head>
@@ -68,7 +76,7 @@ function tiene($misArticulos, $articulo) {
             }
 
 
-            echo "Seccion actualizada";
+            echo "<h3 class='centrar'>Section modified</h3>";
         }
         if (isset($_POST['confirmar2'])) {
             $idSecction = $_POST['idSec'];
@@ -81,13 +89,13 @@ function tiene($misArticulos, $articulo) {
                     }
                 }
                 foreach ($actualizar as $id) {
-
+                    //AQUI IRIA EL MAIL
                     asociarArticulo($id, $idSecction);
                 }
             }
 
 
-            echo "Seccion actualizada";
+            echo "<h3 class='centrar'>Section modified</h3>";
         }
         if (isset($_POST['actualiza'])) {
             $idSeccion = $_POST['seccion'];
@@ -185,13 +193,13 @@ function tiene($misArticulos, $articulo) {
                         echo "Mal";
                     }
                 } else {
-                    echo "Error al crear seccion";
+                    echo "<h3 class='centrar'>Error creating section</h3";
                 }
             } else {
                 if (isset($_POST['creaSect'])) {
                     ?>
                     <form action="#" method="POST">
-                        Categor&iacute;a: <input type="text" name="categoria"><br/> 
+                        Category: <input type="text" name="categoria"><br/> 
 
                         <table border = "2">
                             <tr>
@@ -211,7 +219,7 @@ function tiene($misArticulos, $articulo) {
                             ?>
                         </table>
                         <input type="hidden" name="numAr" value="<?php echo $j; ?>">
-                        <input type="submit" name="crea" value="Crear Seccion">
+                        <input type="submit" name="crea" value="Create Section">
                     </form>
                     <?php
                 } else if (isset($_POST['modifSect'])) {
@@ -224,7 +232,7 @@ function tiene($misArticulos, $articulo) {
                             <?php
                         }
                         ?>
-                        <input type="submit" name="actualiza" value="Actualizar Seccion">
+                        <input type="submit" name="actualiza" value="Modify Section">
                     </form>
                     <?php
                 } else if (isset($_POST['eliminaSect'])) {
@@ -248,7 +256,7 @@ function tiene($misArticulos, $articulo) {
                             ?>
                         </table>
                         <input type="hidden" name="numAr" value="<?php echo $i; ?>">
-                        <input type="submit" name="borra" value="Borrar Seccion">
+                        <input type="submit" name="borra" value="Delete Section">
                     </form>
                     <?php
                 }

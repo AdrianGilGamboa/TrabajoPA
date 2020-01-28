@@ -11,11 +11,18 @@ include_once ('../CRUD/CRUDSeccion.php');
         <link href="css.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
         <script src="../js/scripts.js" type="text/javascript"></script>
-        <title>Register</title>
+        <title>Author Register</title>
     </head>
     <body>
 
         <?php
+        if (isset($_POST['registrarAutor'])) {
+            if ($_POST['tipo'] !== "administrador") {
+                header('Location: cuenta.php');
+            }
+        } else {
+            header('Location: cuenta.php');
+        }
         $secciones = readAllSeccion();
         if (isset($_POST['btnRegistrar'])) {
             $gustos = array();
@@ -25,17 +32,8 @@ include_once ('../CRUD/CRUDSeccion.php');
                 'clave' => FILTER_SANITIZE_MAGIC_QUOTES,
                 'email' => FILTER_SANITIZE_EMAIL
             );
-            if (isset($_POST['Dv'])) {
-                $Dv = TRUE;
-            } else {
-                $Dv = FALSE;
-            }
-            foreach ($secciones as $seccion) {
-                $aux = $seccion['categoria'];
-                if (isset($_POST[$aux])) {
-                    array_push($gustos, $seccion['categoria']);
-                }
-            }
+            $Dv = FALSE;
+
             $entradas = filter_input_array(INPUT_POST, $filtros);
 
             $posible = true;
@@ -46,8 +44,8 @@ include_once ('../CRUD/CRUDSeccion.php');
                 $posible = false;
             }
             if ($posible) {
-                if (registrar($entradas['nombre'], $entradas['usuario'], $entradas['clave'], $entradas['email'], $Dv, implode(',', $gustos))) {
-                    header('Location: inicioSesion.php');
+                if (registrarAutor($entradas['nombre'], $entradas['usuario'], $entradas['clave'], $entradas['email'], $Dv, "")) {
+                    header('Location: cuenta.php');
                 } else {
                     echo "Datos no validos";
                 }
@@ -55,27 +53,14 @@ include_once ('../CRUD/CRUDSeccion.php');
         }
         ?>
 
-        <h2 class="centrar">User register</h2>
+        <h2 class="centrar">Author register</h2>
         <form action="#" method="POST" onsubmit="return validaRegistro()" style="padding-left: 25%;padding-top: 10px;padding-right: 25%;margin-left: 30px;">
 
             Name: <input type="text" name="nombre" value=""><br/>
             User: <input type="text" name="usuario" value=""><br/>
             Password: <input type="password" name="clave"><br/>
             Email: <input type="text" name="email"><br/>
-            Preferences: <br/>
-            <table>
-            <?php
-            foreach ($secciones as $seccion) {
-                ?> <tr> <td><?php echo $seccion['categoria'];?></td> 
-                
-                 <td> <input class="gustos" type="checkbox" name="<?php echo $seccion['categoria']; ?>" value="<?php echo $seccion['categoria']; ?>"></td> </tr>
-               
-                    <?php
-            }
-            ?>
-                </table>
-            Visual disability: <input type="checkbox" name="Dv"><br/><br/>
-            
+
             <input type="submit" name="btnRegistrar" value="Registrar"><br/>                                
         </form>
         <footer id="footer">

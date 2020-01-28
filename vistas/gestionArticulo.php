@@ -76,7 +76,7 @@ include_once ("../CRUD/CRUDAnuncio.php");
             }
             if (!empty($_FILES['audio']["name"])) {
                 $audio = $_FILES['audio'];
-                if ($audio['type'] !== 'audio/mpeg' && $audio['type'] !== 'audio/ogg') {
+                if ($audio['type'] !== 'audio/mpeg' && $audio['type'] !== 'audio/mp3') {
                     echo "wrong format of audio";
                     $actualizar = False;
                 } else {
@@ -106,9 +106,9 @@ include_once ("../CRUD/CRUDAnuncio.php");
                     }
 
 
-                    echo "Article created";
+                    echo "<h3 class='centrar'>Article modified</h3>";
                 } else {
-                    echo "Error creating";
+                    echo "<h3 class='centrar'>Error modifying</h3>";
                 }
             }
         }
@@ -161,7 +161,7 @@ include_once ("../CRUD/CRUDAnuncio.php");
                         <?php
                     }
                 } else {
-                    echo "There are no ads available to modify this article";
+                    echo "<h3 class='centrar'>There are no ads available to modify this article</h3>";
                 }
                 ?>
 
@@ -202,7 +202,7 @@ include_once ("../CRUD/CRUDAnuncio.php");
             }
             if (isset($_FILES['audio'])) {
                 $audio = $_FILES['audio'];
-                if ($audio['type'] !== 'audio/mpeg' && $audio['type'] !== 'audio/ogg') {
+                if ($audio['type'] !== 'audio/mpeg' && $audio['type'] !== 'audio/mp3') {
                     echo "formato de audio incorrecto";
                     $insertar = False;
                 } else {
@@ -223,9 +223,9 @@ include_once ("../CRUD/CRUDAnuncio.php");
                     asociarArticuloAutor($idArticulo, $idCuenta);
                     move_uploaded_file($imagen['tmp_name'], '../imagenes/' . $nombreImagen);
                     move_uploaded_file($audio['tmp_name'], '../audios/' . $nombreAudio);
-                    echo "Article created";
+                    echo "<h3 class='centrar'>Article created</h3>";
                 } else {
-                    echo "Error creating";
+                    echo "<h3 class='centrar'>Error creating</h3>";
                 }
             }
         } else {
