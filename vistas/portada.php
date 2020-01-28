@@ -38,7 +38,9 @@ include_once ("../CRUD/CRUDComentario.php");
         <link href="css.css" rel="stylesheet" type="text/css"/>
         <script src="scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
         <script src="scripts/jquery-scrolltofixed-min.js" type="text/javascript"></script>
-
+        <script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
+        <script src="../js/jquery.zoom.min.js" type="text/javascript"></script>
+        <script src="../js/scripts.js" type="text/javascript"></script>
         <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
         <title>Cover of the day</title>
     </head>
@@ -118,7 +120,7 @@ include_once ("../CRUD/CRUDComentario.php");
 
 
         <?php
-        $articulos = readAllArticuloPorFecha();
+        $articulos = obtenerArticulosUltimaPortada();
         ?>
         <section class="inner">
 
@@ -133,13 +135,7 @@ include_once ("../CRUD/CRUDComentario.php");
                             <h1><?php echo $articulo['titulo']; ?></h1>
 
                             <div class="image">
-                                <a href="<?php
-                                if ($articulo['imagen'] != NULL) {
-                                    echo '../imagenes/' . $articulo['imagen'];
-                                }
-                                ?>"><img src="../imagenes/<?php echo $articulo['imagen']; ?>"alt='<?php echo $articulo['imagen']; ?>' ><?php
-                                       
-                                       ?></a>
+                                <img class="imagenes" src="../imagenes/<?php echo $articulo['imagen']; ?>"alt='<?php echo $articulo['imagen']; ?>' >
                             </div>
                             <?php
                             if ($hayCuenta) {
@@ -160,7 +156,7 @@ include_once ("../CRUD/CRUDComentario.php");
                             <div >
                                 <h3><?php echo $articulo['descripcion']; ?></h3> 
                             </div>
-                            
+
                             <div class="fechaArticulo">
                                 <?php echo $articulo['fecha']; ?>
                             </div>
@@ -175,17 +171,17 @@ include_once ("../CRUD/CRUDComentario.php");
                                     foreach ($secciones as $seccion) {
                                         ?>
                                         <a href="seccion.php?idSeccion=<?php echo $seccion['idSeccion']; ?>"><?php echo $seccion['categoria']; ?></a><?php
-                                    }
-                                }
+                    }
+                }
                                 ?>
                             </div>
 
                             <hr>
                         </article>
-                    <?php
+                        <?php
+                    }
                 }
-            }
-            ?>
+                ?>
         </section>
         <footer id="footer">
             <div class="inner">

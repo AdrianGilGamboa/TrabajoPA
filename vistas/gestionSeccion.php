@@ -96,7 +96,7 @@ function tiene($misArticulos, $articulo) {
                             if ($gusto === $seccion['categoria']) {
                                 $para = $cuenta['email'];
                                 $titulo = 'There is a new article in a section you have preference on';
-                                $mensaje = "New article added, go see it at: <a href='http://localhost/Archivos/TrabajoPA/vistas/seccion.php?idSeccion=$idSecction'></a>'";
+                                $mensaje = "New article added, go see it at: <a href='https://moarnews.000webhostapp.com/vistas/seccion.php?idSeccion=$idSecction'>Here</a>'";
                                 $cabeceras = 'From: moarnews@gmail.com' . "\r\n" .
                                         'Reply-To: moarnews@gmail.com' . "\r\n" .
                                         'X-Mailer: PHP/' . phpversion();

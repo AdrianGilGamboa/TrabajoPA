@@ -20,6 +20,9 @@ session_start();
         <link href="css.css" rel="stylesheet" type="text/css"/>
         <meta http-equiv="X-UA-Compatible" content=="IE=edge"/>
         <meta name="google" value="notranslate"/>
+        <script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
+        <script src="../js/jquery.zoom.min.js" type="text/javascript"></script>
+        <script src="../js/scripts.js" type="text/javascript"></script>
         <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
         <style>
             aside
@@ -42,7 +45,6 @@ session_start();
             table{
                 border-collapse: collapse;
             }
-
 
         </style>
 
@@ -224,11 +226,9 @@ session_start();
                             <h1><?php echo $articulo['titulo']; ?></h1>
 
                             <div class="image">
-                                <a href="<?php
-                                if ($articulo['imagen'] != NULL) {
-                                    echo '../imagenes/' . $articulo['imagen'];
-                                }
-                                ?>"><img src="../imagenes/<?php echo $articulo['imagen']; ?>"alt='<?php echo $articulo['imagen']; ?>' ><?php ?></a>
+
+                                <img class="imagenes" src="../imagenes/<?php echo $articulo['imagen']; ?>"alt='<?php echo $articulo['imagen']; ?>' >
+
                             </div>
                             <?php
                             if ($hayCuenta) {
