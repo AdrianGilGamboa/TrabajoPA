@@ -18,7 +18,7 @@
 <body>
     <?php
     if(isset($_POST['jugar3raya'])){
-        if($_POST['tipo'] === "silver"){
+        if($_POST['tipo'] === "silver" || $_POST['tipo'] === "gold"){
             $nombreUsuario = $_POST['nombre'];
         }else{
             header('Location: cuenta.php');

@@ -299,3 +299,10 @@ function validaModificaCuenta() {
     }
     return res;
 }
+$(document).ready(function () {
+    $('.imagenes')
+            .wrap('<span style="display:inline-block"></span>')
+            .css('display', 'block')
+            .parent()
+            .zoom({on: 'click'});
+});

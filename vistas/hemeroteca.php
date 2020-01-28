@@ -21,7 +21,7 @@ include_once ("../CRUD/CRUDSeccion.php");
     <body>
         <?php
         if (isset($_POST['hemeroteca'])) {
-            if ($_POST['tipo'] === "bronze") {
+            if ($_POST['tipo'] === "bronze" || $_POST['tipo'] === "silver" || $_POST['tipo'] === "gold") {
                 $nombreUsuario = $_POST['nombre'];
                 $gustos = $_POST['gustos'];
                 $Dv = $_POST['Dv'];

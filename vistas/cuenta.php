@@ -112,7 +112,7 @@ function mediaPuntuacion($sumaTotal, $numComentarios) {
                     } else {
                         echo "There is no comments associated to this account";
                     }
-                    if($datosPersonales['formato'] === "silver"){
+                    if($datosPersonales['formato'] === "silver" || $datosPersonales['formato'] === "gold"){
                         ?>
                         <h3>Minigames</h3>
                         <form action="juego.php" method="POST">
@@ -121,7 +121,8 @@ function mediaPuntuacion($sumaTotal, $numComentarios) {
                             <input type="submit" name="jugar3raya" value="Play three in a row!">
                         </form>
                         <?php
-                    }else if($datosPersonales['formato'] === "bronze"){
+                    }
+                    if($datosPersonales['formato'] === "bronze" || $datosPersonales['formato'] === "silver" || $datosPersonales['formato'] === "gold"){
                         ?>
                         <h3>Newspaper archive</h3>
                         <form action="hemeroteca.php" method="POST">
