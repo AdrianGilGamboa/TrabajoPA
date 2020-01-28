@@ -298,3 +298,19 @@ function leerIdDadaCategoria($categoria){
     desconectar($con);
     return $res;
 }
+
+function mostrarArticulos($idSeccion) {
+    $con = conexionBD();
+
+    $query = "SELECT * FROM secciones WHERE idSeccion = '$idSeccion'";
+
+    $result = $con->query($query);
+    $articuloAux = $result->fetch_assoc();
+    $articulos = leerArticulosDadaSeccion($articuloAux['idSeccion']);
+
+    if ($articulos) {
+        return $articulos;
+    } else {
+        return FALSE;
+    }
+}
