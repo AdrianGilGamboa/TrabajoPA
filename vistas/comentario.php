@@ -32,9 +32,11 @@ include_once ("../CRUD/CRUDComentario.php");
             $idCuenta = $_POST['idCuenta'];
             $texto = $_POST['comentario'];
             $puntuacion = 0;
+            $puntuacionNegativa = 0;
             $comentario = array(
                 'texto'=>$texto,
-                'puntuacion'=>$puntuacion
+                'puntuacion'=>$puntuacion,
+                'puntuacionNegativa'=>$puntuacionNegativa
             );
             if(($idComentario = createComentario($comentario))!==FALSE){
                 asociaComentarioArticulo($idComentario,$idArticulo);
@@ -47,9 +49,11 @@ include_once ("../CRUD/CRUDComentario.php");
             $idRespuesta = $_POST['idComentario'];
             $texto = $_POST['comentario'];
             $puntuacion = 0;
+            $puntuacionNegativa = 0;
             $comentario = array(
                 'texto'=>$texto,
-                'puntuacion'=>$puntuacion
+                'puntuacion'=>$puntuacion,
+                'puntuacionNegativa'=>$puntuacionNegativa
             );
             if(($idComentario = createComentario($comentario))!==FALSE){
                 asociaComentarioArticulo($idComentario,$idArticulo);

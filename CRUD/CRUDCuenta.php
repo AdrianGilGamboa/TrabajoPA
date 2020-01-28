@@ -187,3 +187,19 @@ function registrarAutor($nombre, $usuario, $clave, $email, $Dv, $gustos) {
     desconectar($con);
     return $res;
 }
+
+function obtenerUsuariosOro(){
+    $con = conexionBD();
+    $res = FALSE;
+    $query = "SELECT * FROM cuentas WHERE formato = 'gold' and tipo = 'usuario'";
+    $result = $con->query($query);
+    if ($result->num_rows !== 0) {
+        $res = array();
+        for ($i = 0; $i < $result->num_rows; $i++) {
+            array_push($res, $result->fetch_assoc());
+        }
+    }
+
+    desconectar($con);
+    return $res;
+}
