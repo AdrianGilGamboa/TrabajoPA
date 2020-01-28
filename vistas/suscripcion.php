@@ -114,7 +114,7 @@ include_once ("../CRUD/CRUDCuenta.php");
             </tr>
             <tr>
                 <th>Silver</th>
-                <th></th>
+                <th style="text-align: center;">X</th>
                 <th style="text-align: center;">X</th>
                 <th style="text-align: center;">X</th>
                 <th></th>
@@ -122,9 +122,9 @@ include_once ("../CRUD/CRUDCuenta.php");
             </tr>
             <tr>
                 <th>Gold</th>
-                <th></th>
                 <th style="text-align: center;">X</th>
-                <th></th>
+                <th style="text-align: center;">X</th>
+                <th style="text-align: center;">X</th>
                 <th style="text-align: center;">X</th>
                 <th style="text-align: center;">X</th>
             </tr>
