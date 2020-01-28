@@ -7,7 +7,6 @@ include_once ('../CRUD/CRUDCuenta.php');
         <meta charset="UTF-8">
         <title>Log in</title>
         <meta charset="UTF-8">
-        <title>section</title>
         <link href="css.css" rel="stylesheet" type="text/css"/>
         <meta charset="utf-8"/>
         <meta http-equiv="X-UA-Compatible" content=="IE=edge"/>
@@ -37,7 +36,7 @@ include_once ('../CRUD/CRUDCuenta.php');
                 $_SESSION['tipo'] = $cuenta['tipo'];
                 header('Location: portada.php');
             } else {
-                echo "No existe ningun usuario con esos datos";
+                echo "<h3 class='centrar'>No existe ningun usuario con esos datos</h3>";
             }
         } else if (isset($_POST['btnRegistro'])) {
             header('Location: registro.php');
@@ -54,16 +53,16 @@ include_once ('../CRUD/CRUDCuenta.php');
              <h2 class="row uniform">LOG IN</h2>
             <div class="row uniform">
                 <div class="6u 12u/(xsmall)">
-                    Usuario: <input type="text" name="usuario" value="<?php echo $nombre; ?>" placeholder="Name" /> <br>
+                    User: <input type="text" name="usuario" value="<?php echo $nombre; ?>" placeholder="Name" /> <br>
                 </div>
                 <div class="centrar">
-                    Clave: <input type="password" name="clave" placeholder="Password" /> <br><br>
+                    Password: <input type="password" name="clave" placeholder="Password" /> <br><br>
                 </div>
             </div>                   
 
             <div class="row uniform">
                 <ul class="actions">
-                    <li><input class="small"  type="submit" name="btnLogin" value="Entrar"/></li>
+                    <li><input class="small"  type="submit" name="btnLogin" value="Login"/></li>
                     <li><input class="small" type="reset" name="btnCancelar" value="Cancelar"/></li>                    
                     <li><input class="small" type="reset" value="Reset" class="alt" /></li>
                 </ul>
@@ -72,7 +71,7 @@ include_once ('../CRUD/CRUDCuenta.php');
 
         </form>
         <form action="#" method="POST">
-            <input class="small" type="submit" name="btnRegistro" value="Registro" />
+            <input class="small" type="submit" name="btnRegistro" value="Register" />
         </form>
         <footer id="footer">
             <div class="inner">

@@ -76,7 +76,7 @@ include_once ('../CRUD/CRUDSeccion.php');
                 </table>
             Visual disability: <input type="checkbox" name="Dv"><br/><br/>
             
-            <input type="submit" name="btnRegistrar" value="Registrar"><br/>                                
+            <input type="submit" name="btnRegistrar" value="Register"><br/>                                
         </form>
         <footer id="footer">
             <div class="inner">

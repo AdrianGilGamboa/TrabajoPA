@@ -15,7 +15,7 @@ function mediaPuntuacion($sumaTotal, $numComentarios) {
         <meta name="google" value="notranslate"/>
         <link href="css.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-        <title>Count</title>
+        <title>Account</title>
     </head>
     <body>
         <?php
@@ -35,7 +35,7 @@ function mediaPuntuacion($sumaTotal, $numComentarios) {
         include_once 'nav.php';
         ?>
 
-        <h1 class="centrar"> Datos <?php echo $nombreUsuario; ?></h1>
+        <h1 class="centrar"> Profile of <?php echo $nombreUsuario; ?></h1>
         <table cellpadding="10" border="1">
             <tr>
                 <th>Name</th>
@@ -110,7 +110,7 @@ function mediaPuntuacion($sumaTotal, $numComentarios) {
                         <!--                si autor, listado de articulos-->
                         <?php
                     } else {
-                        echo "There is no comments associated to this account";
+                        echo "<h3 class='centrar'>There is no comments associated to this account</h3>";
                     }
                     if($datosPersonales['formato'] === "silver" || $datosPersonales['formato'] === "gold"){
                         ?>

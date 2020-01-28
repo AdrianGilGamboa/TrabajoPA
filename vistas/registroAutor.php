@@ -61,7 +61,7 @@ include_once ('../CRUD/CRUDSeccion.php');
             Password: <input type="password" name="clave"><br/>
             Email: <input type="text" name="email"><br/>
 
-            <input type="submit" name="btnRegistrar" value="Registrar"><br/>                                
+            <input type="submit" name="btnRegistrar" value="Register"><br/>                                
         </form>
         <footer id="footer">
             <div class="inner">
