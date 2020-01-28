@@ -4,22 +4,9 @@ include_once ('../CRUD/CRUDSeccion.php');
 include_once ('../CRUD/CRUDCuenta.php');
 include_once ('../CRUD/CRUDAnuncio.php');
 include_once ('../CRUD/CRUDComentario.php');
+session_start();
 
-function mostrarArticulos($idSeccion) {
-    $con = conexionBD();
 
-    $query = "SELECT * FROM secciones WHERE idSeccion = '$idSeccion'";
-
-    $result = $con->query($query);
-    $articuloAux = $result->fetch_assoc();
-    $articulos = leerArticulosDadaSeccion($articuloAux['idSeccion']);
-
-    if ($articulos) {
-        return $articulos;
-    } else {
-        return FALSE;
-    }
-}
 ?>
 <!DOCTYPE html>
 <html>
@@ -40,44 +27,135 @@ function mostrarArticulos($idSeccion) {
 
                 position: sticky;
                 position: -webkit-sticky;
-                top: 200px;
+                top: 100px;
                 font: 45px 'Abril Fatface', sans-serif;
                 color: #fff;
                 text-align: center;
             }
-            #imagenAnuncio{
-                top:100px;
-                margin-top:20px;
-                width:90%;
+            aside img{
+
+                top: 100px;
+                margin-top: 20px;
+                width: 90%;
             }
-            
+
             table{
                 border-collapse: collapse;
             }
-            
+
+
         </style>
+
+        <script type="text/javascript">
+            <!--
+            var imagenes;
+            var timeout;
+
+            function init() {
+
+                n = 0;
+                imagenes = new Array();
+            <?php
+            $articulos = mostrarArticulos($idSeccion);
+            if ($articulos) {
+                foreach ($articulos as $articulo) {
+                    ?>
+                        imagenes[n] = new Array();
+                    <?php
+                    $anuncio = leerAnuncioDadoArticulo($articulo['idArticulo']);
+                    ?>
+                        imagenes[n][0] = "<img src='../anuncios/<?php echo $anuncio['imagen']; ?>'>";
+                        imagenes[n][1] ="<?php echo $anuncio['descripcion']; ?>";
+                        imagenes[n][2]="<?php  echo $anuncio['duracion']; ?>";
+                        n++;
+                    <?php
+                }
+            }
+            ?>
+                              
+
+                generarVistaImagenes(imagenes[0], 0);
+                }    
+
+            function generarVistaImagenes(imagenSelected, j) {
+                var imagenCompleta = document.getElementById("imagen_completa");
+                //var listaImagenesMini = document.getElementById("listado_otras_imagenes");
+
+                while (imagenCompleta.firstChild) {
+
+                    imagenCompleta.removeChild(imagenCompleta.firstChild);
+                }
+
+                // while (listaImagenesMini.firstChild) {
+
+                //     listaImagenesMini.removeChild(listaImagenesMini.firstChild);
+                // }
+
+                var imagen = document.createElement("div");
+                imagen.innerHTML = imagenSelected[0];
+
+                var tituloImagen = document.createElement("span");
+                tituloImagen.innerText = imagenSelected[1];
+
+
+                imagenCompleta.appendChild(imagen);
+                imagenCompleta.appendChild(tituloImagen);
+
+                var lista = document.createElement("UL");
+                for (var i = 0; i < imagenes.length; i++) {
+
+                    var imagenAux = imagenes[i];
+                    var li = document.createElement("LI");
+                    li.setAttribute("onclick", "verImagen(this)");
+                    li.setAttribute("id", "imagen_" + i);
+                    li.innerHTML = imagenAux[0];
+                    lista.appendChild(li);
+                }
+
+                //listaImagenesMini.appendChild(lista);
+
+                timeout = setTimeout(function () {
+                    j++;
+
+                    generarVistaImagenes(imagenes[j % n], (j % n));
+                }, imagenSelected[2]*1000);
+            }
+
+            function verImagen(imagen) {
+
+                clearTimeout(timeout);
+
+                var index = imagen.getAttribute("id").split("_")[1];
+                var imagenSelected = imagenes[index];
+                imagenes.toString();
+
+                generarVistaImagenes(imagenSelected, index + 1);
+            }
+            //-->
+        </script>
+
+
     </head>
 
-    <body>
-        <?php
-        session_start();
-        $hayCuenta = FALSE;
-        if (isset($_SESSION['cuentaID'])) {
-            $hayCuenta = TRUE;
-            $nombreUsuario = $_SESSION['nombreUsuario'];
-            $idUsuario = $_SESSION['cuentaID'];
-            $datosPersonales = readCuenta($idUsuario);
-        } else {
+    <body onload="init();">
+            <?php
             $hayCuenta = FALSE;
-        }
-        if (isset($_POST['like'])) {
-            $idComentario = $_POST['idComentario'];
-            meGusta($idComentario);
-        } else if (isset($_POST['dislike'])) {
-            $idComentario = $_POST['idComentario'];
-            noMeGusta($idComentario);
-        }
-        ?>
+            if (isset($_SESSION['cuentaID'])) {
+                $hayCuenta = TRUE;
+                $nombreUsuario = $_SESSION['nombreUsuario'];
+                $idUsuario = $_SESSION['cuentaID'];
+                $datosPersonales = readCuenta($idUsuario);
+            } else {
+                $hayCuenta = FALSE;
+            }
+            if (isset($_POST['like'])) {
+                $idComentario = $_POST['idComentario'];
+                meGusta($idComentario);
+            } else if (isset($_POST['dislike'])) {
+                $idComentario = $_POST['idComentario'];
+                noMeGusta($idComentario);
+            }
+            ?>
         <header id="header">
 
             <?php
@@ -119,23 +197,13 @@ function mostrarArticulos($idSeccion) {
         include_once 'nav.php';
 
         $seccion = readSeccionId($idSeccion);
-        $articulos = mostrarArticulos($idSeccion);
+        
         ?>
 
-        <aside style=" top:100px;">
-            <?php
-            if ($articulos) {
-
-                foreach ($articulos as $articulo) {
-                    $anuncio = leerAnuncioDadoArticulo($articulo['idArticulo']);
-                    ?>
-                    <img id="imagenAnuncio" src="../anuncios/<?php echo $anuncio['imagen']; ?>"alt='<?php echo $anuncio['imagen']; ?>' style="margin-left: 1.2%;">
-                    <span style="font-size: 100%"><?php echo $anuncio['descripcion']; ?></span>
-                    <?php
-                }
-            }
-            ?>
+        <aside id="imagen_completa">
         </aside>
+        <div id="listado_otras_imagenes">
+        </div>
         <section class="inner">
 
             <h3>Section <?php echo $seccion['categoria']; ?></h3>
@@ -160,9 +228,7 @@ function mostrarArticulos($idSeccion) {
                                 if ($articulo['imagen'] != NULL) {
                                     echo '../imagenes/' . $articulo['imagen'];
                                 }
-                                ?>"><img src="../imagenes/<?php echo $articulo['imagen']; ?>"alt='<?php echo $articulo['imagen']; ?>' ><?php
-                                       
-                                       ?></a>
+                                ?>"><img src="../imagenes/<?php echo $articulo['imagen']; ?>"alt='<?php echo $articulo['imagen']; ?>' ><?php ?></a>
                             </div>
                             <?php
                             if ($hayCuenta) {
@@ -214,26 +280,26 @@ function mostrarArticulos($idSeccion) {
                                 <?php
                                 $comentarios = readComentariosArticuloPortada($articulo['idArticulo']);
                                 if ($comentarios) {
- 
+
                                     foreach ($comentarios as $comentario) {
                                         ?><table style="margin-bottom: 0px;margin-top: 0px; width:100%"><tr>
 
-                        <td> <?php
-                            $autor = cuentaDadoComentario($comentario['idCuenta']);
-                            ?>
-                            <span style="color: <?php
-                            if ($autor['formato'] === "gold") {
-                                echo "gold";
-                            } else if ($autor['formato'] === "silver") {
-                                echo "silver";
-                            } else if ($autor['formato'] === "bronze") {
-                                echo "brown";
-                            }
-                            ?>">
-                                
-                               <?php echo $comentario['texto']; ?><br> </span>
-                                <p style="text-align: right; margin:0px"><?php echo $autor['nombre'];?></p></td>
-                        <td> <?php 
+                                                <td> <?php
+                                                    $autor = cuentaDadoComentario($comentario['idCuenta']);
+                                                    ?>
+                                                    <span style="color: <?php
+                                                    if ($autor['formato'] === "gold") {
+                                                        echo "gold";
+                                                    } else if ($autor['formato'] === "silver") {
+                                                        echo "silver";
+                                                    } else if ($autor['formato'] === "bronze") {
+                                                        echo "brown";
+                                                    }
+                                                    ?>">
+
+                                                        <?php echo $comentario['texto']; ?><br> </span>
+                                                    <p style="text-align: right; margin:0px"><?php echo $autor['nombre']; ?></p></td>
+                                                <td> <?php
                                                     $puntuacion = $comentario['puntuacion'];
                                                     ?>
                                                     <span style=" color: <?php
