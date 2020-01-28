@@ -22,8 +22,14 @@ include_once ('../CRUD/CRUDAnuncio.php');
     </head>
     <style>
 
-        .comentariosArticuloEnArticulo ul{
-            text-align: left;
+        .listaComentarioPrincipal{
+            margin-bottom:0px;
+            margin-top:60px;
+        }
+        
+        .listaComentario{
+            margin-top: 0px;
+            margin-bottom: 20px;
         }
 
         .comentario{
@@ -51,6 +57,15 @@ include_once ('../CRUD/CRUDAnuncio.php');
             margin-top:20px;
             width:90%;
         }
+        
+        table{
+            border-collapse: collapse;
+        }
+        
+        ul li{
+            list-style-type: none;
+        }
+        
     </style>
     <body>
         <?php
@@ -123,7 +138,7 @@ include_once ('../CRUD/CRUDAnuncio.php');
         <?php
         $autor = readCuenta($articulo['idCuenta']);
         ?>
-        <section id="main" class="wrapper" >
+        <section id="main">
             <article class="inner">
                 <div class="align-center">
                     <h1><?php echo $articulo['titulo']; ?></h1>

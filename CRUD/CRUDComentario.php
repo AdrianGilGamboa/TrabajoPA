@@ -1,5 +1,4 @@
 <?php
-
 include_once "conexion.php";
 
 //Devuelve True si ha creado o False si hay error
@@ -155,7 +154,7 @@ function meGusta($idComentario) {
     $aux = $result->fetch_assoc();
     $puntuacion = $aux['puntuacion'];
     if ($puntuacion >= 0) {
-        $puntuacion = $puntuacion+1;
+        $puntuacion = $puntuacion + 1;
         $query = "UPDATE comentarios SET puntuacion = $puntuacion WHERE idComentario = $idComentario";
         $result = $con->query($query);
         if ($result) {
@@ -166,6 +165,7 @@ function meGusta($idComentario) {
     desconectar($con);
     return $res;
 }
+
 function noMeGusta($idComentario) {
     $con = conexionBD();
     $res = FALSE;
@@ -173,8 +173,8 @@ function noMeGusta($idComentario) {
     $result = $con->query($query);
     $aux = $result->fetch_assoc();
     $puntuacion = $aux['puntuacionNegativa'];
-    if ( $puntuacion >= 0) {
-        $puntuacion = $puntuacion+1;
+    if ($puntuacion >= 0) {
+        $puntuacion = $puntuacion + 1;
         $query = "UPDATE comentarios SET puntuacionNegativa = $puntuacion WHERE idComentario = $idComentario";
         $result = $con->query($query);
         if ($result) {
@@ -186,32 +186,106 @@ function noMeGusta($idComentario) {
     return $res;
 }
 
+function TieneRespuesta($comentario) {
+    $con = conexionBD();
+    $res = true;
+    //$result = readComentario($comentario);
+    $query = "SELECT * FROM comentarios WHERE idRespuesta = $comentario";
+    $result = $con->query($query);
+    $aux = $result->fetch_assoc();
+    if (!$aux) {
+        $res = false;
+    }else{
+    }
+    desconectar($con);
+    return $res;
+}
+
 function hiloComentario($respuesta, $idUsuario, $idArticulo) {
     $con = conexionBD();
     $idComentario = $respuesta['idComentario'];
     ?>
-    <ul class="listaComentario">
-        <?php
-        $query = "SELECT * FROM comentarios WHERE idRespuesta = $idComentario";
-        $result = $con->query($query);
-        while ($respuesta = mysqli_fetch_array($result)) {
-            ?><li><?php echo $respuesta['texto']; ?></li>
-            <form action="comentario.php" method="POST" class="comentario">
-                <input type="hidden" name="articulo" value="<?php echo $idArticulo; ?>">
-                <input type="hidden" name="cuenta" value="<?php echo $idUsuario; ?>">
-                <input type="hidden" name="comentario" value="<?php echo $respuesta['idComentario']; ?>">
-                <input class="small" type="submit" name="responder" value="Reply comment">
-            </form>
-            <form action="#" method="POST" class="comentario">
-                <input type="hidden" name="idComentario" value="<?php echo $respuesta['idComentario']; ?>">
-                <input class="small" type="submit" name="like" value="Like">
-                <input class="small" type="submit" name="dislike" value="Dislike">
-            </form>
+    <ul>
+        
+
                 <?php
-            hiloComentario($respuesta, $idUsuario, $idArticulo);
+                $query = "SELECT * FROM comentarios WHERE idRespuesta = $idComentario";
+                $result = $con->query($query);
+                while ($comentario = mysqli_fetch_array($result)) {
+                    
+                    ?><li>
+            <table class="listaComentario"  style="width: 100%"><tr>
+
+                        <td> <?php
+                            $autor = cuentaDadoComentario($comentario['idCuenta']);
+                            ?>
+                            <span style="color: <?php
+                            if ($autor['formato'] === "gold") {
+                                echo "gold";
+                            } else if ($autor['formato'] === "silver") {
+                                echo "silver";
+                            } else if ($autor['formato'] === "bronze") {
+                                echo "brown";
+                            }
+                            ?>">
+                                
+                               <?php echo $comentario['texto']; ?><br> </span>
+                                <p style="text-align: right; margin:0px"><?php echo $autor['nombre'];?></p></td>
+                        <td> <?php
+                            $puntuacion = $comentario['puntuacion'];
+                            ?>
+                            <span style=" color: <?php
+                            if ($autor['formato'] === "gold") {
+                                echo "gold";
+                            } else if ($autor['formato'] === "silver") {
+                                echo "silver";
+                            } else if ($autor['formato'] === "bronze") {
+                                echo "brown";
+                            }
+                            ?>">Likes: <?php echo $puntuacion; ?></span><br>
+                                  <?php
+                                  $puntuacionNegativa = $comentario['puntuacionNegativa'];
+                                  ?>
+                            <span style=" color: <?php
+                            if ($autor['formato'] === "gold") {
+                                echo "gold";
+                            } else if ($autor['formato'] === "silver") {
+                                echo "silver";
+                            } else if ($autor['formato'] === "bronze") {
+                                echo "brown";
+                            }
+                            ?>">Dislikes: <?php echo $puntuacionNegativa; ?></span>
+
+                        </td>
+                        <?php if ($idUsuario) { ?>
+                            <td> <form action="#" method="POST" style="padding: 0px;margin: 0px;">
+                                    <ul class="actions vertical small">
+                                        <input type="hidden" name="idComentario" value="<?php echo $comentario['idComentario']; ?>">
+                                        <li>
+                                            <i class="fa fa-thumbs-o-up fa-lg" aria-hidden="true"></i>
+                                            <input class="nav-text" type="submit" name="like" value="like" style="background-color: green">
+
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-thumbs-o-down fa-lg" aria-hidden="true" ></i>
+                                            <input class="nav-text" type="submit" name="dislike" value="dislike" style="background-color: red">
+                                        </li>
+                                    </ul>
+                                </form></td> <?php } ?>
+
+                    </tr>
+
+                </table>
+            </li>
+            <?php
+            if (TieneRespuesta($comentario['idComentario'])) {
+                hiloComentario($comentario, $idUsuario, $idArticulo);
+            }
+                
         }
         ?>
-    </ul><?php
+    </ul>
+    <?php
 }
 
 function readComentariosArticulo($idArticulo, $idUsuario) {
@@ -220,24 +294,78 @@ function readComentariosArticulo($idArticulo, $idUsuario) {
     $query = "SELECT * FROM comentarios WHERE idArticulo = $idArticulo and idRespuesta is NULL";
     $result = $con->query($query);
     ?>
-    <ul class="listaComentario">
-        <?php
-        while ($comentario = mysqli_fetch_array($result)) {
-            ?><li><?php echo $comentario['texto']; ?></li>
-            <form action="comentario.php" method="POST" class="comentario">
-                <input type="hidden" name="articulo" value="<?php echo $idArticulo; ?>">
-                <input type="hidden" name="cuenta" value="<?php echo $idUsuario; ?>">
-                <input type="hidden" name="comentario" value="<?php echo $comentario['idComentario']; ?>">
-                <input class="small" type="submit" name="responder" value="Reply comment">
-            </form>
-            <form action="#" method="POST" class="comentario">
-                <input type="hidden" name="idComentario" value="<?php echo $comentario['idComentario']; ?>">
-                <input class="small" type="submit" name="like" value="Like">
-                <input class="small" type="submit" name="dislike" value="Dislike">
-            </form>
+    <ul>
+        
                 <?php
-            ?><?php
-            hiloComentario($comentario, $idUsuario, $idArticulo);
+                while ($comentario = mysqli_fetch_array($result)) {
+                    ?><li>
+            <table class="listaComentarioPrincipal"  style="width: 100%"><tr>
+
+                        <td> <?php
+                            $autor = cuentaDadoComentario($comentario['idCuenta']);
+                            ?>
+                            <span style="color: <?php
+                            if ($autor['formato'] === "gold") {
+                                echo "gold";
+                            } else if ($autor['formato'] === "silver") {
+                                echo "silver";
+                            } else if ($autor['formato'] === "bronze") {
+                                echo "brown";
+                            }
+                            ?>">
+                                
+                               <?php echo $comentario['texto']; ?><br> </span>
+                                <p style="text-align: right;margin:0px"><?php echo $autor['nombre'];?></p></td>
+                        <td> <?php
+                            $puntuacion = $comentario['puntuacion'];
+                            ?>
+                            <span style=" color: <?php
+                            if ($autor['formato'] === "gold") {
+                                echo "gold";
+                            } else if ($autor['formato'] === "silver") {
+                                echo "silver";
+                            } else if ($autor['formato'] === "bronze") {
+                                echo "brown";
+                            }
+                            ?>">Likes: <?php echo $puntuacion; ?></span><br>
+                                  <?php
+                                  $puntuacionNegativa = $comentario['puntuacionNegativa'];
+                                  ?>
+                            <span style=" color: <?php
+                            if ($autor['formato'] === "gold") {
+                                echo "gold";
+                            } else if ($autor['formato'] === "silver") {
+                                echo "silver";
+                            } else if ($autor['formato'] === "bronze") {
+                                echo "brown";
+                            }
+                            ?>">Dislikes: <?php echo $puntuacionNegativa; ?></span>
+
+                        </td>
+        <?php if ($idUsuario) { ?>
+                            <td> <form action="#" method="POST" style="padding: 0px;margin: 0px;">
+                                    <ul class="actions vertical small">
+                                        <input type="hidden" name="idComentario" value="<?php echo $comentario['idComentario']; ?>">
+                                        <li>
+                                            <i class="fa fa-thumbs-o-up fa-lg" aria-hidden="true"></i>
+                                            <input class="nav-text" type="submit" name="like" value="like" style="background-color: green">
+
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-thumbs-o-down fa-lg" aria-hidden="true" ></i>
+                                            <input class="nav-text" type="submit" name="dislike" value="dislike" style="background-color: red">
+                                        </li>
+                                    </ul>
+                                </form></td> <?php } ?>
+
+                    </tr>
+                </table>
+            </li>
+
+            <?php
+            if (TieneRespuesta($comentario['idComentario'])) {
+                hiloComentario($comentario, $idUsuario, $idArticulo);
+            }
         }
         ?>
     </ul>
