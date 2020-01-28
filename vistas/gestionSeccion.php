@@ -25,7 +25,7 @@ function tiene($misArticulos, $articulo) {
         <meta name="google" value="notranslate"/>
         <link href="css.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-        <title></title>
+        <title>Section management</title>
     </head>
 
     
@@ -35,17 +35,17 @@ function tiene($misArticulos, $articulo) {
 
         <?php
         session_start();
-//        if (!isset($_SESSION['cuentaID'])) {
-//            header('Location: inicioSesion.php');
-//        }
-//        if (isset($_SESSION['cuentaID'])) {
-//            if ($_SESSION['tipo'] === "administrador") {
-//                $idCuenta = $_SESSION['cuentaID'];
-//                $nombre = $_SESSION['nombreUsuario'];
-//            } else {
-//                header('Location: cuenta.php');
-//            }
-//        }
+        if (!isset($_SESSION['cuentaID'])) {
+            header('Location: inicioSesion.php');
+        }
+        if (isset($_SESSION['cuentaID'])) {
+            if ($_SESSION['tipo'] === "administrador") {
+                $idCuenta = $_SESSION['cuentaID'];
+                $nombre = $_SESSION['nombreUsuario'];
+            } else {
+                header('Location: cuenta.php');
+            }
+        }
 
         include_once 'nav.php';
         ?>
@@ -294,7 +294,7 @@ function tiene($misArticulos, $articulo) {
                 <h2>Get In Touch</h2>
                 <ul class="actions">
                     <li><i class="icon fa-phone"></i> <a href="#">(034)954 34 92 00</a></li>
-                    <li><span class="icon fa-envelope"></span> <a href="#">moarNesws@gmail.com</a></li>
+                    <li><span class="icon fa-envelope"></span> <a href="#">moarneswspa@gmail.com</a></li>
                     <li><span class="icon fa-map-marker"></span> Ctra. de Utrera, 1, 41013 Sevilla </li>
                 </ul>
             </div>

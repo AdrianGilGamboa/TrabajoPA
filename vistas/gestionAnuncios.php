@@ -11,7 +11,7 @@ include_once ("../CRUD/CRUDAnunciante.php");
         <link href="css.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
         <script src="../js/scripts.js" type="text/javascript"></script>
-        <title></title>
+        <title>Advertisement management</title>
     </head>
     <body>
         <?php
@@ -50,7 +50,7 @@ include_once ("../CRUD/CRUDAnunciante.php");
             if (isset($_FILES['imagen'])) {
                 $imagen = $_FILES['imagen'];
                 if ($imagen['type'] !== 'image/png') {
-                    echo "formato de imagen incorrecto";
+                    echo "<h3 class='centrar'>Wrong image format</h3>";
                     $insertar = False;
                 } else {
                     $nombreImagen = $imagen['name'];

@@ -13,7 +13,7 @@ include_once ("../CRUD/CRUDAnuncio.php");
         <link href="css.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
         <script src="../js/scripts.js" type="text/javascript"></script>
-        <title></title>
+        <title>Article management</title>
     </head>
 
     <body>
@@ -46,7 +46,7 @@ include_once ("../CRUD/CRUDAnuncio.php");
             $articulo = readArticulo($idArticulo);
             $actualizar = TRUE;
             $titulo = filter_var(trim($_POST['titulo']), FILTER_SANITIZE_MAGIC_QUOTES);
-            if ($titulo === "" or ! preg_match('/^[[:alpha:]]+$/', $titulo)) {
+            if ($titulo === "") {
                 $actualizar = False; //hacer con JS
                 echo "wrong title";
             }
@@ -65,7 +65,7 @@ include_once ("../CRUD/CRUDAnuncio.php");
             if (!empty($_FILES['imagen']["name"])) {
                 $imagen = $_FILES['imagen'];
                 if ($imagen['type'] !== 'image/png') {
-                    echo "wrong format of image";
+                    echo "<h3 class='centrar'>Wrong format of image</h3>";
                     $actualizar = False;
                 } else {
                     $nombreImagen = $imagen['name'];
@@ -77,7 +77,7 @@ include_once ("../CRUD/CRUDAnuncio.php");
             if (!empty($_FILES['audio']["name"])) {
                 $audio = $_FILES['audio'];
                 if ($audio['type'] !== 'audio/mpeg' && $audio['type'] !== 'audio/mp3') {
-                    echo "wrong format of audio";
+                    echo "<h3 class='centrar'>Wrong format of audio</h3>";
                     $actualizar = False;
                 } else {
                     unlink("../audio/" . $articulo['audio']);
@@ -143,7 +143,7 @@ include_once ("../CRUD/CRUDAnuncio.php");
                 Text of the article: <input type="text" name="texto" value="<?php echo $articulo['texto']; ?>"><br/>
                 Image: <input type="file" name="imagen" value="<?php echo $articulo['imagen']; ?>"><br/>
                 Audio: <input type="file" name="audio" value="<?php echo $articulo['audio']; ?>"><br/>
-                Anuncio asociado al articulo: 
+                Advertisement asociated to article: 
 
 
                 <?php
@@ -194,7 +194,7 @@ include_once ("../CRUD/CRUDAnuncio.php");
             if (isset($_FILES['imagen'])) {
                 $imagen = $_FILES['imagen'];
                 if ($imagen['type'] !== 'image/png') {
-                    echo "formato de imagen incorrecto";
+                    echo "<h3 class='centrar'>Wrong format of image</h3>";
                     $insertar = False;
                 } else {
                     $nombreImagen = $imagen['name'];
@@ -203,7 +203,7 @@ include_once ("../CRUD/CRUDAnuncio.php");
             if (isset($_FILES['audio'])) {
                 $audio = $_FILES['audio'];
                 if ($audio['type'] !== 'audio/mpeg' && $audio['type'] !== 'audio/mp3') {
-                    echo "formato de audio incorrecto";
+                    echo "<h3 class='centrar'>Wrong format of audio</h3>";
                     $insertar = False;
                 } else {
                     $nombreAudio = $audio['name'];
@@ -235,7 +235,7 @@ include_once ("../CRUD/CRUDAnuncio.php");
 
                 <table border = "2">
                     <tr>
-                        <th>Articulos</th>
+                        <th>Articles</th>
                     </tr>
                     <?php
                     if ($articulosPorAutor) {
@@ -259,7 +259,7 @@ include_once ("../CRUD/CRUDAnuncio.php");
                     <table border = "2">
                         <tr>
                             <th></th>
-                            <th>Articulos</th>
+                            <th>Articles</th>
                         </tr>
                         <?php
                         $j = 0;
@@ -347,7 +347,7 @@ include_once ("../CRUD/CRUDAnuncio.php");
                                     <?php
                                 }
                             } else {
-                                echo "There are no ads available to add to this article";
+                                echo "<h3 class='centrar'>There are no ads available to add to this article</h3>";
                             }
                             ?>
                         </tr> 
@@ -363,7 +363,7 @@ include_once ("../CRUD/CRUDAnuncio.php");
                 <h2>Get In Touch</h2>
                 <ul class="actions">
                     <li><i class="icon fa-phone"></i> <a href="#">(034)954 34 92 00</a></li>
-                    <li><span class="icon fa-envelope"></span> <a href="#">moarNesws@gmail.com</a></li>
+                    <li><span class="icon fa-envelope"></span> <a href="#">moarneswspa@gmail.com</a></li>
                     <li><span class="icon fa-map-marker"></span> Ctra. de Utrera, 1, 41013 Sevilla </li>
                 </ul>
             </div>

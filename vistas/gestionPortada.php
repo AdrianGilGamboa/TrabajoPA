@@ -29,7 +29,7 @@ include ("../CRUD/CRUDAnuncio.php");
         <meta name="google" value="notranslate"/>
         <link href="css.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-        <title></title>
+        <title>Front page management</title>
         <script type="text/javascript">
 
         </script>
@@ -46,19 +46,19 @@ include ("../CRUD/CRUDAnuncio.php");
         </form>
         <?php
         session_start();
-//        if (!isset($_SESSION['cuentaID'])) {
-//            header('Location: inicioSesion.php');
-//
-//        }
-//
-//        if (isset($_SESSION['cuentaID'])) {
-//            if ($_SESSION['tipo'] === "administrador") {
-//                $idCuenta = $_SESSION['cuentaID'];
-//                $nombre = $_SESSION['nombreUsuario'];
-//            } else {
-//                header('Location: cuenta.php');
-//            }
-//        }
+        if (!isset($_SESSION['cuentaID'])) {
+            header('Location: inicioSesion.php');
+
+        }
+
+        if (isset($_SESSION['cuentaID'])) {
+            if ($_SESSION['tipo'] === "administrador") {
+                $idCuenta = $_SESSION['cuentaID'];
+                $nombre = $_SESSION['nombreUsuario'];
+            } else {
+                header('Location: cuenta.php');
+            }
+        }
 
         include_once 'nav.php';
 
