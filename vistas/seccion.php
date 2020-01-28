@@ -2,6 +2,8 @@
 include_once ('../CRUD/CRUDArticulo.php');
 include_once ('../CRUD/CRUDSeccion.php');
 include_once ('../CRUD/CRUDCuenta.php');
+include_once ('../CRUD/CRUDAnuncio.php');
+include_once ('../CRUD/CRUDComentario.php');
 
 function mostrarArticulos($idSeccion) {
     $con = conexionBD();
@@ -32,6 +34,23 @@ function mostrarArticulos($idSeccion) {
         <meta http-equiv="X-UA-Compatible" content=="IE=edge"/>
         <meta name="google" value="notranslate"/>
         <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+        <style>
+            aside
+            {
+
+                position: sticky;
+                position: -webkit-sticky;
+                top: 200px;
+                font: 45px 'Abril Fatface', sans-serif;
+                color: #fff;
+                text-align: center;
+            }
+            #imagenAnuncio{
+                top:100px;
+                margin-top:20px;
+                width:90%;
+            }
+        </style>
     </head>
 
     <body>
@@ -42,8 +61,16 @@ function mostrarArticulos($idSeccion) {
             $hayCuenta = TRUE;
             $nombreUsuario = $_SESSION['nombreUsuario'];
             $idUsuario = $_SESSION['cuentaID'];
+            $datosPersonales = readCuenta($idUsuario);
         } else {
             $hayCuenta = FALSE;
+        }
+        if (isset($_POST['like'])) {
+            $idComentario = $_POST['idComentario'];
+            meGusta($idComentario);
+        } else if (isset($_POST['dislike'])) {
+            $idComentario = $_POST['idComentario'];
+            noMeGusta($idComentario);
         }
         ?>
         <header id="header">
@@ -87,10 +114,22 @@ function mostrarArticulos($idSeccion) {
         include_once 'nav.php';
 
         $seccion = readSeccionId($idSeccion);
+        $articulos = mostrarArticulos($idSeccion);
         ?>
 
-        <aside>
-            <!-- Anuncios -->
+        <aside style=" top:100px;">
+            <?php
+            if ($articulos) {
+
+                foreach ($articulos as $articulo) {
+                    $anuncio = leerAnuncioDadoArticulo($articulo['idArticulo']);
+                    ?>
+                    <img id="imagenAnuncio" src="../anuncios/<?php echo $anuncio['imagen']; ?>"alt='<?php echo $anuncio['imagen']; ?>' style="margin-left: 1.2%;">
+                    <span style="font-size: 100%"><?php echo $anuncio['descripcion']; ?></span>
+                    <?php
+                }
+            }
+            ?>
         </aside>
         <section class="categoriaSeccion">
 
@@ -98,16 +137,16 @@ function mostrarArticulos($idSeccion) {
 
 
             <?php
-            $articulos = mostrarArticulos($idSeccion);  //echo $articulo['titulo'];
+            //echo $articulo['titulo'];
             if ($articulos) {
                 foreach ($articulos as $articulo) {
                     $autor = readCuenta($articulo['idCuenta']);
                     ?>
-                    
+
 
 
                     <a href="articulo.php?idArticulo=<?php echo $articulo['idArticulo']; ?>">
-                        <article>
+                        <article class ="inner">
 
                             <h1><?php echo $articulo['titulo']; ?></h1>
 
@@ -122,14 +161,21 @@ function mostrarArticulos($idSeccion) {
                                        }
                                        ?></a>
                             </div>
-                            <div class="audioArticulo">
-                                <?php if ($articulo['audio'] != NULL) { ?>
-                                    <audio controls>
-                                        <source src="<?php echo '../audios/' . $articulo['audio']; ?>" type="audio/mpeg">
-                                    </audio>
-                                <?php } ?>
-                            </div>
-
+                            <?php
+                            if ($hayCuenta) {
+                                if ($datosPersonales['Dv']) {
+                                    ?>
+                                    <div class="audioArticulo">
+                                        <?php if ($articulo['audio'] != NULL) { ?>
+                                            <audio controls>
+                                                <source src="<?php echo '../audios/' . $articulo['audio']; ?>" type="audio/mpeg">
+                                            </audio>
+                                        <?php } ?>
+                                    </div>
+                                    <?php
+                                }
+                            }
+                            ?>
                             <div >
                                 <h3><?php echo $articulo['descripcion']; ?></h3> 
                             </div>
@@ -239,19 +285,19 @@ function mostrarArticulos($idSeccion) {
             </div>
             </article> </a>
             <footer id="footer">
-            <div class="inner">
-                <h2>Get In Touch</h2>
-                <ul class="actions">
-                    <li><i class="icon fa-phone"></i> <a href="#">(034)954 34 92 00</a></li>
-                    <li><span class="icon fa-envelope"></span> <a href="#">moarnewspa@gmail.com</a></li>
-                    <li><span class="icon fa-map-marker"></span> Ctra. de Utrera, 1, 41013 Sevilla </li>
-                </ul>
-            </div>
-            <div class="copyright">
-                &copy; Newspaper. MoarNews <a href="https://www.upo.es/portal/impe/web/portada/index.html">MoarNews</a>. Images <a href="../imagenes/logo.jpeg" alt="logo">MoarNews</a>.
+                <div class="inner">
+                    <h2>Get In Touch</h2>
+                    <ul class="actions">
+                        <li><i class="icon fa-phone"></i> <a href="#">(034)954 34 92 00</a></li>
+                        <li><span class="icon fa-envelope"></span> <a href="#">moarnewspa@gmail.com</a></li>
+                        <li><span class="icon fa-map-marker"></span> Ctra. de Utrera, 1, 41013 Sevilla </li>
+                    </ul>
+                </div>
+                <div class="copyright">
+                    &copy; Newspaper. MoarNews <a href="https://www.upo.es/portal/impe/web/portada/index.html">MoarNews</a>. Images <a href="../imagenes/logo.jpeg" alt="logo">MoarNews</a>.
 
-            </div>
-        </footer>
+                </div>
+            </footer>
     </body>
 
 </html>

@@ -65,9 +65,9 @@ include_once ("../CRUD/CRUDAnunciante.php");
                 if (($idArticulo = createAnuncio($anuncio)) !== FALSE) {
                     asociaAnuncio($idArticulo, $idAnunciante);
                     move_uploaded_file($imagen['tmp_name'], '../anuncios/' . $nombreImagen);
-                    echo "Advertisement created";
+                    echo "<h3 class='centrar'>Advertisement created</h3>";
                 } else {
-                    echo "Error creating";
+                    echo "<h3 class='centrar'>Error creating</h3>";
                 }
             }
         } else if (isset($_POST['borraA'])) {
@@ -101,9 +101,9 @@ include_once ("../CRUD/CRUDAnunciante.php");
                     'tarifa' => $tarifa
                 );
                 if (createAnunciante($anunciante)) {
-                    echo "Anunciante creado";
+                    echo "<h3 class='centrar'>Advertiser created</h3>";
                 } else {
-                    echo "Fallo al crear";
+                    echo "<h3 class='centrar'>Error creating</h3>";
                 }
             }
         } else if (isset($_POST['borraAn'])) {

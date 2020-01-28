@@ -24,6 +24,7 @@ include_once ("../CRUD/CRUDSeccion.php");
             if ($_POST['tipo'] === "bronze") {
                 $nombreUsuario = $_POST['nombre'];
                 $gustos = $_POST['gustos'];
+                $Dv = $_POST['Dv'];
             } else {
                 header('Location: cuenta.php');
             }
@@ -31,7 +32,7 @@ include_once ("../CRUD/CRUDSeccion.php");
             header('Location: cuenta.php');
         }
         ?>
-        <h1>Hi <?php echo $nombreUsuario;?> this is your list of preferences</h1>
+        <h1 class="centrar">Hello <?php echo $nombreUsuario; ?>, this is your list of preferences</h1>
         <?php
         $arrayGustos = explode(',', $gustos);
         $idSecciones = array();
@@ -62,14 +63,21 @@ include_once ("../CRUD/CRUDSeccion.php");
                                        }
                                        ?></a>
                             </div>
-                            <div class="audioArticulo">
-                                <?php if ($articulo['audio'] != NULL) { ?>
-                                    <audio controls>
-                                        <source src="<?php echo '../audios/' . $articulo['audio']; ?>" type="audio/mpeg">
-                                    </audio>
-                                <?php } ?>
-                            </div>
+                            <?php
 
+                                if ($Dv) {
+                                    ?>
+                                    <div class="audioArticulo">
+                                        <?php if ($articulo['audio'] != NULL) { ?>
+                                            <audio controls>
+                                                <source src="<?php echo '../audios/' . $articulo['audio']; ?>" type="audio/mpeg">
+                                            </audio>
+                                        <?php } ?>
+                                    </div>
+                                    <?php
+                                
+                            }
+                            ?>
                             <div >
                                 <h3><?php echo $articulo['descripcion']; ?></h3> 
                             </div>

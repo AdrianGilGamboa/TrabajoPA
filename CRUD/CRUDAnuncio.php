@@ -132,7 +132,8 @@ function leerAnunciosSinArticulo() {
     desconectar($con);
     return $res;
 }
-function asociaAnuncio($idAnuncio,$idAnunciante){
+
+function asociaAnuncio($idAnuncio, $idAnunciante) {
     $con = conexionBD();
     $res = FALSE;
 
@@ -141,6 +142,21 @@ function asociaAnuncio($idAnuncio,$idAnunciante){
     if ($result) {
         $res = TRUE;
     }
+    desconectar($con);
+    return $res;
+}
+
+function leerAnuncioDadoArticulo($idArticulo) {
+    $con = conexionBD();
+    $res = False;
+    $query = "SELECT * FROM anuncios WHERE idArticulo = $idArticulo";
+    $result = $con->query($query);
+    if ($result) {
+        if ($result->num_rows !== 0) {
+            $res = $result->fetch_assoc();
+        }
+    }
+
     desconectar($con);
     return $res;
 }
