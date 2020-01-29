@@ -121,7 +121,7 @@ function validaArticulo() {
     var titulo = document.getElementsByName("titulo")[0];
     var descripcion = document.getElementsByName("descripcion")[0];
     var texto = document.getElementsByName("texto")[0];
-    var expresionRegularTitulo = /^[a-z A-Z0-9]{0,15}$/;
+    var expresionRegularTitulo = /^[a-z A-Z0-9]{0,900}$/;
     if (titulo.value === "" || !expresionRegularTitulo.test(titulo.value)) {
         res = false;
         titulo.style.borderColor = "red";

@@ -28,7 +28,7 @@ $secciones = readAllSeccion();
             <li>                                 
                 <a href="cuenta.php">
                     <i class="fa fa-envelope-o fa-lg"></i>
-                    <span class="nav-text">Contact</span>
+                    <span class="nav-text">Account</span>
                 </a>
             </li>   
 

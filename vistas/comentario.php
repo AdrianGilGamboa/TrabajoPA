@@ -11,7 +11,7 @@ include_once ("../CRUD/CRUDComentario.php");
         <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
         <title></title>
     </head>
-    <body>
+    <body style="padding-right: 222px;padding-left: 222px;">
 
 
 
@@ -80,6 +80,8 @@ include_once ("../CRUD/CRUDComentario.php");
                 <input type="submit" name="confirmarResp" value="Reply comment">
             </form>
             <?php
+        }else{
+            header('Location:portada.php');
         }
         ?>
         <?php
