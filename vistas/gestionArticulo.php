@@ -16,7 +16,7 @@ include_once ("../CRUD/CRUDAnuncio.php");
         <title>Article management</title>
     </head>
 
-    <body>
+    <body >
 
 
         <form action="#" method="POST">
@@ -136,7 +136,7 @@ include_once ("../CRUD/CRUDAnuncio.php");
             }
             $articulo = readArticulo($idAr);
             ?>
-            <form action="#" method="POST" enctype="multipart/form-data">
+            <form style="padding-right: 222px;padding-left: 222px;"action="#" method="POST" enctype="multipart/form-data">
                 Title of the article:  <input type="text" name="titulo" value="<?php echo $articulo['titulo']; ?>"><br/>
                 Date of the article: <input type="date" name="fecha" value="<?php echo $articulo['fecha']; ?>"><br/>
                 Description of the article:<input type="text" name="descripcion" value="<?php echo $articulo['descripcion']; ?>"><br/>
@@ -149,17 +149,23 @@ include_once ("../CRUD/CRUDAnuncio.php");
                 <?php
                 $anuncios = readAllAnuncio();
                 if (!empty($anuncios)) {
-                    foreach ($anuncios as $anuncio) {
-                        echo $anuncio['descripcion'];
-                        ?>
-                        <input type="radio" name="anuncio" value="<?php echo $anuncio['idAnuncio']; ?>" <?php
-                        if ($idAr === $anuncio['idArticulo']) {
-                            echo "checked";
+                    ?><table>
+                        <tr>
+                                <td>Advertisement</td>
+                                <td></td>
+                            </tr><?php
+                        foreach ($anuncios as $anuncio) {
+                            ?>
+                            <tr>
+                                <td><?php echo $anuncio['descripcion']; ?></td>
+                                <td><input type="radio" name="anuncio" value="<?php echo $anuncio['idAnuncio']; ?>" <?php
+                                    if ($idAr === $anuncio['idArticulo']) {
+                                        echo "checked";
+                                    }
+                                    ?>></td>
+                            </tr><?php
                         }
-                        ?>> 
-
-                        <?php
-                    }
+                        ?></table><?php
                 } else {
                     echo "<h3 class='centrar'>There are no ads available to modify this article</h3>";
                 }
@@ -170,7 +176,7 @@ include_once ("../CRUD/CRUDAnuncio.php");
                 <input type="submit" name="actualiza" value="Actualizar"><br/>
             </form>
 
-            }
+
             <?php
         } else if (isset($_POST['crea'])) {
             $insertar = TRUE;
