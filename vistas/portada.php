@@ -129,10 +129,10 @@ include_once ("../CRUD/CRUDComentario.php");
                 foreach ($articulos as $articulo) {
                     $autor = readCuenta($articulo['idCuenta']);
                     ?>
-                    <a href="articulo.php?idArticulo=<?php echo $articulo['idArticulo']; ?>">
+                    
                         <article>
 
-                            <h1><?php echo $articulo['titulo']; ?></h1>
+                            <a href="articulo.php?idArticulo=<?php echo $articulo['idArticulo']; ?>"><h1><?php echo $articulo['titulo']; ?></h1></a>
 
                             <div class="image">
                                 <img class="imagenes" src="../imagenes/<?php echo $articulo['imagen']; ?>"alt='<?php echo $articulo['imagen']; ?>' >

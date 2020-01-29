@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-01-2020 a las 19:11:12
+-- Tiempo de generación: 29-01-2020 a las 00:26:50
 -- Versión del servidor: 10.1.31-MariaDB
 -- Versión de PHP: 5.6.35
 
@@ -21,8 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `moarnews`
 --
-CREATE DATABASE IF NOT EXISTS `moarnews` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci;
-USE `moarnews`;
 
 -- --------------------------------------------------------
 
@@ -54,6 +52,13 @@ CREATE TABLE `anunciantes` (
   `tarifa` varchar(45) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
+--
+-- Volcado de datos para la tabla `anunciantes`
+--
+
+INSERT INTO `anunciantes` (`idAnunciante`, `nombre`, `tarifa`) VALUES
+(4, 'Ford', 'oro');
+
 -- --------------------------------------------------------
 
 --
@@ -69,6 +74,14 @@ CREATE TABLE `anuncios` (
   `idPortada` int(15) DEFAULT NULL,
   `idAnunciante` int(15) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `anuncios`
+--
+
+INSERT INTO `anuncios` (`idAnuncio`, `imagen`, `duracion`, `descripcion`, `idArticulo`, `idPortada`, `idAnunciante`) VALUES
+(19, 'kuga.png', 10, 'Ford Kuga', 2, 8, 4),
+(20, 'fiesta.png', 2, 'Ford Fiesta', 4, NULL, 4);
 
 -- --------------------------------------------------------
 
@@ -89,6 +102,14 @@ CREATE TABLE `articulos` (
   `idPortada` int(150) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
+--
+-- Volcado de datos para la tabla `articulos`
+--
+
+INSERT INTO `articulos` (`idArticulo`, `fecha`, `titulo`, `descripcion`, `texto`, `imagen`, `audio`, `idCuenta`, `idAnuncio`, `idPortada`) VALUES
+(2, '2020-01-25', 'Lluvia', 'Lluvia en toda EspaÃ±a', 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat', 'lluvia.png', 'Record (online-voice-recorder.com).mp3', 18, 19, 8),
+(4, '2020-01-26', 'El gobierno con simios', 'Pedro Sanchez en la presidencia', 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur', 'politica.png', 'politica.mp3', 18, 20, 8);
+
 -- --------------------------------------------------------
 
 --
@@ -99,6 +120,14 @@ CREATE TABLE `articulossecciones` (
   `idSeccion` int(11) NOT NULL,
   `idArticulo` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `articulossecciones`
+--
+
+INSERT INTO `articulossecciones` (`idSeccion`, `idArticulo`) VALUES
+(31, 4),
+(31, 2);
 
 -- --------------------------------------------------------
 
@@ -127,11 +156,26 @@ CREATE TABLE `autores` (
 CREATE TABLE `comentarios` (
   `idComentario` int(155) NOT NULL,
   `texto` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
-  `puntuacion` varchar(150) COLLATE utf8_spanish_ci NOT NULL,
+  `puntuacion` int(15) NOT NULL,
+  `puntuacionNegativa` int(11) NOT NULL,
   `idCuenta` int(155) DEFAULT NULL,
   `idArticulo` int(155) DEFAULT NULL,
   `idRespuesta` int(155) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `comentarios`
+--
+
+INSERT INTO `comentarios` (`idComentario`, `texto`, `puntuacion`, `puntuacionNegativa`, `idCuenta`, `idArticulo`, `idRespuesta`) VALUES
+(7, 'Que frio', 4, 0, 17, 2, NULL),
+(8, 'Es verdad', 0, 0, 17, 2, 7),
+(9, 'Pues aqui no', 1, 0, 17, 2, NULL),
+(10, 'Aqui en canarias no', 2, 0, 17, 2, NULL),
+(11, 'No ni na', 0, 0, 17, 2, 10),
+(12, 'claor', 5, 0, 17, 2, NULL),
+(13, 'respuesta1', 0, 0, 17, 2, 7),
+(14, 'bonitos monos', 6, 5, 21, 4, NULL);
 
 -- --------------------------------------------------------
 
@@ -157,8 +201,10 @@ CREATE TABLE `cuentas` (
 
 INSERT INTO `cuentas` (`idCuenta`, `nombre`, `usuario`, `clave`, `email`, `formato`, `tipo`, `Dv`, `gustos`) VALUES
 (15, 'adminAdmin1', 'admin', '$2y$10$xAyhCGrp1jNH/PM/JD0azuc5aAXtIhkg62tCHblQ4.FkFhIHv/bPO', 'admin', 'oro', 'administrador', 0, ''),
-(16, 'autorAutor1', 'autor', '$2y$10$yBUpx8VIWyuQUIsCrFaMsOoKepNCjLYJ28zi311PfDzpp2ezEm4K6', 'autor', 'oro', 'autor', 0, ''),
-(17, 'usuarioUsuario1', 'usuario', '$2y$10$mwmRNmjGRdi580kTgRSRYOTZZ4l1jPcxtq8hIaOMSgnOX3cGRlCbm', 'usuario', 'plata', 'usuario', 0, '');
+(17, 'usuarioUsuario1', 'usuario', '$2y$10$mwmRNmjGRdi580kTgRSRYOTZZ4l1jPcxtq8hIaOMSgnOX3cGRlCbm', 'usuario', 'bronze', 'usuario', 0, ''),
+(18, 'autorAutor1', 'autor', '$2y$10$/40CLPxmRPxJt8dOA0wF9eyZbAg7os5K7yDPeG4TH/IUUVtTY9wGi', 'autor', 'normal', 'autor', 0, ''),
+(21, 'prueba', 'prueba', '$2y$10$zlUq7Y8GJLQaf9KSQRtOWuDt0MFdGrx6ZOZnaMxBBcoqFdnkjvVJm', 'prueba@gmail.com', 'silver', 'usuario', 0, 'Spain,Economy,Sports,Culture'),
+(22, 'Pedro', 'priscal', '$2y$10$EIuCiZyZpOW6T/l53Ww4luqPTmIgIgTi80WFEFMOYwxhAmOncl9SS', 'pedrorc983@gmail.com', 'gold', 'usuario', 0, 'Spain,Economy');
 
 -- --------------------------------------------------------
 
@@ -172,6 +218,13 @@ CREATE TABLE `portadas` (
   `idAnuncio` int(11) DEFAULT NULL,
   `idCuenta` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `portadas`
+--
+
+INSERT INTO `portadas` (`idPortada`, `fecha`, `idAnuncio`, `idCuenta`) VALUES
+(8, '2020-01-29', 19, 15);
 
 -- --------------------------------------------------------
 
@@ -316,37 +369,37 @@ ALTER TABLE `secciones`
 -- AUTO_INCREMENT de la tabla `anunciantes`
 --
 ALTER TABLE `anunciantes`
-  MODIFY `idAnunciante` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idAnunciante` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `anuncios`
 --
 ALTER TABLE `anuncios`
-  MODIFY `idAnuncio` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idAnuncio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `articulos`
 --
 ALTER TABLE `articulos`
-  MODIFY `idArticulo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idArticulo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `comentarios`
 --
 ALTER TABLE `comentarios`
-  MODIFY `idComentario` int(155) NOT NULL AUTO_INCREMENT;
+  MODIFY `idComentario` int(155) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `cuentas`
 --
 ALTER TABLE `cuentas`
-  MODIFY `idCuenta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `idCuenta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `portadas`
 --
 ALTER TABLE `portadas`
-  MODIFY `idPortada` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idPortada` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `secciones`

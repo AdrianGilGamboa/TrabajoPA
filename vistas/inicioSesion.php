@@ -63,7 +63,7 @@ include_once ('../CRUD/CRUDCuenta.php');
             <div class="row uniform">
                 <ul class="actions">
                     <li><input class="small"  type="submit" name="btnLogin" value="Login"/></li>
-                    <li><input class="small" type="reset" name="btnCancelar" value="Cancelar"/></li>                    
+                    <li><input class="small" type="reset" name="btnCancelar" value="Cancel"/></li>                    
                     <li><input class="small" type="reset" value="Reset" class="alt" /></li>
                 </ul>
 
