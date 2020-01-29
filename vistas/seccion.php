@@ -220,10 +220,10 @@ session_start();
 
 
 
-                    <a href="articulo.php?idArticulo=<?php echo $articulo['idArticulo']; ?>">
+                    
                         <article>
 
-                            <h1><?php echo $articulo['titulo']; ?></h1>
+                            <a href="articulo.php?idArticulo=<?php echo $articulo['idArticulo']; ?>"><h1><?php echo $articulo['titulo']; ?></h1></a>
 
                             <div class="image">
 
@@ -361,7 +361,7 @@ session_start();
                                 }
                                 ?>
                             </div>
-                        </article> </a> <hr>
+                        </article> <hr>
                     <?php
                 }
             }
