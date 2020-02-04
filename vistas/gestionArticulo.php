@@ -80,7 +80,7 @@ include_once ("../CRUD/CRUDAnuncio.php");
                     echo "<h3 class='centrar'>Wrong format of audio</h3>";
                     $actualizar = False;
                 } else {
-                    unlink("../audio/" . $articulo['audio']);
+                    unlink("../audios/" . $articulo['audio']);
                     $nombreAudio = $audio['name'];
                 }
             } else {
