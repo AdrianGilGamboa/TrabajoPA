@@ -1,2 +1,2 @@
-# TrabajoPA
-Pagina web de noticias
+# Proyecto Asignatura Programación Avanzada
+Pagina Web de Noticias
